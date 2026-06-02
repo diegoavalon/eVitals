@@ -1,5 +1,6 @@
 import { useDashboardData } from "~/lib/useDashboardData";
 import type { PageStatus } from "~/lib/dashboard.types";
+import { EhiButton } from "~/components/ui/EhiButton";
 
 export default function Home() {
   const state = useDashboardData();
@@ -79,9 +80,19 @@ export default function Home() {
                     {page.group}
                   </span>
                 </div>
-                {mobile && (
-                  <StatusBadge status={mobile.status} score={mobile.scores["performance"]} />
-                )}
+                <div className="flex items-center gap-3">
+                  {mobile && (
+                    <StatusBadge status={mobile.status} score={mobile.scores["performance"]} />
+                  )}
+                  {mobile?.reportHtmlPath && (
+                    <EhiButton
+                      variant="link"
+                      render={<a href={mobile.reportHtmlPath} target="_blank" rel="noopener noreferrer" />}
+                    >
+                      View Report
+                    </EhiButton>
+                  )}
+                </div>
               </li>
             );
           })}
