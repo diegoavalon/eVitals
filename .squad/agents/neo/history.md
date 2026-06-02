@@ -11,6 +11,27 @@
 
 - Initial validation requirements come from `app/docs/00_Initial.md`: cover URL/config validation, Lighthouse parsing, metric/category extraction, status thresholds, priority ranking, manifest generation, partial run failures, retention pruning, and static report paths.
 
+## Issue #2 — Review (2026-06-02, post-Trinity implementation)
+
+**Verdict:** ⚠️ CONDITIONAL REJECT — 2 blocking findings
+
+**Test results:** `npm test` 7/7 ✅ | `npm run build` clean ✅
+
+**BLOCKING-1 — `/ui` components not used in Home route**  
+`app/routes/home.tsx` uses design-system CSS variable tokens but no `app/components/ui/` component. AC requires both CSS variables *and* `/ui` components. Hand-rolled `StatusBadge` does not satisfy the criterion.
+
+**BLOCKING-2 — `reports/runs/` architecture not implemented**  
+User directive requires fixture files placed under `reports/runs/...` until real data arrives. `dashboardData.json` references `reports/runs/2026-06-02T14-00-00Z/homepage.mobile.report.{html,json}` but no such directory exists anywhere in the repo. Fixtures remain under `fixtures/` only.
+
+**Non-blocking:**  
+- Misleading test name: "invalid state when body is malformed JSON string" — asserts `missing` (correct behavior, wrong label).
+- No UI-level rendering tests for Home states.
+- `app/root.tsx` and `app/routes.ts` are non-functional stubs.
+
+**Decision file:** `.squad/decisions/inbox/neo-review-issue-2.md`
+
+---
+
 ## Issue #2 — Walking skeleton: static app shell + seed Home render
 
 **Date:** 2026-06-02

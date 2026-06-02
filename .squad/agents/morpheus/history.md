@@ -25,6 +25,8 @@
 
 ## Learnings
 
+- **Issue #2 blocker revision (2026-06-02):** When Neo (reviewer) issues a CONDITIONAL REJECT with Trinity locked out, Morpheus assumes ownership as Lead. Two classes of blocker emerged: (1) design-system compliance — routes must render at least one `/ui` component (not hand-rolled HTML only); (2) fixture/data path alignment — `dashboardData.json` report paths must have matching physical files under `public/reports/runs/<runId>/` so the static app can serve them. Fix: import `EhiButton` (variant="link") as "View Report" anchor per page row; copy fixture HTMLs/JSONs into the correct `public/` subtree. No new design direction, no synthetic seed data added. Commit: `f8a939c`.
+
 - Initial source of truth is `app/docs/00_Initial.md`, an implementation handoff for the eHealth Core Web Vitals Dashboard.
 - Published PRD for the eHealth Core Web Vitals Dashboard as issue #1: https://github.com/diegoavalon/eVitals/issues/1. Key module boundaries: config validation, Lighthouse runner, Lighthouse parsing, status classification, dashboard data and manifest generation, retention pruning, static client data/selectors, Home and All Pages views, report drawer, and gh-pages workflow publishing.
 
