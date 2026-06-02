@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { useDashboardData } from "~/lib/useDashboardData";
 import type { PageStatus } from "~/lib/dashboard.types";
 import type { DashboardConfig } from "~/lib/config";
 import { EhiButton } from "~/components/ui/EhiButton";
+import { EhiDrawer } from "~/components/ui/EhiDrawer";
 
 export default function Home({ config }: { config: DashboardConfig }) {
   const state = useDashboardData();
+  const [reportPath, setReportPath] = useState<string | null>(null);
 
   if (state.status === "loading") {
     return (
@@ -90,7 +93,7 @@ export default function Home({ config }: { config: DashboardConfig }) {
                   {mobile?.reportHtmlPath && (
                     <EhiButton
                       variant="link"
-                      render={<a href={mobile.reportHtmlPath} target="_blank" rel="noopener noreferrer" />}
+                      onClick={() => setReportPath(mobile.reportHtmlPath)}
                     >
                       View Report
                     </EhiButton>
@@ -101,6 +104,20 @@ export default function Home({ config }: { config: DashboardConfig }) {
           })}
         </ul>
       </section>
+
+      <EhiDrawer
+        open={reportPath !== null}
+        onOpenChange={(isOpen) => { if (!isOpen) setReportPath(null); }}
+        title="Lighthouse Report"
+      >
+        {reportPath && (
+          <iframe
+            src={reportPath}
+            className="h-full w-full border-none"
+            title="Lighthouse Report"
+          />
+        )}
+      </EhiDrawer>
     </main>
   );
 }
