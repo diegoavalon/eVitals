@@ -1,0 +1,22 @@
+{
+  "universe_usage_history": [
+    {
+      "universe": "The Matrix",
+      "assignment_id": "2026-06-02-evitals-initial",
+      "used_at": "2026-06-02T11:23:03.215-05:00"
+    }
+  ],
+  "assignment_cast_snapshots": {
+    "2026-06-02-evitals-initial": {
+      "universe": "The Matrix",
+      "agents": {
+        "lead": "Morpheus",
+        "frontend": "Trinity",
+        "data-runner": "Tank",
+        "devops": "Switch",
+        "tester": "Neo"
+      },
+      "created_at": "2026-06-02T11:23:03.215-05:00"
+    }
+  }
+}

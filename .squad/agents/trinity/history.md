@@ -1,20 +1,12 @@
-# Project Context
+# Trinity History
+
+## Core Context
 
 - **Project:** eVitals
-- **Created:** 2026-06-02
 - **Primary user:** Diego Avalon
 - **Description:** Static GitHub Pages dashboard for daily Lighthouse/Core Web Vitals reporting across configured eHealth pages.
 - **Stack:** npm, Vite, React, TypeScript, Tailwind CSS, design-system CSS variables, branded `/ui` components, Vitest, React Testing Library, Node/TypeScript runner scripts, Lighthouse CLI, GitHub Actions, gh-pages.
 
-## Core Context
-
-Agent Ralph initialized and ready for work.
-
-## Recent Updates
-
-📌 Team initialized on 2026-06-02
-
 ## Learnings
 
-Initial setup complete.
-Ralph owns work monitoring across GitHub issues, PRs, CI state, and squad label routing.
+- Initial UI guidance comes from `app/docs/00_Initial.md`: follow root `DESIGN.md`, use branded `/ui` components before direct `@base/ui`, and match `index-mockup.jpg` only where it does not conflict with `DESIGN.md`.

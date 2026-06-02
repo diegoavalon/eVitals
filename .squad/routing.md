@@ -6,12 +6,14 @@ How to decide who handles what.
 
 | Work Type | Route To | Examples |
 |-----------|----------|----------|
-| {domain 1} | {Name} | {example tasks} |
-| {domain 2} | {Name} | {example tasks} |
-| {domain 3} | {Name} | {example tasks} |
-| Code review | {Name} | Review PRs, check quality, suggest improvements |
-| Testing | {Name} | Write tests, find edge cases, verify fixes |
-| Scope & priorities | {Name} | What to build next, trade-offs, decisions |
+| Scope, architecture, PRDs | Morpheus | Product decisions, module boundaries, trade-offs, implementation plans |
+| Frontend dashboard | Trinity | React views, routing, state, branded components, theme behavior |
+| Lighthouse data pipeline | Tank | Runner scripts, parsing, manifests, artifact paths, dashboard data generation |
+| GitHub Actions and publishing | Switch | Scheduled workflows, gh-pages publication, retention, infrastructure failures |
+| Testing and quality | Neo | Vitest coverage, React Testing Library, edge cases, reviewer gates |
+| Code review | Morpheus | Review PRs, check quality, suggest improvements |
+| Testing | Neo | Write tests, find edge cases, verify fixes |
+| Scope & priorities | Morpheus | What to build next, trade-offs, decisions |
 | Session logging | Scribe | Automatic — never needs routing |
 
 ## Issue Routing
@@ -20,6 +22,7 @@ How to decide who handles what.
 |-------|--------|-----|
 | `squad` | Triage: analyze issue, assign `squad:{member}` label | Lead |
 | `squad:{name}` | Pick up issue and complete the work | Named member |
+| `ready-for-agent` | Ready for autonomous implementation | Morpheus triages or routes |
 
 ### How Issue Assignment Works
 
