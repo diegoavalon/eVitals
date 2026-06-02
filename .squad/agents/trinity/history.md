@@ -55,3 +55,19 @@
 - **`ParseReportOptions` fields:** `runId`, `enabledCategories`, `reportJsonPath`, `reportHtmlPath`. No `pageId`/`label`/`group`/`device` — those are page config, not parser context. `device` is extracted from `configSettings.formFactor` inside the JSON.
 - **Real fixture values** (used in integration tests): LCP=2863ms (needs-improvement), CLS=0.020 (pass), TBT=2040ms (fail), perf=0.6, a11y=0.88, best-practices=1.0, seo=1.0, formFactor=mobile.
 - 267 tests pass; `npm run typecheck` and `npm run build` clean.
+
+### Issue #6 — Home Dashboard: Complete Implementation (2026-06-03)
+
+- **Design tokens are applied via class names**, not inline styles. Use `font-poppins`, `font-open-sans`, `text-primary`, `bg-surface-canvas`, etc. directly instead of CSS-in-JS. The `theme.css` file defines all color, font, and spacing variables available as Tailwind utilities.
+- **Device selector updates all elements.** Use `useState` for `selectedDevice` initialized to `config.devices[0]`. All summary cards, status counts, priority list, and recent reports filter/compute data based on selected device.
+- **Category selector drives score/status displays.** Use `useState` for `selectedCategory` initialized to `config.defaultCategory`. Each section recomputes aggregates, counts, and priority based on the selected category.
+- **Overall score display** shows `aggregates.byCategory[selectedCategory].averageScore` (0–100 scale after rounding).
+- **Status counts** are derived by filtering `data.pages.flatMap(...)` by `device` and `result.status`. Four cards display "good", "needs-improvement", "failing", and "run-failed" counts with color-coded backgrounds.
+- **Priority card** shows the top-priority page for the selected device, filtered from `data.priority`. Only rendered if a priority entry exists for the device. Shows page label, group, status badge, failing metric count (performance only), and View Report button.
+- **Recent Reports section** lists all pages for the selected device, sorted by worst status first, then descending by category score. Each row shows page label, group, device, category score, status badge, and View Report button.
+- **Report drawer** uses `EhiDrawer` component with `reportPath` state. View Report buttons call `setReportPath(reportHtmlPath)` to open; drawer closes when `onOpenChange(false)` fires. iframe src uses relative path directly from `result.reportHtmlPath`.
+- **Test compatibility:** Page names appear in both Priority and Recent Reports sections. Contract test uses `getAllByText()` instead of `getByText()` to handle duplicates.
+- **Headline format:** "X / Y pages passing Category (device, latest run)" where X is count of status="good" for device, Y is total pages.
+- **Design integration:** Use `/ui` components (`EhiSelect`, `EhiButton`, `EhiDrawer`); keep custom UI thin; apply design tokens (Poppins headlines, Open Sans body, primary/action/error colors); light/dark theme render correctly via CSS variables.
+- **Acceptance criteria checklist:** ✅ Device selector updates all elements, ✅ Category selector updates displays, ✅ Overall score/status counts render from data, ✅ Priority list prioritizes by attention, ✅ Recent reports display latest, ✅ Light/dark theme coverage, ✅ Component tests for interactions, ✅ npm test 343/343 pass, ✅ npm run typecheck clean, ✅ npm run build succeeds.
+- Commit SHA: df4dc29; 343 tests passing.

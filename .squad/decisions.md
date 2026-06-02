@@ -180,6 +180,71 @@ Use deep, testable module boundaries for:
 - UI cannot render with internally inconsistent config (e.g., disabled default category)
 - Non-blocking follow-up can add error recovery UI and config file location hinting
 
+### Issue #6: Home Dashboard Implementation (Trinity)
+
+**Issue:** https://github.com/diegoavalon/eVitals/issues/6  
+**Status:** Approved  
+**Owner:** Trinity  
+**Reviewer:** Neo
+
+**Decision:** Implement complete Home view dashboard with interactive device/category selectors driving all summary displays.
+
+#### Architecture Choices
+
+1. **Local State Management** — `useState` hooks for `selectedDevice` and `selectedCategory`, initialized from config defaults
+   - Rationale: Device/category selection is local UI interaction with no server side effects
+   - Impact: Controls respond immediately; stateless rendering per selection
+
+2. **Section Composition Over Monolithic Render** — Break Home into functional sub-components: `SummaryCard`, `StatusCountCard`, `PrioritySection`, `RecentReportsSection`, `StatusBadge`
+   - Rationale: Keeps each concern isolated and testable; mutable closure state passed to each sub-component
+   - Impact: Shallow component tree; easier reasoning about data flow; testable sub-components
+
+3. **Render-Time Filtering + Pre-Computed Aggregates** — Use `useMemo` for client-side filtering/sorting, but rely on pre-computed `aggregates` from dashboard data
+   - Rationale: Dashboard data already includes aggregates per device/category; sorting/filtering page lists is cheap client-side
+   - Impact: No duplicate computation; dashboard data contract is source of truth; stateless reactive UI
+
+4. **Priority + Recent Reports Both Visible** — Render both "Needs Attention First" and "Most Recent Run" sections simultaneously
+   - Rationale: Issue spec calls for both sections serving different use cases (urgent action vs. full overview)
+   - Impact: Page names may appear in both sections; acceptable pattern for static dashboard
+
+5. **Design Token Class Names, Not Inline Styles** — Apply all visual styling via Tailwind classes and design-system token names
+   - Rationale: Aligns with DESIGN.md contract and CSS variable system; light/dark theme handled by CSS variables
+   - Impact: Single source of truth for colors/fonts; theme toggle swaps variable values; no conditional styling in JSX
+
+6. **Branded `/ui` Components for Controls** — Use `EhiSelect` for device/category dropdowns, `EhiButton` for action buttons, `EhiDrawer` for report iframe modal
+   - Rationale: Brand consistency; `/ui` wraps `@base-ui` with design tokens; reduces custom UI surface area
+   - Impact: Accessible out-of-the-box with ARIA attributes; drawer animation and backdrop handled by EhiDrawer
+
+#### Test Compatibility
+
+**Contract Test:** `home.generated-contract.test.tsx` uses 2-page fixture data with dashboard generation. Page names appear in both Priority and Recent Reports sections.
+- Old test pattern: `screen.getByText("Medicare...")` → fails (multiple matches)
+- Updated pattern: `screen.getAllByText("Medicare...")` → passes
+- Rationale: Both sections independently render matching pages; test verifies presence, not uniqueness; user sees duplicates with clear section headers
+
+#### Acceptance Criteria Fulfillment
+
+- ✅ Device selector (mobile/desktop) updates all score, status, and priority elements
+- ✅ Category selector (Performance, Accessibility, Best Practices, SEO) updates relevant displays
+- ✅ Overall score, status counts, priority page list derived from generated dashboard data
+- ✅ Most-recent reports section lists latest run entries with page name, score, status badge
+- ✅ All Home elements render correctly in both light and dark theme (CSS variables)
+- ✅ Component tests cover device/category control interactions and data-driven states
+- ✅ `npm test` passes (343/343 tests); `npm run typecheck` clean; no TypeScript errors
+
+#### Files Changed
+
+- `app/routes/home.tsx` — Complete Home component with all sections
+- `app/__tests__/dashboard/home.generated-contract.test.tsx` — Updated to use `getAllByText()`
+- `.squad/agents/trinity/history.md` — Added learnings and checklist
+
+**Consequences:**
+- Home dashboard fully functional with responsive device/category selection
+- All summary displays data-driven from generated dashboard aggregates
+- Report drawer provides iframe-based report viewing with modal backdrop
+- Component pattern available for issue #7 (All Pages view)
+- CI green: 343/343 tests, clean TypeScript
+
 ## Governance
 
 - All meaningful changes require team consensus
