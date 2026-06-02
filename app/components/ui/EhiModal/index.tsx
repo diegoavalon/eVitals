@@ -162,7 +162,7 @@ export function EhiModal({
         {/* Backdrop / blanket */}
         <Dialog.Backdrop
           className={cn(
-            "fixed inset-0 z-50 bg-blanket",
+            "fixed inset-0 z-50 bg-black/50",
             "transition-opacity duration-300 ease-out-2",
             "data-starting-style:opacity-0 data-ending-style:opacity-0",
           )}
@@ -173,7 +173,7 @@ export function EhiModal({
           {/* Panel */}
           <Dialog.Popup
             className={cn(
-              "relative flex max-h-[90vh] w-full flex-col overflow-hidden rounded-2xl bg-white shadow-elevation-overlay outline-none",
+              "relative flex max-h-[90vh] w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_8px_40px_rgba(0,0,0,0.22)] outline-none",
               size === "large" ? "max-w-210" : "max-w-80",
               "transition-all duration-300 ease-out-2",
               "data-starting-style:translate-y-4 data-starting-style:opacity-0",

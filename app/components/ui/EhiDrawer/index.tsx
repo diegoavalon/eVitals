@@ -36,14 +36,14 @@ export function EhiDrawer({
       <Drawer.Portal>
         <Drawer.Backdrop
           className={cn(
-            "fixed inset-0 z-50 bg-blanket",
+            "fixed inset-0 z-50 bg-black/50",
             "transition-opacity duration-300 ease-out-2",
             "data-starting-style:opacity-0 data-ending-style:opacity-0",
           )}
         />
         <Drawer.Popup
           className={cn(
-            "fixed right-0 top-0 bottom-0 z-50 flex flex-col bg-white shadow-elevation-overlay outline-none",
+            "fixed right-0 top-0 bottom-0 z-50 flex flex-col bg-white shadow-[-8px_0_32px_rgba(0,0,0,0.18)] outline-none",
             "w-[80vw] max-w-5xl",
             "transition-transform duration-300 ease-out-2",
             "data-starting-style:translate-x-full data-ending-style:translate-x-full",
