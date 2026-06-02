@@ -32,6 +32,22 @@ User directive requires fixture files placed under `reports/runs/...` until real
 
 ---
 
+## Issue #2 — Re-check (2026-06-02, post-Morpheus blocker-fix)
+
+**Verdict:** ✅ **APPROVE**
+
+**Context:** Morpheus performed blocker-fix revision (Trinity locked out). Both BLOCKING-1 and BLOCKING-2 marked resolved.
+
+**Verification:**
+- BLOCKING-1: `EhiButton` (variant="link") now rendered as "View Report" on each page success row → `/ui` component criterion satisfied
+- BLOCKING-2: Fixture files (`homepage.mobile.report.{html,json}`) verified present at `public/reports/runs/2026-06-02T14-00-00Z/` → static serving architecture established
+
+**Test results:** `npm test` 7/7 ✅ | `npm run build` clean ✅
+
+**Status:** Issue #2 approved for merge; all acceptance criteria satisfied
+
+---
+
 ## Issue #2 — Walking skeleton: static app shell + seed Home render
 
 **Date:** 2026-06-02

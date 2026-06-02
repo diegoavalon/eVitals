@@ -49,6 +49,74 @@ Use deep, testable module boundaries for:
 - Switch owns CI/deployment (#11)
 - Neo owns test coverage across all layers
 
+### Issue #2: Walking Skeleton Implementation (Trinity)
+
+**Issue:** https://github.com/diegoavalon/eVitals/issues/2  
+**Status:** Approved (post-blocker-fix)  
+**Owner:** Trinity  
+**Reviewer:** Neo
+
+**Decisions:**
+
+#### 1. React Router v7 Framework Mode → Plain Static SPA (Trinity)
+- **Decision:** Removed `@react-router/dev`, `@react-router/node`, `@react-router/serve`; replaced with `@vitejs/plugin-react` + `HashRouter`
+- **Rationale:** Framework mode requires Node server; GitHub Pages is static-only. `HashRouter` keeps routing 100% client-side using URL hash.
+- **Impact:** Enables static deployment; entry point now `index.html` → `app/main.tsx` → `app/App.tsx`
+
+#### 2. Vitest Configuration (Trinity)
+- **Decision:** Import `defineConfig` from `vitest/config` instead of `vite` so `vite.config.ts` can omit Vitest while `vitest.config.ts` stands alone
+- **Rationale:** Avoids React Router v7 framework mode plugin interfering with Vitest
+- **Impact:** Test infrastructure isolated; reference implementation (fetch hook + 7 tests) delivered by Neo
+
+#### 3. Data Path via `import.meta.env.BASE_URL` (Trinity)
+- **Decision:** Dynamic path using `${import.meta.env.BASE_URL}data/dashboardData.json` instead of hardcoded `/data/dashboardData.json`
+- **Rationale:** Works correctly under both dev (`/`) and gh-pages (`/eVitals/`) deployments
+- **Impact:** Base path fully configurable via Vite + Vitest env defaults
+
+#### 4. `cn` Utility at `app/components/utils/cn.ts` (Trinity)
+- **Decision:** Minimal class-name joiner; no `clsx` or `tailwind-merge` dependencies in v1
+- **Rationale:** Lightweight, sufficient for current scope
+- **Impact:** Supports branded `/ui` component pipeline
+
+#### 5. `EhiButton.className` Narrowed to `string` (Trinity)
+- **Decision:** `EhiButtonProps = Omit<BaseUIButton, "className"> & { className?: string }` enforces string-only classNames
+- **Rationale:** Base UI allows `className` as function; `cn()` only accepts strings. Wrapper enforces contract.
+- **Impact:** Eliminates TypeScript errors; `/ui` components ready for Home integration
+
+#### 6. Fixture Schema Preserved; `dashboardData.json` Seeded (Trinity + Neo)
+- **Decision:** Use existing fixture file already in `public/data/dashboardData.json`; added `PageStatus` export to types
+- **Rationale:** Fixture was already present and valid; avoids inventing new data
+- **Impact:** Seed data matches `DashboardData` schema; tests cover all four fetch states (loading, missing, invalid, success)
+
+#### 7. `/ui` Component Integration in Home Route (Morpheus — Blocker Fix)
+- **Decision:** Added `EhiButton` (variant="link") as "View Report" action on each page success row
+- **Rationale:** Neo's BLOCKING-1 required at least one `/ui` component in rendered output
+- **Impact:** Home now uses both design-system tokens and `/ui` components; acceptance criterion satisfied
+
+#### 8. Fixture Files Placed Under `public/reports/runs/` (Morpheus — Blocker Fix)
+- **Decision:** Copied `fixtures/www.ehealthinsurance.com_2026-06-02_11-19-41.report.{html,json}` to `public/reports/runs/2026-06-02T14-00-00Z/homepage.mobile.report.{html,json}`
+- **Rationale:** Neo's BLOCKING-2 required fixture architecture matching user directive ("keep same file architecture for /reports/runs/...")
+- **Impact:** `dashboardData.json` references now resolve correctly; static serving architecture established
+
+### Issue #2 Test Infrastructure (Neo)
+
+**Issue:** https://github.com/diegoavalon/eVitals/issues/2  
+**Status:** Approved  
+**Owner:** Neo
+
+**Decision:** Delivered reference test implementation covering four fetch states
+- `vitest.config.ts` + `vitest.setup.ts` + 7 passing tests
+- Hook: `app/lib/useDashboardData.ts`
+- Types: `app/lib/dashboard.types.ts` (`DashboardData`, `FetchState<T>`, `PageEntry`, `DeviceResult`)
+- Seed: `public/data/dashboardData.json`
+
+**Rationale:** Tests are the acceptance criteria; Trinity may replace/relocate implementation but must keep four-state coverage
+
+**Consequences:**
+- Baseline `npm test` 7/7 passing
+- Trinity builds Home component to render all four states as visually distinguishable UI
+- Non-blocking follow-up issues can add UI-level RTL tests and cover malformed-JSON edge cases
+
 ## Governance
 
 - All meaningful changes require team consensus
