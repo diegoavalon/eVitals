@@ -138,6 +138,31 @@ User directive requires fixture files placed under `reports/runs/...` until real
 
 ---
 
+## Issue #4 — Lighthouse Parsing + Status Classification QA (2026-06-03, in-parallel)
+
+**Date:** 2026-06-03
+
+**What was done:**
+- Implemented typed result model in `app/lib/lighthouse/types.ts`: `LighthouseRunResult`, `LighthouseMetrics`, `LighthouseCategoryScores`, `MetricStatus`, `RunStatus`, `ParseReportOptions`.
+- Implemented `app/lib/lighthouse/classifyStatus.ts`: `classifyLcp`, `classifyCls`, `classifyTbt`, `classifyCategoryScore`, `classifyPerformanceStatus` with exported threshold constants.
+- Implemented `app/lib/lighthouse/parseReport.ts`: `parseLighthouseReport(raw, opts) → LighthouseRunResult` with degraded-value policy (missing/NaN → 0).
+- Created `app/__tests__/lighthouse/classifyStatus.test.ts`: 42 boundary tests covering all LCP/CLS/TBT/category thresholds (at/below/above) and worst-of performance logic.
+- Created `app/__tests__/lighthouse/parseReport.test.ts`: 39 fixture-driven contract tests using real `fixtures/www.ehealthinsurance.com_2026-06-02_11-19-41.report.json`.
+- Created `.squad/decisions/inbox/neo-issue-4-test-checklist.md`: full reviewer gate checklist including interface contract Trinity must satisfy.
+
+**Test result:** `Tests 171 passed (171)` ✅ (42 classify + 39 parse contract + 90 pre-existing)
+
+**Key decisions / learnings:**
+- Fixture confirms: LCP=2863ms (needs-improvement), CLS=0.020 (good), TBT=2040ms (failing) → overall `failing`. Score extraction: `Math.round(score * 100)`.
+- `run-failed` is intentionally NOT set by the parser — it is the runner's responsibility when Lighthouse produces no report. Parser always returns a metric-derived status.
+- Lighthouse category scores are 0.0–1.0 raw; result model exposes 0–100 integers.
+- Extra categories (e.g. `agentic-browsing`) are passed through as additional keys in `categoryScores`.
+- Threshold constants are exported from `classifyStatus.ts` so boundary tests reference them without magic numbers — critical for maintainability.
+- `DeviceResult` (dashboard.types.ts) is the compact dashboard JSON shape; `LighthouseRunResult` is the richer intermediate model. Issue #5 data generator bridges the two.
+- If Trinity replaces implementations, tests act as the spec; module paths and exported API surface must match or tests must be updated in the same PR.
+
+---
+
 ## Issue #3 — Review (2026-06-03, post-Trinity implementation)
 
 **Verdict:** ❌ **REJECT** — 1 blocking finding
@@ -167,3 +192,12 @@ passes layer-2 validation and reaches the app in `ready` state.
 - 89 tests across 4 files; coverage is comprehensive except for the one missing cross-field case.
 
 **Decision file:** `.squad/decisions/inbox/neo-review-issue-3.md`
+
+### Conflict resolution (2026-06-03)
+- Trinity's in-flight implementation had conflicting API: status vocabulary `"pass"/"fail"` vs Neo's `"good"/"failing"`, null-metric semantics vs 0 fallback, 0.0-1.0 scores vs 0-100, `enabledCategories` in opts.
+- Neo deferred to Trinity's implementation (owner of feature).
+- Updated `types.ts` to canonical shared types matching Trinity's `parser.ts`.
+- Removed Neo's redundant `classifyStatus.ts` and `parseReport.ts` (Trinity owns via `thresholds.ts` and `parser.ts`).
+- Rewrote Neo's test files to use `~/lib/lighthouse` public index (Trinity's API).
+- Final: 261/261 ✅ | `npm run typecheck` clean ✅.
+- Non-blocking: status naming diverges from PRD (`"pass"/"fail"` vs `"good"/"failing"`); issue #5 must reconcile.

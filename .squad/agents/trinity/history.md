@@ -42,3 +42,16 @@
 - The project already had `useDashboardData.ts`, `dashboard.types.ts`, `public/data/dashboardData.json`, and `app/__tests__/useDashboardData.test.tsx` authored before issue #2 implementation started. The four fetch-state tests (loading, missing, invalid, success) already matched the hook's behavior.
 - `npm test` and `npm run build` both pass after conversion. 7/7 tests pass.
 
+
+### Issue #4 — Lighthouse Parsing + Status Classification (2026-06-02)
+
+- **Workspace isolation hazard:** A parallel squad agent (Morpheus/Neo) created `classifyStatus.ts` and `parseReport.ts` in the same directory with incompatible types (wrong status names, 0-100 scores). Those files were later removed but test files remained, causing hard-to-debug import failures on the second `npm test` run.
+- **Status naming split:** Issue AC uses "pass/needs-improvement/fail/run-failed" (MetricStatus). Downstream `PageStatus` in `dashboard.types.ts` uses "good/needs-improvement/failing/run-failed". The parser emits MetricStatus; the data generator maps it downstream. Do not conflate the two.
+- **Category scores are 0–1 decimals**, not 0–100 integers. Store raw Lighthouse values.
+- **Metrics are nullable** (`lcp/cls/tbt: number | null`). null means the audit was missing/NaN/Infinity → status becomes "run-failed" for that metric.
+- **Performance category status** is derived from the worst of LCP/CLS/TBT metric statuses, NOT from the performance score band. Non-performance categories use score-band classification.
+- **`worstOf([])` returns "run-failed"** (highest severity), not "pass". Empty array of statuses = unknown run = failed.
+- **Redundant implementation pattern:** Ended up with two parallel impls (`classifyStatus.ts`/`parseReport.ts` canonical + `thresholds.ts`/`parser.ts` aliased). Resolved by having `thresholds.ts` re-export from `classifyStatus.ts` with legacy aliases. Keep this pattern if backward-compat is needed; otherwise consolidate early.
+- **`ParseReportOptions` fields:** `runId`, `enabledCategories`, `reportJsonPath`, `reportHtmlPath`. No `pageId`/`label`/`group`/`device` — those are page config, not parser context. `device` is extracted from `configSettings.formFactor` inside the JSON.
+- **Real fixture values** (used in integration tests): LCP=2863ms (needs-improvement), CLS=0.020 (pass), TBT=2040ms (fail), perf=0.6, a11y=0.88, best-practices=1.0, seo=1.0, formFactor=mobile.
+- 267 tests pass; `npm run typecheck` and `npm run build` clean.
