@@ -89,3 +89,35 @@ User directive requires fixture files placed under `reports/runs/...` until real
 - `VALID_CATEGORIES` and `VALID_DEVICES` are exported as const arrays so runner/parser modules can reuse them without re-declaring the allowed values.
 - `dashboard.config.json` does not yet exist as a tracked fixture — created here as the authoritative v1 shape.
 - If Trinity places the validation module under `scripts/lib/` rather than `app/lib/`, the `~/lib/config.schemas` import alias will break and the test file must be updated.
+
+---
+
+## Issue #3 — Review (2026-06-03, post-Trinity implementation)
+
+**Verdict:** ❌ **REJECT** — 1 blocking finding
+
+**Test results:** `npm test` 89/89 ✅ | `npm run typecheck` clean ✅ | `npm run build` clean ✅
+
+**Architecture:** Trinity implemented a two-layer approach (documented in `trinity-issue-3.md`):
+- Layer 1 `app/lib/config.schemas.ts`: strict, no defaults, raw Zod returns, cross-field rule ✅
+- Layer 2 `app/lib/config/`: strip, defaults, clean `ParseResult<T>` API
+
+**BLOCKING-1 — Cross-field rule absent from consumer API**  
+`parseDashboardConfig` from `~/lib/config` (used by `useDashboardConfig` → `App.tsx` at runtime)
+does **not** enforce `defaultCategory ∈ enabledCategories`. `app/lib/config/schemas.ts` has
+no `superRefine` for this rule, and `app/__tests__/config/dashboardConfig.test.ts` has no
+test for it. A logically inconsistent config (defaultCategory not in enabledCategories)
+passes layer-2 validation and reaches the app in `ready` state.
+
+**Fix required:**  
+1. Add `superRefine` cross-field check to `DashboardConfigSchema` in `app/lib/config/schemas.ts`.
+2. Add test in `app/__tests__/config/dashboardConfig.test.ts` asserting `success: false` when
+   `defaultCategory` is absent from `enabledCategories`.
+
+**Non-blocking:**
+- Two-layer architecture is clean and well-documented.
+- `App.tsx` config gating and `useDashboardConfig.ts` implementation are correct.
+- No extra seed data, no design changes, `/reports/runs/...` architecture untouched.
+- 89 tests across 4 files; coverage is comprehensive except for the one missing cross-field case.
+
+**Decision file:** `.squad/decisions/inbox/neo-review-issue-3.md`
