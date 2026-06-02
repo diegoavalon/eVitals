@@ -1,0 +1,62 @@
+[
+  {
+    "id": "homepage",
+    "label": "Homepage",
+    "url": "https://www.ehealthinsurance.com/",
+    "group": "core"
+  },
+  {
+    "id": "medicare-part-b-giveback",
+    "label": "Medicare Part B Give-Back (Social Security)",
+    "url": "https://www.ehealthinsurance.com/medicare/managing-medicare/medicare-part-b-giveback-social-security/",
+    "group": "medicare"
+  },
+  {
+    "id": "individual-insurance-cost",
+    "label": "How Much Does Individual Health Insurance Cost?",
+    "url": "https://www.ehealthinsurance.com/resources/individual-and-family/how-much-does-individual-health-insurance-cost",
+    "group": "resources-ifp"
+  },
+  {
+    "id": "dependent-on-health-plan",
+    "label": "Can You Add a Dependent to Your Health Insurance Plan?",
+    "url": "https://www.ehealthinsurance.com/resources/individual-and-family/can-added-dependent-health-insurance-plan",
+    "group": "resources-ifp"
+  },
+  {
+    "id": "careers-benefits",
+    "label": "Careers — Benefits",
+    "url": "https://www.ehealthinsurance.com/about-ehealth/careers-benefit",
+    "group": "corporate"
+  },
+  {
+    "id": "two-health-insurance-plans",
+    "label": "Can You Have Two Health Insurance Plans?",
+    "url": "https://www.ehealthinsurance.com/resources/individual-and-family/can-you-have-two-health-insurance-plans",
+    "group": "resources-ifp"
+  },
+  {
+    "id": "medicare-eligibility-retire-62",
+    "label": "Medicare Eligibility if You Retire at 62",
+    "url": "https://www.ehealthinsurance.com/medicare/eligibility/if-i-retire-at-age-62-will-i-be-eligible-for-medicare-at-that-time/",
+    "group": "medicare"
+  },
+  {
+    "id": "out-of-pocket-maximum",
+    "label": "How Does an Out-of-Pocket Maximum Work?",
+    "url": "https://www.ehealthinsurance.com/resources/individual-and-family/pocket-maximum-work",
+    "group": "resources-ifp"
+  },
+  {
+    "id": "medicare-advantage-to-medigap",
+    "label": "Can I Switch from Medicare Advantage to Medigap?",
+    "url": "https://www.ehealthinsurance.com/medicare/enrollment/can-i-switch-from-medicare-advantage-to-medigap/",
+    "group": "medicare"
+  },
+  {
+    "id": "urgent-care-cost",
+    "label": "How Much Does an Urgent Care Visit Cost?",
+    "url": "https://www.ehealthinsurance.com/resources/individual-and-family/how-much-does-an-urgent-care-visit-cost",
+    "group": "resources-ifp"
+  }
+]
