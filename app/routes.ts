@@ -1,3 +1,5 @@
-import { type RouteConfig, index } from "@react-router/dev/routes";
-
-export default [index("routes/home.tsx")] satisfies RouteConfig;
+/**
+ * Static SPA route registry — routes are declared in app/App.tsx using
+ * HashRouter + Routes + Route from react-router.
+ */
+export {};

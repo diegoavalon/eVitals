@@ -11,9 +11,10 @@ type EhiButtonVariant =
   | "link"
   | "text-large";
 
-type EhiButtonProps = React.ComponentPropsWithoutRef<typeof Button> & {
+type EhiButtonProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, "className"> & {
   /** Visual style variant of the button. */
   variant?: EhiButtonVariant;
+  className?: string;
 };
 
 const variantStyles: Record<EhiButtonVariant, string> = {
