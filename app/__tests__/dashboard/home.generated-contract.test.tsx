@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Home from "~/routes/home";
+import { DashboardFiltersProvider } from "~/lib/DashboardFiltersContext";
 import { parseDashboardConfig, parsePageRegistry } from "~/lib/config";
 import { parseLighthouseReport } from "~/lib/lighthouse";
 import {
@@ -102,10 +103,14 @@ describe("Home compatibility with generated dashboard output", () => {
       }),
     );
 
-    render(<Home config={config} />);
+    render(
+      <DashboardFiltersProvider config={config}>
+        <Home />
+      </DashboardFiltersProvider>,
+    );
 
     await waitFor(() => {
-      expect(screen.getByRole("heading", { name: "eVitals Dashboard" })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Dashboard" })).toBeInTheDocument();
     });
 
     expect(screen.getByText("Most Recent Run")).toBeInTheDocument();

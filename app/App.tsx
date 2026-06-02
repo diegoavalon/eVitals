@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router";
 import Home from "./routes/home";
 import { useDashboardConfig } from "./lib/useDashboardConfig";
+import { AppShell } from "./components/AppShell";
 
 export default function App() {
   const configState = useDashboardConfig();
@@ -44,8 +45,10 @@ export default function App() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<Home config={configState.config} />} />
-    </Routes>
+    <AppShell config={configState.config}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </AppShell>
   );
 }

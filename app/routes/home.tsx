@@ -1,20 +1,14 @@
 import { useState, useMemo, useRef } from "react";
 import { useDashboardData } from "~/lib/useDashboardData";
 import type { PageStatus, DashboardData } from "~/lib/dashboard.types";
-import type { DashboardConfig } from "~/lib/config";
 import { EhiButton } from "~/components/ui/EhiButton";
 import { EhiDrawer } from "~/components/ui/EhiDrawer";
-import { EhiSelect } from "~/components/ui/EhiSelect";
+import { useDashboardFilters } from "~/lib/DashboardFiltersContext";
 
-export default function Home({ config }: { config: DashboardConfig }) {
+export default function Home() {
   const state = useDashboardData();
   const [reportPath, setReportPath] = useState<string | null>(null);
-  const [selectedDevice, setSelectedDevice] = useState<string>(
-    config.devices[0] || "mobile"
-  );
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    config.defaultCategory
-  );
+  const { selectedDevice, selectedCategory } = useDashboardFilters();
 
   if (state.status === "loading") {
     return (
@@ -60,40 +54,18 @@ export default function Home({ config }: { config: DashboardConfig }) {
   const totalPages = data.pages.length;
 
   return (
-    <main className="min-h-screen bg-surface-canvas">
+    <main className="bg-surface-canvas">
       <div className="mx-auto max-w-7xl p-6 md:p-8">
-        {/* Header */}
+        {/* Page headline */}
         <header className="mb-8">
           <h1 className="font-poppins font-bold text-[32px] text-primary leading-tight">
-            eVitals Dashboard
+            Dashboard
           </h1>
           <p className="font-open-sans text-[16px] text-on-surface-dark mt-2">
             {passingCount} / {totalPages} pages passing{" "}
             {formatCategoryName(selectedCategory)} ({selectedDevice}, latest run)
           </p>
         </header>
-
-        {/* Controls */}
-        <div className="mb-8 grid gap-4 md:grid-cols-2">
-          <EhiSelect
-            label="Device"
-            value={selectedDevice}
-            onValueChange={(value) => value && setSelectedDevice(value)}
-            items={config.devices.map((device: string) => ({
-              value: device,
-              label: device.charAt(0).toUpperCase() + device.slice(1),
-            }))}
-          />
-          <EhiSelect
-            label="Category"
-            value={selectedCategory}
-            onValueChange={(value) => value && setSelectedCategory(value)}
-            items={config.enabledCategories.map((category: string) => ({
-              value: category,
-              label: formatCategoryName(category),
-            }))}
-          />
-        </div>
 
         {/* Summary Section */}
         <div className="mb-8 grid gap-6 md:grid-cols-4">

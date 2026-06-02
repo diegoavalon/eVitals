@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import Home from "~/routes/home";
 import { parseDashboardConfig } from "~/lib/config";
 import type { DashboardData } from "~/lib/dashboard.types";
+import { DashboardFiltersProvider } from "~/lib/DashboardFiltersContext";
 
 // AC-1: Device selector (mobile/desktop) updates all score/status/priority elements
 // AC-2: Category selector updates displays correctly
@@ -19,6 +20,15 @@ const mockConfig = parseDashboardConfig({
 });
 
 if (!mockConfig.success) throw new Error("Config parse failed");
+const resolvedConfig = mockConfig.data;
+
+function renderHome() {
+  return render(
+    <DashboardFiltersProvider config={resolvedConfig}>
+      <Home />
+    </DashboardFiltersProvider>,
+  );
+}
 
 const mockDashboardData: DashboardData = {
   generatedAt: "2026-06-03T14:01:00.000Z",
@@ -213,7 +223,7 @@ describe("Home — AC-1/AC-3: Device selector + Score/Status render", () => {
   });
 
   it("renders dashboard headline with page count text (AC-3)", async () => {
-    render(<Home config={mockConfig.data} />);
+    renderHome();
 
     await waitFor(() => {
       // Mobile default: 1 passing out of 2 (homepage is good)
@@ -222,7 +232,7 @@ describe("Home — AC-1/AC-3: Device selector + Score/Status render", () => {
   });
 
   it("renders both page entries with correct labels (AC-4)", async () => {
-    render(<Home config={mockConfig.data} />);
+    renderHome();
 
     await waitFor(() => {
       expect(screen.getByText("Homepage")).toBeInTheDocument();
@@ -231,7 +241,7 @@ describe("Home — AC-1/AC-3: Device selector + Score/Status render", () => {
   });
 
   it("renders correct status badges for each page (AC-1/AC-3)", async () => {
-    render(<Home config={mockConfig.data} />);
+    renderHome();
 
     await waitFor(() => {
       // Homepage mobile: good status
@@ -242,7 +252,7 @@ describe("Home — AC-1/AC-3: Device selector + Score/Status render", () => {
   });
 
   it("renders page group metadata (AC-3)", async () => {
-    render(<Home config={mockConfig.data} />);
+    renderHome();
 
     await waitFor(() => {
       const pageRows = screen.getAllByText("core");
@@ -264,7 +274,7 @@ describe("Home — AC-5: Recent Reports section", () => {
   });
 
   it("renders 'Most Recent Run' section (AC-5)", async () => {
-    render(<Home config={mockConfig.data} />);
+    renderHome();
 
     await waitFor(() => {
       expect(screen.getByText(/Most Recent/)).toBeInTheDocument();
@@ -272,7 +282,7 @@ describe("Home — AC-5: Recent Reports section", () => {
   });
 
   it("displays page names in recent reports section (AC-5)", async () => {
-    render(<Home config={mockConfig.data} />);
+    renderHome();
 
     await waitFor(() => {
       expect(screen.getByText("Homepage")).toBeInTheDocument();
@@ -281,7 +291,7 @@ describe("Home — AC-5: Recent Reports section", () => {
   });
 
   it("displays status badge with score for each recent report (AC-5)", async () => {
-    render(<Home config={mockConfig.data} />);
+    renderHome();
 
     await waitFor(() => {
       // Homepage mobile: 95 performance score
@@ -292,7 +302,7 @@ describe("Home — AC-5: Recent Reports section", () => {
   });
 
   it("renders View Report button for report entries (AC-5)", async () => {
-    render(<Home config={mockConfig.data} />);
+    renderHome();
 
     await waitFor(() => {
       const buttons = screen.queryAllByRole("button", { name: "View Report" });
@@ -324,7 +334,7 @@ describe("Home — Component state management", () => {
   });
 
   it("dashboard renders without errors", async () => {
-    const { container } = render(<Home config={mockConfig.data} />);
+    const { container } = renderHome();
     expect(container).toBeTruthy();
   });
 
