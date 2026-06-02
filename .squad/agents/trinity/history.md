@@ -21,6 +21,17 @@
 - `dashboard.config.json` lives in both the repo root (runner reads it) and `public/data/` (app fetches it via `import.meta.env.BASE_URL`).
 - 89/89 tests pass; `npm run build` succeeds.
 
+### Issue #3 — Config Validation Contracts (2026-06-02)
+
+- Designed and implemented two-layer config validation: Layer 1 (raw Zod, `.strict()`, no defaults, for runner/pipeline) and Layer 2 (consumer API, `.strip()`, sensible defaults, clean `ParseResult<T>` discriminated union).
+- Both layers enforce cross-field invariant: `defaultCategory ∈ enabledCategories`.
+- Delivered 89 tests total (48 contract + 34 consumer + 7 pre-existing) all passing.
+- Created `dashboard.config.json` fixtures in both root and `public/data/` for dual use (runner + app).
+- Integrated `useDashboardConfig` hook into `App.tsx` with four-state config gating (loading, error, ready, no-op) before routing.
+- Initial implementation passed 89/90 tests; Neo REJECT found blocker: Layer 2 consumer API missing cross-field validation rule.
+- Trinity locked out per reviewer-gated policy; Morpheus assumed blocker-fix revision.
+- Issue #3 approved post-blocker-fix; ready for merge.
+
 ### Issue #2 — Walking Skeleton (2026-06-02)
 
 - The starter used React Router v7 "framework mode" (SSR). Converting to a static SPA means: remove `@react-router/dev` plugin, use `@vitejs/plugin-react`, keep `react-router` for `HashRouter`/`Routes`/`Route`, and add `index.html` + `app/main.tsx` as the Vite entry.

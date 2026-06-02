@@ -59,3 +59,17 @@
    - #9 https://github.com/diegoavalon/eVitals/issues/9 — Lighthouse runner script (blocked by #5)
    - #10 https://github.com/diegoavalon/eVitals/issues/10 — Retention pruning (blocked by #9)
    - #11 https://github.com/diegoavalon/eVitals/issues/11 — GitHub Actions workflow HITL (blocked by #9, #10, #2)
+
+📌 **2026-06-02:** Issue #3 blocker-fix revision (post-Trinity lockout)
+- **Context:** Neo issued REJECT; Trinity locked out from revision cycle per reviewer-gated policy
+- **BLOCKING-1 fix:** Consumer-layer cross-field validation missing
+  - **Issue:** `parseDashboardConfig` (Layer 2) did not enforce `defaultCategory ∈ enabledCategories`
+  - **Analysis:** Layer 1 (raw Zod, `config.schemas.ts`) correctly implements the rule via `superRefine`. Layer 2 (consumer API, `config/schemas.ts`) was missing it, allowing malformed configs like `{ defaultCategory: "seo", enabledCategories: ["performance"] }` to pass and reach the app as `{ status: "ready" }`
+  - **Fix:** Added `.superRefine()` to `DashboardConfigSchema` in `app/lib/config/schemas.ts` after `.strip()` chain to check `!data.enabledCategories.includes(data.defaultCategory)`, emitting a `custom` Zod issue on path `["defaultCategory"]` if violated
+  - **Rationale:** Placement after `.strip()` ensures defaults are applied and both fields are present before the cross-field check runs
+  - **Test coverage:** Added test in `app/__tests__/config/dashboardConfig.test.ts` — passes `defaultCategory: "seo"` with `enabledCategories: ["performance", "accessibility"]` and asserts `success: false` with error on `defaultCategory` path mentioning `enabledCategories`
+- **Test & Build:** Re-validated 90/90 tests passing (89 pre-existing + 1 new), `npm run typecheck` clean, clean build
+- **Commit:** `69e28b5` — `fix(#3): enforce defaultCategory ∈ enabledCategories in DashboardConfigSchema`
+- **Outcome:** Neo re-verified blocker fix; issued APPROVE
+- **Orchestration:** Coordinator published blocker-fix and re-check orchestration logs
+

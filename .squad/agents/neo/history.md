@@ -48,6 +48,52 @@ User directive requires fixture files placed under `reports/runs/...` until real
 
 ---
 
+## Issue #3 — Initial Review (2026-06-02, post-Trinity implementation)
+
+**Verdict:** ❌ **REJECT** — 1 blocking finding
+
+**Test results:** `npm test` 89/89 ✅ | `npm run typecheck` clean ✅ | `npm run build` clean ✅
+
+**BLOCKING-1 — Consumer-layer cross-field validation missing**  
+`parseDashboardConfig` exported from `~/lib/config/schemas.ts` (Layer 2, primary runtime path) does not enforce `defaultCategory ∈ enabledCategories`. Layer 1 (raw Zod, `config.schemas.ts`) correctly implements the rule via `superRefine` and is tested. Layer 2 was missing the same validation, allowing a malformed config like `{ defaultCategory: "seo", enabledCategories: ["performance"] }` to pass validation and reach the app as `{ status: "ready" }`, resulting in UI displaying a disabled category as default.
+
+**Required fix:** Add `superRefine` to `DashboardConfigSchema` in `app/lib/config/schemas.ts` + corresponding test in `dashboardConfig.test.ts`.
+
+**Non-blocking observations:**  
+- Trinity's two-layer architecture decision is sound and well-documented
+- Integration in `App.tsx` with config gating (four states) is well-structured
+- Test coverage is comprehensive (89 total): 48 contract + 34 consumer + 7 pre-existing
+- No design/data scope drift; fixtures are synced correctly
+
+**Decision file:** `.squad/decisions/inbox/neo-review-issue-3.md`
+
+**Policy:** Trinity locked out per reviewer-gated cycle. Morpheus assumes blocker-fix revision.
+
+---
+
+## Issue #3 — Blocker-Fix Revision (2026-06-02, post-Morpheus fix)
+
+**Agent:** Morpheus (Lead, revision owner)  
+**Changes:** Added `superRefine` to Layer 2 `DashboardConfigSchema` + test case covering `defaultCategory ∉ enabledCategories` scenario  
+**Test results:** `npm test` 90/90 ✅ (89 pre-existing + 1 new) | `npm run typecheck` clean ✅ | `npm run build` clean ✅
+
+---
+
+## Issue #3 — Re-check (2026-06-02, post-Morpheus blocker-fix)
+
+**Verdict:** ✅ **APPROVE**
+
+**Verification:**
+- BLOCKING-1 resolved: `superRefine` cross-field validation correctly enforces `defaultCategory ∈ enabledCategories` in Layer 2 consumer API
+- Test coverage added: new test case asserts `success: false` when `defaultCategory` not in `enabledCategories`, with proper error path and message
+- All gate criteria satisfied: 7/7 criteria re-checked; all passing
+
+**Test results:** `npm test` 90/90 ✅ | `npm run typecheck` clean ✅ | `npm run build` clean ✅
+
+**Status:** Issue #3 approved for merge; blocker resolved; Trinity two-layer decision preserved intact
+
+---
+
 ## Issue #2 — Walking skeleton: static app shell + seed Home render
 
 **Date:** 2026-06-02
