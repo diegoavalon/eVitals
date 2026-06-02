@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useDashboardData } from "~/lib/useDashboardData";
 import type { PageStatus, DashboardData } from "~/lib/dashboard.types";
 import type { DashboardConfig } from "~/lib/config";
@@ -164,13 +164,7 @@ export default function Home({ config }: { config: DashboardConfig }) {
         }}
         title="Lighthouse Report"
       >
-        {reportPath && (
-          <iframe
-            src={reportPath}
-            className="h-full w-full border-none"
-            title="Lighthouse Report"
-          />
-        )}
+        {reportPath && <ReportFrame src={reportPath} />}
       </EhiDrawer>
     </main>
   );
@@ -374,6 +368,66 @@ function RecentReportsSection({
         ))}
       </div>
     </section>
+  );
+}
+
+function ReportFrame({ src }: { src: string }) {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [status, setStatus] = useState<"loading" | "ready" | "missing">("loading");
+
+  function handleLoad() {
+    try {
+      const title = iframeRef.current?.contentDocument?.title ?? "";
+      setStatus(title === "Lighthouse Report" ? "ready" : "missing");
+    } catch {
+      // Cross-origin access denied — assume report loaded fine
+      setStatus("ready");
+    }
+  }
+
+  return (
+    <div className="relative h-full w-full">
+      {status === "loading" && (
+        <div className="flex h-full items-center justify-center">
+          <p className="font-open-sans text-[16px] text-neutral">Loading report…</p>
+        </div>
+      )}
+      {status === "missing" && <ReportEmptyState />}
+      <iframe
+        ref={iframeRef}
+        src={src}
+        onLoad={handleLoad}
+        className={`h-full w-full border-none${status !== "ready" ? " hidden" : ""}`}
+        title="Lighthouse Report"
+      />
+    </div>
+  );
+}
+
+function ReportEmptyState() {
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center">
+      <svg
+        className="size-12 text-neutral"
+        viewBox="0 0 48 48"
+        fill="none"
+        aria-hidden="true"
+      >
+        <rect x="8" y="4" width="28" height="36" rx="3" stroke="currentColor" strokeWidth="2.5" />
+        <path d="M28 4v10h8" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
+        <path d="M17 28l7-7m0 0l7 7m-7-7v0" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="38" cy="38" r="8" fill="var(--color-surface-canvas)" stroke="currentColor" strokeWidth="2.5" />
+        <path d="M35 38h6M38 35v6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" transform="rotate(45 38 38)" />
+      </svg>
+      <div>
+        <h3 className="font-poppins font-bold text-[18px] text-on-surface">
+          Report not available
+        </h3>
+        <p className="mt-1 font-open-sans text-[14px] text-neutral max-w-xs mx-auto">
+          This Lighthouse report hasn't been generated yet. Run a new scan to generate it.
+        </p>
+      </div>
+    </div>
   );
 }
 

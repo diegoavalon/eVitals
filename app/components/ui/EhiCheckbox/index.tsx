@@ -67,31 +67,31 @@ const checkboxStyles = [
   // base / enabled
   "flex items-center justify-center",
   "size-6 shrink-0 rounded",
-  "border border-interactive-primary bg-white",
-  "transition-colors duration-150 ease-out-2",
+  "border border-primary bg-surface",
+  "transition-colors duration-150 ease-out",
   "cursor-pointer select-none",
   // hover
-  "hover:bg-interactive-focus",
+  "hover:bg-surface-muted",
   // focus
-  "focus-visible:bg-interactive-selected focus-visible:border-2 focus-visible:border-interactive-primary",
+  "focus-visible:bg-surface-subtle focus-visible:border-2 focus-visible:border-primary",
   "focus-visible:outline-2 focus-visible:outline-warning focus-visible:outline-offset-2",
   // invalid / error (set by Field when invalid={true})
-  "data-[invalid]:bg-interactive-error data-[invalid]:border-error",
-  "data-[invalid]:hover:bg-interactive-error",
+  "data-[invalid]:bg-error/10 data-[invalid]:border-error",
+  "data-[invalid]:hover:bg-error/10",
   // disabled
   "data-[disabled]:opacity-40 data-[disabled]:cursor-not-allowed",
 ].join(" ");
 
 const indicatorStyles = [
   "flex items-center justify-center",
-  "text-interactive-primary",
+  "text-primary",
   "data-[invalid]:text-error",
-  "data-[disabled]:text-interactive-primary",
+  "data-[disabled]:text-primary",
 ].join(" ");
 
 const labelStyles = [
   "font-poppins text-sm font-normal leading-5 tracking-[0.07px]",
-  "text-black cursor-pointer select-none",
+  "text-on-surface cursor-pointer select-none",
   "data-[disabled]:opacity-38",
 ].join(" ");
 

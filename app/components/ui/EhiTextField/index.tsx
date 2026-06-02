@@ -23,24 +23,24 @@ const rootStyles = "flex w-full flex-col items-start gap-1";
 
 const labelStyles = [
   "font-poppins text-sm font-normal leading-5 tracking-[0.07px]",
-  "text-black",
+  "text-on-surface",
   "data-[disabled]:opacity-38",
 ].join(" ");
 
 const inputStyles = [
   // base / enabled
   "h-12 w-full rounded px-3 py-2",
-  "border border-enabled bg-white",
-  "font-poppins text-base font-normal leading-6 text-black",
-  "placeholder:text-black/40",
-  "transition-colors duration-150 ease-out-2",
+  "border border-border bg-surface",
+  "font-poppins text-base font-normal leading-6 text-on-surface",
+  "placeholder:text-neutral",
+  "transition-colors duration-150 ease-out",
   // hover
-  "data-[hover]:bg-interactive-focus data-[hover]:border-interactive-primary",
+  "data-[hover]:bg-surface-muted data-[hover]:border-primary",
   // focus
-  "data-[focused]:bg-interactive-selected data-[focused]:border-2 data-[focused]:border-interactive-primary",
+  "data-[focused]:bg-surface-subtle data-[focused]:border-2 data-[focused]:border-primary",
   "data-[focused]:outline-none",
   // error / invalid
-  "data-[invalid]:bg-interactive-error data-[invalid]:border-error data-[invalid]:text-error",
+  "data-[invalid]:bg-error/10 data-[invalid]:border-error data-[invalid]:text-error",
   "data-[invalid]:placeholder:text-error",
   // disabled
   "data-[disabled]:opacity-38 data-[disabled]:cursor-not-allowed",
@@ -52,7 +52,7 @@ const errorStyles = [
 ].join(" ");
 
 const descriptionStyles = [
-  "font-poppins text-sm font-normal leading-5 text-dim",
+  "font-poppins text-sm font-normal leading-5 text-neutral",
 ].join(" ");
 
 /* ------------------------------------------------------------------ */

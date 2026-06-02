@@ -22,7 +22,7 @@ type EhiRadioGroupProps = Omit<
 
 const legendStyles = [
   "font-poppins text-sm font-semibold leading-5 tracking-[0.07px]",
-  "text-black pb-1",
+  "text-on-surface pb-1",
 ].join(" ");
 
 const errorStyles = [
@@ -89,32 +89,32 @@ const radioStyles = [
   // base / enabled
   "flex items-center justify-center",
   "size-6 shrink-0 rounded-full",
-  "border border-interactive-primary bg-white",
-  "transition-colors duration-150 ease-out-2",
+  "border border-primary bg-surface",
+  "transition-colors duration-150 ease-out",
   "cursor-pointer select-none",
   // hover
-  "hover:bg-interactive-focus",
+  "hover:bg-surface-muted",
   // focus-visible
-  "focus-visible:bg-interactive-selected focus-visible:border-2 focus-visible:border-interactive-primary",
+  "focus-visible:bg-surface-subtle focus-visible:border-2 focus-visible:border-primary",
   "focus-visible:outline-2 focus-visible:outline-warning focus-visible:outline-offset-2",
   // invalid / error (set by Field when invalid={true})
-  "data-[invalid]:bg-interactive-error data-[invalid]:border-error",
-  "data-[invalid]:hover:bg-interactive-error",
+  "data-[invalid]:bg-error/10 data-[invalid]:border-error",
+  "data-[invalid]:hover:bg-error/10",
   // disabled
   "data-[disabled]:opacity-40 data-[disabled]:cursor-not-allowed",
 ].join(" ");
 
 const indicatorStyles = [
   "size-3 rounded-full",
-  "bg-interactive-primary",
+  "bg-primary",
   "data-[invalid]:bg-error",
-  "data-[disabled]:bg-interactive-primary",
+  "data-[disabled]:bg-primary",
 ].join(" ");
 
 const labelStyles = [
   "flex items-center gap-2",
   "font-poppins text-sm font-normal leading-5 tracking-[0.07px]",
-  "text-black cursor-pointer select-none",
+  "text-on-surface cursor-pointer select-none",
   "data-[disabled]:opacity-38",
 ].join(" ");
 

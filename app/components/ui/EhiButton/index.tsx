@@ -20,86 +20,86 @@ type EhiButtonProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, "class
 const variantStyles: Record<EhiButtonVariant, string> = {
   primary: [
     // base
-    "bg-interactive-action text-white text-[20px]",
+    "bg-action text-surface text-[20px]",
     // hover
-    "hover:bg-interactive-action-hover",
+    "hover:bg-action-hover",
     // pressed / active
-    "active:bg-interactive-action-hover",
+    "active:bg-action-hover",
     // disabled
-    "data-[disabled]:bg-disabled data-[disabled]:text-white data-[disabled]:cursor-not-allowed",
+    "data-[disabled]:bg-neutral/30 data-[disabled]:text-surface data-[disabled]:cursor-not-allowed",
   ].join(" "),
   "primary-alt": [
     // base
-    "bg-surface-alert text-white text-[20px]",
+    "bg-alert text-surface text-[20px]",
     // hover
     "hover:brightness-90",
     // pressed / active
     "active:brightness-85",
     // disabled
-    "data-[disabled]:bg-disabled data-[disabled]:text-white data-[disabled]:cursor-not-allowed",
+    "data-[disabled]:bg-neutral/30 data-[disabled]:text-surface data-[disabled]:cursor-not-allowed",
   ].join(" "),
   secondary: [
     // base
-    "bg-interactive-white text-interactive-primary border-2 border-interactive-primary text-[20px]",
+    "bg-surface text-primary border-2 border-primary text-[20px]",
     // hover
-    "hover:bg-interactive-white-hover",
+    "hover:bg-surface-muted",
     // pressed / active
-    "active:bg-interactive-white-hover",
+    "active:bg-surface-muted",
     // disabled
-    "data-[disabled]:border-disabled data-[disabled]:text-disabled data-[disabled]:cursor-not-allowed",
+    "data-[disabled]:border-neutral/30 data-[disabled]:text-neutral data-[disabled]:cursor-not-allowed",
   ].join(" "),
   tertiary: [
     // base
-    "bg-interactive-white text-interactive-neutral border-2 border-interactive-neutral text-[16px]",
+    "bg-surface text-neutral border-2 border-border text-[16px]",
     // hover
-    "hover:bg-interactive-white-hover",
+    "hover:bg-surface-muted",
     // pressed / active
-    "active:bg-interactive-white-hover",
+    "active:bg-surface-muted",
     // disabled
-    "data-[disabled]:border-disabled data-[disabled]:text-disabled data-[disabled]:cursor-not-allowed",
+    "data-[disabled]:border-neutral/30 data-[disabled]:text-neutral data-[disabled]:cursor-not-allowed",
   ].join(" "),
   quaternary: [
     // base
-    "bg-interactive-yellow text-interactive-neutral border-2 border-interactive-warning text-[20px]",
+    "bg-warning text-on-surface border-2 border-warning text-[20px]",
     // hover
     "hover:brightness-95",
     // pressed / active
     "active:brightness-90",
     // disabled
-    "data-[disabled]:bg-disabled data-[disabled]:border-disabled data-[disabled]:text-white data-[disabled]:cursor-not-allowed",
+    "data-[disabled]:bg-neutral/30 data-[disabled]:border-neutral/30 data-[disabled]:text-surface data-[disabled]:cursor-not-allowed",
   ].join(" "),
   quinary: [
     // base – compact secondary: smaller text, tighter padding, auto height
-    "bg-interactive-white text-interactive-primary border-2 border-interactive-primary text-[16px] leading-[24px]",
+    "bg-surface text-primary border-2 border-primary text-[16px] leading-[24px]",
     "px-4! h-auto!",
     // hover
-    "hover:bg-interactive-white-hover",
+    "hover:bg-surface-muted",
     // pressed / active
-    "active:bg-interactive-white-hover",
+    "active:bg-surface-muted",
     // disabled
-    "data-[disabled]:border-disabled data-[disabled]:text-disabled data-[disabled]:cursor-not-allowed",
+    "data-[disabled]:border-neutral/30 data-[disabled]:text-neutral data-[disabled]:cursor-not-allowed",
   ].join(" "),
   link: [
     // base – text-only button, overrides base shape & padding
-    "bg-transparent text-link font-medium text-[16px] leading-[24px] tracking-[0.08px]",
+    "bg-transparent text-primary font-medium text-[16px] leading-[24px] tracking-[0.08px]",
     "rounded! px-0! py-3! h-auto!",
     // hover
-    "hover:text-link-visited hover:underline",
+    "hover:text-primary-dark hover:underline",
     // pressed / active
-    "active:text-link-visited",
+    "active:text-primary-dark",
     // disabled
-    "data-[disabled]:text-disabled data-[disabled]:cursor-not-allowed",
+    "data-[disabled]:text-neutral data-[disabled]:cursor-not-allowed",
   ].join(" "),
   "text-large": [
     // base – large text-only button, keeps standard 48px height
-    "bg-transparent text-link font-medium text-[20px]",
+    "bg-transparent text-primary font-medium text-[20px]",
     "rounded! px-0!",
     // hover
-    "hover:text-link-visited hover:underline",
+    "hover:text-primary-dark hover:underline",
     // pressed / active
-    "active:text-link-visited",
+    "active:text-primary-dark",
     // disabled
-    "data-[disabled]:text-disabled data-[disabled]:cursor-not-allowed",
+    "data-[disabled]:text-neutral data-[disabled]:cursor-not-allowed",
   ].join(" "),
 };
 
@@ -109,7 +109,7 @@ const baseStyles = [
   "rounded-full",
   "font-poppins font-bold leading-[28px] tracking-[0.02px]",
   "select-none cursor-pointer",
-  "transition-colors duration-150 ease-out-2",
+  "transition-colors duration-150 ease-out",
   "focus-visible:outline-2 focus-visible:outline-warning focus-visible:outline-offset-2",
 ].join(" ");
 

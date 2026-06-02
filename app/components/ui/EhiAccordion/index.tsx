@@ -10,7 +10,7 @@ function TriangleIcon({ className }: { className?: string }) {
   return (
     <svg
       className={cn(
-        "size-6 shrink-0 transition-transform duration-200 ease-out-2",
+        "size-6 shrink-0 transition-transform duration-200 ease-out",
         className,
       )}
       viewBox="0 0 24 24"
@@ -59,20 +59,20 @@ export type EhiAccordionProps = {
 /* ------------------------------------------------------------------ */
 
 const itemStyles = [
-  "rounded-lg shadow-elevation-raised overflow-hidden",
-  "bg-white",
-  "transition-colors duration-150 ease-out-2",
+  "rounded-lg shadow-sm overflow-hidden",
+  "bg-surface",
+  "transition-colors duration-150 ease-out",
   // hover
-  "hover:bg-interactive-focus",
+  "hover:bg-surface-muted",
   // focus-within (keyboard nav on the trigger)
-  "focus-within:bg-interactive-selected focus-within:ring-2 focus-within:ring-interactive-primary",
+  "focus-within:bg-surface-subtle focus-within:ring-2 focus-within:ring-primary",
   // disabled
   "data-[disabled]:opacity-40 data-[disabled]:pointer-events-none",
 ].join(" ");
 
 const triggerStyles = [
   "flex w-full cursor-pointer items-center gap-6 p-6",
-  "font-poppins text-lg font-bold leading-7 text-black",
+  "font-poppins text-lg font-bold leading-7 text-on-surface",
   "outline-none",
   // focus-visible ring is on the item via focus-within
 ].join(" ");
@@ -80,14 +80,14 @@ const triggerStyles = [
 const panelStyles = [
   "overflow-hidden",
   "h-(--accordion-panel-height)",
-  "transition-[height] duration-200 ease-out-2",
+  "transition-[height] duration-200 ease-out",
   "data-starting-style:h-0",
   "data-ending-style:h-0",
 ].join(" ");
 
 const panelContentStyles = [
   "px-6 pb-6",
-  "font-poppins text-lg font-normal leading-7 text-black",
+  "font-poppins text-lg font-normal leading-7 text-on-surface",
 ].join(" ");
 
 /* ------------------------------------------------------------------ */

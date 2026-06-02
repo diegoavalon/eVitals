@@ -162,8 +162,8 @@ export function EhiModal({
         {/* Backdrop / blanket */}
         <Dialog.Backdrop
           className={cn(
-            "fixed inset-0 z-50 bg-black/50",
-            "transition-opacity duration-300 ease-out-2",
+            "fixed inset-0 z-50 bg-on-surface/50",
+            "transition-opacity duration-300 ease-out",
             "data-starting-style:opacity-0 data-ending-style:opacity-0",
           )}
         />
@@ -173,9 +173,9 @@ export function EhiModal({
           {/* Panel */}
           <Dialog.Popup
             className={cn(
-              "relative flex max-h-[90vh] w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_8px_40px_rgba(0,0,0,0.22)] outline-none",
+              "relative flex max-h-[90vh] w-full flex-col overflow-hidden rounded-2xl bg-surface shadow-[0_8px_40px_rgba(0,0,0,0.22)] outline-none",
               size === "large" ? "max-w-210" : "max-w-80",
-              "transition-all duration-300 ease-out-2",
+              "transition-all duration-300 ease-out",
               "data-starting-style:translate-y-4 data-starting-style:opacity-0",
               "data-ending-style:translate-y-4 data-ending-style:opacity-0",
               className,
@@ -224,13 +224,13 @@ export function EhiModalHeader({
 
   // Background: highlight → green; has back nav → grey; else → white
   const bgClass = isHighlight
-    ? "bg-surface-highlight"
+    ? "bg-primary"
     : hasBack
-      ? "bg-surface-100"
-      : "bg-white";
+      ? "bg-surface-muted"
+      : "bg-surface";
 
   // Text & icon colour inherits from the container
-  const colorClass = isHighlight ? "text-white" : "text-black";
+  const colorClass = isHighlight ? "text-surface" : "text-on-surface";
 
   // Size-dependent tokens
   const paddingClass = size === "large" ? "p-4" : "px-4 py-3";
@@ -339,7 +339,7 @@ export function EhiModalFooter({ children, className }: EhiModalFooterProps) {
   return (
     <footer
       className={cn(
-        "flex shrink-0 items-center justify-center gap-3 bg-white",
+        "flex shrink-0 items-center justify-center gap-3 bg-surface",
         "shadow-[0_-8px_24px_16px_rgba(0,0,0,0.12)]",
         size === "large" ? "px-6 py-4" : "px-4 py-3",
         className,

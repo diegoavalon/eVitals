@@ -109,7 +109,7 @@ function ErrorIcon() {
 function InfoIcon({ className }: { className?: string }) {
   return (
     <svg
-      className={cn("size-5 text-interactive-primary", className)}
+      className={cn("size-5 text-primary", className)}
       viewBox="0 0 20 20"
       fill="none"
       aria-hidden="true"
@@ -130,26 +130,26 @@ function InfoIcon({ className }: { className?: string }) {
 
 const variantTriggerStyles: Record<EhiSelectVariant, string> = {
   raised: [
-    "bg-white shadow-elevation-raised",
+    "bg-surface shadow-sm",
     // hover
-    "hover:bg-interactive-focus hover:border-2 hover:border-interactive-primary hover:px-[11px] hover:py-[7px]",
+    "hover:bg-surface-muted hover:border-2 hover:border-primary hover:px-[11px] hover:py-[7px]",
     // focus
-    "focus-visible:border-2 focus-visible:border-interactive-primary focus-visible:px-[11px] focus-visible:py-[7px]",
+    "focus-visible:border-2 focus-visible:border-primary focus-visible:px-[11px] focus-visible:py-[7px]",
     "focus-visible:outline-2 focus-visible:outline-warning focus-visible:outline-offset-2",
     // invalid / error
-    "data-[invalid]:bg-interactive-error data-[invalid]:border data-[invalid]:border-error",
+    "data-[invalid]:border data-[invalid]:border-error",
     // disabled
     "data-[disabled]:opacity-40 data-[disabled]:cursor-not-allowed",
   ].join(" "),
   outline: [
-    "bg-white border border-interactive-neutral",
+    "bg-surface border border-border",
     // hover
-    "hover:bg-interactive-focus hover:border-2 hover:border-interactive-primary hover:px-[11px] hover:py-[7px]",
+    "hover:bg-surface-muted hover:border-2 hover:border-primary hover:px-[11px] hover:py-[7px]",
     // focus
-    "focus-visible:border-2 focus-visible:border-interactive-primary focus-visible:px-[11px] focus-visible:py-[7px]",
+    "focus-visible:border-2 focus-visible:border-primary focus-visible:px-[11px] focus-visible:py-[7px]",
     "focus-visible:outline-2 focus-visible:outline-warning focus-visible:outline-offset-2",
     // invalid / error
-    "data-[invalid]:bg-interactive-error data-[invalid]:border data-[invalid]:border-error",
+    "data-[invalid]:border data-[invalid]:border-error",
     // disabled
     "data-[disabled]:opacity-40 data-[disabled]:cursor-not-allowed",
   ].join(" "),
@@ -158,39 +158,39 @@ const variantTriggerStyles: Record<EhiSelectVariant, string> = {
 const baseTriggerStyles = [
   "flex w-full items-center gap-6",
   "h-12 rounded-lg px-3 py-2",
-  "font-poppins text-base font-medium leading-6 text-black",
+  "font-poppins text-base font-medium leading-6 text-on-surface",
   "cursor-pointer select-none",
-  "transition-colors duration-150 ease-out-2",
+  "transition-colors duration-150 ease-out",
 ].join(" ");
 
 const labelStyles = [
   "flex items-center gap-1",
   "font-poppins text-sm font-normal leading-5 tracking-[0.07px]",
-  "text-black",
+  "text-on-surface-dark",
   "data-[disabled]:opacity-38",
 ].join(" ");
 
 const popupStyles = [
-  "overflow-hidden rounded",
-  "border border-enabled",
-  "shadow-elevation-overlay",
-  "bg-white",
+  "overflow-hidden rounded-md",
+  "border border-border",
+  "shadow-[0_4px_16px_rgba(0,0,0,0.12)]",
+  "bg-surface",
   "outline-none",
   // animations
   "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-  "transition-opacity duration-150 ease-out-2",
+  "transition-opacity duration-150 ease-out",
 ].join(" ");
 
 const itemStyles = [
   "flex flex-col justify-center gap-1",
   "w-full px-4 py-3",
-  "font-poppins text-base font-normal leading-6 text-black",
+  "font-poppins text-base font-normal leading-6 text-on-surface",
   "cursor-pointer select-none outline-none",
-  "transition-colors duration-100 ease-out-2",
+  "transition-colors duration-100 ease-out",
   // highlighted (keyboard/hover)
-  "data-[highlighted]:bg-interactive-focus",
+  "data-[highlighted]:bg-surface-muted",
   // selected
-  "data-[selected]:bg-interactive-selected",
+  "data-[selected]:bg-surface-subtle",
 ].join(" ");
 
 const errorStyles = [
@@ -260,10 +260,10 @@ export function EhiSelect({
           className={cn(baseTriggerStyles, variantTriggerStyles[variant])}
         >
           <Select.Value
-            className="flex-1 truncate text-left data-placeholder:text-black/40"
+            className="flex-1 truncate text-left data-placeholder:text-neutral"
             placeholder={placeholder}
           />
-          <Select.Icon className="shrink-0 text-black">
+          <Select.Icon className="shrink-0 text-on-surface">
             <ChevronDownIcon />
           </Select.Icon>
         </Select.Trigger>
@@ -288,12 +288,12 @@ export function EhiSelect({
                       <Select.ItemText className="flex-1">
                         {item.label}
                       </Select.ItemText>
-                      <Select.ItemIndicator className="shrink-0 text-interactive-primary">
+                      <Select.ItemIndicator className="shrink-0 text-primary">
                         <CheckIcon className="size-6" />
                       </Select.ItemIndicator>
                     </div>
                     {item.description && (
-                      <span className="font-open-sans text-sm font-normal leading-5 text-black">
+                      <span className="font-open-sans text-sm font-normal leading-5 text-neutral">
                         {item.description}
                       </span>
                     )}
