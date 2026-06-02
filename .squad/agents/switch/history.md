@@ -10,3 +10,4 @@
 ## Learnings
 
 - Initial workflow requirements come from `app/docs/00_Initial.md`: run daily at `0 14 * * *`, support `workflow_dispatch`, build/test before publishing, use `ubuntu-latest`, verify Chrome/Chromium, set `CHROME_PATH`, and publish static artifacts to `gh-pages`.
+- Switch is assigned to issue #11: GitHub Actions workflow (HITL, blocked by #9, #10, #2)
