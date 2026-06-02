@@ -64,4 +64,13 @@ export const DashboardConfigSchema = z
       .default(30),
     basePath: z.string().min(1, "basePath is required").default("/eVitals/"),
   })
-  .strip();
+  .strip()
+  .superRefine((data, ctx) => {
+    if (!data.enabledCategories.includes(data.defaultCategory)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `defaultCategory "${data.defaultCategory}" must be included in enabledCategories`,
+        path: ["defaultCategory"],
+      });
+    }
+  });

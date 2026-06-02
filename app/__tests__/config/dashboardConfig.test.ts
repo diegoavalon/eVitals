@@ -162,6 +162,20 @@ describe("parseDashboardConfig — invalid inputs", () => {
     }
   });
 
+  it("rejects defaultCategory not present in enabledCategories", () => {
+    const result = parseDashboardConfig({
+      ...validConfig,
+      defaultCategory: "seo",
+      enabledCategories: ["performance", "accessibility"],
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const err = result.errors.find((e) => e.field.includes("defaultCategory"));
+      expect(err).toBeDefined();
+      expect(err!.message).toMatch(/enabledCategories/i);
+    }
+  });
+
   it("rejects null input", () => {
     const result = parseDashboardConfig(null);
     expect(result.success).toBe(false);
