@@ -69,3 +69,23 @@ User directive requires fixture files placed under `reports/runs/...` until real
 - `vite.config.ts` uses `@react-router/dev/vite` plugin (React Router v7 framework mode). A separate `vitest.config.ts` is needed to avoid the react-router plugin conflicting with Vitest.
 - Malformed JSON parse errors fall through `catch` → `missing` state (not `invalid`). A distinct `parse-error` state would require Trinity's design decision before testing.
 - Trinity may relocate or rename `useDashboardData`; if so, tests must be updated to keep four-state coverage intact.
+
+## Issue #3 — Config Validation Contracts (2026-06-03)
+
+**Date:** 2026-06-03
+
+**What was done:**
+- Installed `zod` via pnpm.
+- Created `app/lib/config.schemas.ts`: Zod schemas + `parsePageRegistry` / `parseDashboardConfig` parse functions, exported TypeScript types (`PageRegistryEntry`, `PageRegistry`, `DashboardConfig`).
+- Created `dashboard.config.json` at repo root as the canonical dashboard config fixture.
+- Created `app/__tests__/config.validation.test.ts`: 48 contract tests across both schemas covering valid inputs, required fields, URL validity, id uniqueness, cross-field validation (defaultCategory ∈ enabledCategories), invalid types and ranges, unknown fields (strict mode), and non-object inputs.
+- Created `.squad/decisions/inbox/neo-issue-3-test-checklist.md`: reviewer gate checklist for Trinity's implementation.
+
+**Test result:** `Tests 55 passed (55)` ✅ (48 new + 7 pre-existing)
+
+**Key decisions / learnings:**
+- Zod `.strict()` chosen for both schemas — unknown extra fields are rejected to enforce tight contracts. Trinity may loosen to `.strip()` if forward-compat passthrough is needed; the "unknown fields" tests must then be updated.
+- Cross-field rule (defaultCategory must be in enabledCategories) is enforced via `superRefine` — this is a deliberate business-rule constraint from the PRD.
+- `VALID_CATEGORIES` and `VALID_DEVICES` are exported as const arrays so runner/parser modules can reuse them without re-declaring the allowed values.
+- `dashboard.config.json` does not yet exist as a tracked fixture — created here as the authoritative v1 shape.
+- If Trinity places the validation module under `scripts/lib/` rather than `app/lib/`, the `~/lib/config.schemas` import alias will break and the test file must be updated.

@@ -1,0 +1,7 @@
+{
+  "defaultCategory": "performance",
+  "enabledCategories": ["performance", "accessibility", "best-practices", "seo"],
+  "devices": ["mobile", "desktop"],
+  "historyLimit": 30,
+  "basePath": "/eVitals/"
+}

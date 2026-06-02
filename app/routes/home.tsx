@@ -1,8 +1,9 @@
 import { useDashboardData } from "~/lib/useDashboardData";
 import type { PageStatus } from "~/lib/dashboard.types";
+import type { DashboardConfig } from "~/lib/config";
 import { EhiButton } from "~/components/ui/EhiButton";
 
-export default function Home() {
+export default function Home({ config }: { config: DashboardConfig }) {
   const state = useDashboardData();
 
   if (state.status === "loading") {
@@ -55,8 +56,10 @@ export default function Home() {
           eVitals Dashboard
         </h1>
         <p className="font-open-sans text-[16px] text-on-surface-dark mt-1">
-          {passingCount} / {total} pages passing Performance (mobile, latest
-          run)
+          {passingCount} / {total} pages passing{" "}
+          {config.defaultCategory.charAt(0).toUpperCase() +
+            config.defaultCategory.slice(1)}{" "}
+          (mobile, latest run)
         </p>
       </header>
 
