@@ -117,6 +117,69 @@ Use deep, testable module boundaries for:
 - Trinity builds Home component to render all four states as visually distinguishable UI
 - Non-blocking follow-up issues can add UI-level RTL tests and cover malformed-JSON edge cases
 
+### Issue #3: Config Validation Two-Layer Architecture (Trinity)
+
+**Issue:** https://github.com/diegoavalon/eVitals/issues/3  
+**Status:** Approved (post-blocker-fix)  
+**Owner:** Trinity  
+**Reviewer:** Neo
+
+**Decision:** Implement config validation as two distinct layers with clear ownership:
+
+#### Layer 1 — Raw Zod Schemas (`app/lib/config.schemas.ts`)
+- Uses `.strict()` mode: unknown keys are flagged as errors
+- No defaults: all fields must be explicitly provided (runner/pipeline use case)
+- Includes cross-field validation: `defaultCategory` must appear in `enabledCategories`
+- Returns raw Zod `SafeParseReturn` — consumers get full `ZodError` for introspection
+- Tested by `app/__tests__/config.validation.test.ts` (48 contract tests)
+
+#### Layer 2 — Consumer API (`app/lib/config/schemas.ts`)
+- Uses `.strip()` mode: unknown keys silently removed
+- Applies sensible defaults: `historyLimit=30`, `basePath="/eVitals/"`
+- Enforces cross-field rule via `superRefine`: `defaultCategory ∈ enabledCategories`
+- Returns clean discriminated union `ParseResult<T>` with field-dot-path errors
+- Integrated into `useDashboardConfig` hook for app bootstrap
+- Tested by `app/__tests__/config/dashboardConfig.test.ts` (34 consumer tests + 1 cross-field test)
+
+**Rationale:** Runner scripts (Tank's domain) need strict validation to catch every misconfigured field and fail loudly. App bootstrap and downstream consumers benefit from defaults and a clean API that hides Zod internals. Both layers enforce the same correctness invariant: `defaultCategory ∈ enabledCategories`.
+
+**Consequences:**
+- Downstream consumers import from `~/lib/config` (Layer 2)
+- Runner scripts can use either layer; raw layer more suitable for CI validation
+- `dashboard.config.json` fixtures in both root and `public/data/` for app serving
+- Issue #4 (Tank, data generation) reads from root `dashboard.config.json` using Layer 1 `config.schemas.ts`
+- Config state machine in `App.tsx`: loading → error → ready before routes render
+
+### Issue #3 Test Infrastructure (Neo)
+
+**Issue:** https://github.com/diegoavalon/eVitals/issues/3  
+**Status:** Approved  
+**Owner:** Neo
+
+**Decision:** Delivered comprehensive test coverage across both config validation layers
+
+**Tests Delivered:**
+- Layer 1: `app/__tests__/config.validation.test.ts` — 48 contract tests
+  - Page registry schema: id/label/url/group required, URL validation, duplicate detection, unknown field rejection
+  - Dashboard config schema: all fields validated, cross-field rule enforced, enum validation, array constraints
+- Layer 2: `app/__tests__/config/dashboardConfig.test.ts` — 34 consumer API tests + 1 cross-field test
+  - Defaults applied correctly
+  - Error structure with field paths and messages
+  - Cross-field rule: `defaultCategory ∉ enabledCategories` produces error
+
+**Test Artifacts:**
+- `dashboard.config.json` — canonical fixture (passes both layer validations)
+- `urls.config.json` (pre-existing) — verified parsing under both layers
+- Public sync: `public/data/dashboard.config.json` for app serving
+
+**Rationale:** Tests are the acceptance criteria. Trinity layer implementations must satisfy all 90 tests (48 contract + 34 consumer + 7 pre-existing useDashboardData). Cross-field rule validation is a BLOCKING gate criterion.
+
+**Consequences:**
+- Baseline `npm test` 90/90 passing
+- Both config layers enforced at runtime
+- UI cannot render with internally inconsistent config (e.g., disabled default category)
+- Non-blocking follow-up can add error recovery UI and config file location hinting
+
 ## Governance
 
 - All meaningful changes require team consensus
