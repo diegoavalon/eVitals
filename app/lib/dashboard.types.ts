@@ -7,7 +7,55 @@ export interface DashboardData {
   enabledDevices: string[];
   defaultCategory: string;
   basePath: string;
+  summary: DashboardSummary;
+  aggregates: DashboardAggregates;
+  priority: PriorityEntry[];
+  recentRunHistoryByPage: Record<string, PageRunHistoryEntry[]>;
   pages: PageEntry[];
+}
+
+export interface DashboardSummary {
+  totalConfiguredPages: number;
+  totalConfiguredPageDevicePairs: number;
+  latestRunResultCount: number;
+  statusCounts: StatusCounts;
+}
+
+export interface DashboardAggregates {
+  byCategory: Record<string, AggregateBucket>;
+  byDevice: Record<string, AggregateBucket>;
+}
+
+export interface AggregateBucket {
+  statusCounts: StatusCounts;
+  averageScore: number | null;
+  successfulCount: number;
+  totalCount: number;
+}
+
+export interface StatusCounts {
+  good: number;
+  "needs-improvement": number;
+  failing: number;
+  "run-failed": number;
+}
+
+export interface PriorityEntry {
+  pageId: string;
+  label: string;
+  group: string;
+  device: string;
+  status: PageStatus;
+  score: number | null;
+  failingMetricCount: number;
+}
+
+export interface PageRunHistoryEntry {
+  runId: string;
+  fetchTime: string;
+  device: string;
+  status: PageStatus;
+  lcp: number | null;
 }
 
 export interface PageEntry {
@@ -22,9 +70,9 @@ export interface DeviceResult {
   status: PageStatus;
   scores: Record<string, number>;
   metrics: {
-    lcp: number;
-    cls: number;
-    tbt: number;
+    lcp: number | null;
+    cls: number | null;
+    tbt: number | null;
   };
   reportHtmlPath: string;
   reportJsonPath: string;

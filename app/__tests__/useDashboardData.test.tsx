@@ -15,6 +15,78 @@ const VALID_DASHBOARD: DashboardData = {
   enabledDevices: ["mobile", "desktop"],
   defaultCategory: "performance",
   basePath: "/eVitals/",
+  summary: {
+    totalConfiguredPages: 1,
+    totalConfiguredPageDevicePairs: 2,
+    latestRunResultCount: 1,
+    statusCounts: {
+      good: 0,
+      "needs-improvement": 1,
+      failing: 0,
+      "run-failed": 0,
+    },
+  },
+  aggregates: {
+    byCategory: {
+      performance: {
+        statusCounts: {
+          good: 0,
+          "needs-improvement": 1,
+          failing: 0,
+          "run-failed": 0,
+        },
+        averageScore: 62,
+        successfulCount: 1,
+        totalCount: 1,
+      },
+    },
+    byDevice: {
+      mobile: {
+        statusCounts: {
+          good: 0,
+          "needs-improvement": 1,
+          failing: 0,
+          "run-failed": 0,
+        },
+        averageScore: 62,
+        successfulCount: 1,
+        totalCount: 1,
+      },
+      desktop: {
+        statusCounts: {
+          good: 0,
+          "needs-improvement": 0,
+          failing: 0,
+          "run-failed": 0,
+        },
+        averageScore: null,
+        successfulCount: 0,
+        totalCount: 0,
+      },
+    },
+  },
+  priority: [
+    {
+      pageId: "homepage",
+      label: "Homepage",
+      group: "core",
+      device: "mobile",
+      status: "needs-improvement",
+      score: 62,
+      failingMetricCount: 0,
+    },
+  ],
+  recentRunHistoryByPage: {
+    homepage: [
+      {
+        runId: "2026-06-02T14-00-00Z",
+        fetchTime: "2026-06-02T14:00:00Z",
+        device: "mobile",
+        status: "needs-improvement",
+        lcp: 3200,
+      },
+    ],
+  },
   pages: [
     {
       pageId: "homepage",

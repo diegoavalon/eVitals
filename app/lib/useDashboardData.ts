@@ -14,6 +14,13 @@ function isValidDashboardData(value: unknown): value is DashboardData {
     typeof obj.generatedAt === "string" &&
     typeof obj.runId === "string" &&
     Array.isArray(obj.enabledCategories) &&
+    typeof obj.summary === "object" &&
+    obj.summary !== null &&
+    typeof obj.aggregates === "object" &&
+    obj.aggregates !== null &&
+    Array.isArray(obj.priority) &&
+    typeof obj.recentRunHistoryByPage === "object" &&
+    obj.recentRunHistoryByPage !== null &&
     Array.isArray(obj.pages)
   );
 }

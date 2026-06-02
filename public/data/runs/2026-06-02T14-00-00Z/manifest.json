@@ -1,0 +1,30 @@
+{
+  "runId": "2026-06-02T14-00-00Z",
+  "generatedAt": "2026-06-02T14:00:00Z",
+  "entries": [
+    {
+      "runId": "2026-06-02T14-00-00Z",
+      "fetchTime": "2026-06-02T16:19:41.855Z",
+      "pageId": "homepage",
+      "label": "Homepage",
+      "url": "https://www.ehealthinsurance.com/",
+      "group": "core",
+      "device": "mobile",
+      "status": "needs-improvement",
+      "metricStatus": "needs-improvement",
+      "reportJsonPath": "reports/runs/2026-06-02T14-00-00Z/homepage.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-02T14-00-00Z/homepage.mobile.report.html",
+      "scores": {
+        "performance": 62,
+        "accessibility": 91,
+        "best-practices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": 2863.38,
+        "cls": 0.020275,
+        "tbt": 2040.5
+      }
+    }
+  ]
+}
