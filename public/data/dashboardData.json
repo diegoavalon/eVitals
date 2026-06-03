@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-02T16:20:00.000Z",
+  "generatedAt": "2026-06-03T16:56:46.823Z",
   "runId": "2026-06-02T14-00-00Z",
   "enabledCategories": [
     "performance",
@@ -14,14 +14,14 @@
   "defaultCategory": "performance",
   "basePath": "/eVitals/",
   "summary": {
-    "totalConfiguredPages": 2,
-    "totalConfiguredPageDevicePairs": 4,
+    "totalConfiguredPages": 10,
+    "totalConfiguredPageDevicePairs": 20,
     "latestRunResultCount": 1,
     "statusCounts": {
       "good": 0,
       "needs-improvement": 0,
       "failing": 1,
-      "run-failed": 3
+      "run-failed": 19
     }
   },
   "aggregates": {
@@ -31,44 +31,44 @@
           "good": 0,
           "needs-improvement": 0,
           "failing": 1,
-          "run-failed": 3
+          "run-failed": 19
         },
         "averageScore": 60,
         "successfulCount": 1,
-        "totalCount": 4
+        "totalCount": 20
       },
       "accessibility": {
         "statusCounts": {
           "good": 0,
           "needs-improvement": 1,
           "failing": 0,
-          "run-failed": 3
+          "run-failed": 19
         },
         "averageScore": 88,
         "successfulCount": 1,
-        "totalCount": 4
+        "totalCount": 20
       },
       "best-practices": {
         "statusCounts": {
           "good": 1,
           "needs-improvement": 0,
           "failing": 0,
-          "run-failed": 3
+          "run-failed": 19
         },
         "averageScore": 100,
         "successfulCount": 1,
-        "totalCount": 4
+        "totalCount": 20
       },
       "seo": {
         "statusCounts": {
           "good": 1,
           "needs-improvement": 0,
           "failing": 0,
-          "run-failed": 3
+          "run-failed": 19
         },
         "averageScore": 100,
         "successfulCount": 1,
-        "totalCount": 4
+        "totalCount": 20
       }
     },
     "byDevice": {
@@ -77,22 +77,22 @@
           "good": 0,
           "needs-improvement": 0,
           "failing": 1,
-          "run-failed": 1
+          "run-failed": 9
         },
         "averageScore": 60,
         "successfulCount": 1,
-        "totalCount": 2
+        "totalCount": 10
       },
       "desktop": {
         "statusCounts": {
           "good": 0,
           "needs-improvement": 0,
           "failing": 0,
-          "run-failed": 2
+          "run-failed": 10
         },
         "averageScore": null,
         "successfulCount": 0,
-        "totalCount": 2
+        "totalCount": 10
       }
     }
   },
@@ -110,7 +110,7 @@
       "pageId": "medicare-part-b-giveback",
       "label": "Medicare Part B Give-Back (Social Security)",
       "group": "medicare",
-      "device": "desktop",
+      "device": "mobile",
       "status": "run-failed",
       "score": null,
       "failingMetricCount": 3
@@ -119,7 +119,151 @@
       "pageId": "medicare-part-b-giveback",
       "label": "Medicare Part B Give-Back (Social Security)",
       "group": "medicare",
+      "device": "desktop",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "individual-insurance-cost",
+      "label": "How Much Does Individual Health Insurance Cost?",
+      "group": "resources-ifp",
       "device": "mobile",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "individual-insurance-cost",
+      "label": "How Much Does Individual Health Insurance Cost?",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "dependent-on-health-plan",
+      "label": "Can You Add a Dependent to Your Health Insurance Plan?",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "dependent-on-health-plan",
+      "label": "Can You Add a Dependent to Your Health Insurance Plan?",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "careers-benefits",
+      "label": "Careers — Benefits",
+      "group": "corporate",
+      "device": "mobile",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "careers-benefits",
+      "label": "Careers — Benefits",
+      "group": "corporate",
+      "device": "desktop",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "two-health-insurance-plans",
+      "label": "Can You Have Two Health Insurance Plans?",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "two-health-insurance-plans",
+      "label": "Can You Have Two Health Insurance Plans?",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "medicare-eligibility-retire-62",
+      "label": "Medicare Eligibility if You Retire at 62",
+      "group": "medicare",
+      "device": "mobile",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "medicare-eligibility-retire-62",
+      "label": "Medicare Eligibility if You Retire at 62",
+      "group": "medicare",
+      "device": "desktop",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "out-of-pocket-maximum",
+      "label": "How Does an Out-of-Pocket Maximum Work?",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "out-of-pocket-maximum",
+      "label": "How Does an Out-of-Pocket Maximum Work?",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "medicare-advantage-to-medigap",
+      "label": "Can I Switch from Medicare Advantage to Medigap?",
+      "group": "medicare",
+      "device": "mobile",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "medicare-advantage-to-medigap",
+      "label": "Can I Switch from Medicare Advantage to Medigap?",
+      "group": "medicare",
+      "device": "desktop",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "urgent-care-cost",
+      "label": "How Much Does an Urgent Care Visit Cost?",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
+      "pageId": "urgent-care-cost",
+      "label": "How Much Does an Urgent Care Visit Cost?",
+      "group": "resources-ifp",
+      "device": "desktop",
       "status": "run-failed",
       "score": null,
       "failingMetricCount": 3
@@ -131,7 +275,7 @@
       "device": "mobile",
       "status": "failing",
       "score": 60,
-      "failingMetricCount": 2
+      "failingMetricCount": 1
     }
   ],
   "recentRunHistoryByPage": {
@@ -144,7 +288,15 @@
         "lcp": 2863.3828000000003
       }
     ],
-    "medicare-part-b-giveback": []
+    "medicare-part-b-giveback": [],
+    "individual-insurance-cost": [],
+    "dependent-on-health-plan": [],
+    "careers-benefits": [],
+    "two-health-insurance-plans": [],
+    "medicare-eligibility-retire-62": [],
+    "out-of-pocket-maximum": [],
+    "medicare-advantage-to-medigap": [],
+    "urgent-care-cost": []
   },
   "pages": [
     {
@@ -196,6 +348,358 @@
       "label": "Medicare Part B Give-Back (Social Security)",
       "url": "https://www.ehealthinsurance.com/medicare/managing-medicare/medicare-part-b-giveback-social-security/",
       "group": "medicare",
+      "results": {
+        "mobile": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        },
+        "desktop": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        }
+      }
+    },
+    {
+      "pageId": "individual-insurance-cost",
+      "label": "How Much Does Individual Health Insurance Cost?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/how-much-does-individual-health-insurance-cost",
+      "group": "resources-ifp",
+      "results": {
+        "mobile": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        },
+        "desktop": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        }
+      }
+    },
+    {
+      "pageId": "dependent-on-health-plan",
+      "label": "Can You Add a Dependent to Your Health Insurance Plan?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/can-added-dependent-health-insurance-plan",
+      "group": "resources-ifp",
+      "results": {
+        "mobile": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        },
+        "desktop": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        }
+      }
+    },
+    {
+      "pageId": "careers-benefits",
+      "label": "Careers — Benefits",
+      "url": "https://www.ehealthinsurance.com/about-ehealth/careers-benefit",
+      "group": "corporate",
+      "results": {
+        "mobile": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        },
+        "desktop": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        }
+      }
+    },
+    {
+      "pageId": "two-health-insurance-plans",
+      "label": "Can You Have Two Health Insurance Plans?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/can-you-have-two-health-insurance-plans",
+      "group": "resources-ifp",
+      "results": {
+        "mobile": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        },
+        "desktop": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        }
+      }
+    },
+    {
+      "pageId": "medicare-eligibility-retire-62",
+      "label": "Medicare Eligibility if You Retire at 62",
+      "url": "https://www.ehealthinsurance.com/medicare/eligibility/if-i-retire-at-age-62-will-i-be-eligible-for-medicare-at-that-time/",
+      "group": "medicare",
+      "results": {
+        "mobile": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        },
+        "desktop": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        }
+      }
+    },
+    {
+      "pageId": "out-of-pocket-maximum",
+      "label": "How Does an Out-of-Pocket Maximum Work?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/pocket-maximum-work",
+      "group": "resources-ifp",
+      "results": {
+        "mobile": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        },
+        "desktop": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        }
+      }
+    },
+    {
+      "pageId": "medicare-advantage-to-medigap",
+      "label": "Can I Switch from Medicare Advantage to Medigap?",
+      "url": "https://www.ehealthinsurance.com/medicare/enrollment/can-i-switch-from-medicare-advantage-to-medigap/",
+      "group": "medicare",
+      "results": {
+        "mobile": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        },
+        "desktop": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        }
+      }
+    },
+    {
+      "pageId": "urgent-care-cost",
+      "label": "How Much Does an Urgent Care Visit Cost?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/how-much-does-an-urgent-care-visit-cost",
+      "group": "resources-ifp",
       "results": {
         "mobile": {
           "status": "run-failed",

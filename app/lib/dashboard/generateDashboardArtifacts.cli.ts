@@ -54,10 +54,10 @@ async function main(cwd = process.cwd()): Promise<number> {
           const manifest = JSON.parse(manifestJson) as RunManifest;
           manifests.push(manifest);
 
-          // Track the latest run (by ISO timestamp sorting)
-          if (runId > latestRunId!) {
+          // Track the latest run (by ISO timestamp sorting - ISO dates are lexicographically sortable)
+          if (latestRunId === null || runId > latestRunId) {
             latestRunId = runId;
-            latestRunTimestamp = new Date(runId).getTime();
+            latestRunTimestamp = new Date(runId.replace(/-/g, ":")).getTime();
           }
         } catch (error) {
           console.warn(`⚠️  Failed to read manifest at ${manifestPath}:`, error);
