@@ -46,7 +46,9 @@ export async function main(cwd = process.cwd()): Promise<number> {
   return result.exitCode;
 }
 
-if (process.argv[1]?.length && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))) {
+const entryPoint = process.argv[1];
+
+if (entryPoint && path.resolve(entryPoint) === path.resolve(fileURLToPath(import.meta.url))) {
   main()
     .then((exitCode) => {
       process.exitCode = exitCode;

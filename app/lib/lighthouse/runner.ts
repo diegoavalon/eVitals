@@ -83,6 +83,10 @@ function formatFailure(error: unknown, attempts: number, timedOut: boolean): Lig
   };
 }
 
+function isTimeoutError(error: unknown): boolean {
+  return error instanceof Error && error.name === "TimeoutError";
+}
+
 async function runWithTimeout<T>(
   timeoutMs: number,
   operation: (signal: AbortSignal) => Promise<T>,
@@ -233,7 +237,7 @@ async function executeLighthouseCli(input: {
     ...deviceArgs,
   ];
 
-  let stderr = "";
+  const stderrChunks: string[] = [];
 
   try {
     await new Promise<void>((resolve, reject) => {
@@ -243,7 +247,7 @@ async function executeLighthouseCli(input: {
       });
 
       child.stderr.on("data", (chunk: Buffer | string) => {
-        stderr += chunk.toString();
+        stderrChunks.push(chunk.toString());
       });
       child.on("error", reject);
       child.on("close", (code, signal) => {
@@ -254,7 +258,7 @@ async function executeLighthouseCli(input: {
 
         reject(
           new Error(
-            stderr.trim() ||
+            stderrChunks.join("").trim() ||
               `Lighthouse exited with code ${code ?? "unknown"}${signal ? ` (signal ${signal})` : ""}`,
           ),
         );
@@ -322,7 +326,7 @@ async function runSingleTask(input: {
         },
       };
     } catch (error) {
-      lastFailure = formatFailure(error, attempt, error instanceof Error && error.name === "TimeoutError");
+      lastFailure = formatFailure(error, attempt, isTimeoutError(error));
     }
   }
 
