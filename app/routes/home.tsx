@@ -295,7 +295,7 @@ function getMetricStatus(key: MetricKey, value: number): PageStatus {
 }
 
 function getMetricBarWidth(key: MetricKey, value: number): number {
-  const maxVal: Record<MetricKey, number> = { lcp: 4000, cls: 0.25, tbt: 600 };
+  const maxVal: Record<MetricKey, number> = { lcp: 4000, cls: 0.25, tbt: 600, fcp: 3000, si: 7300 };
   return Math.min((value / maxVal[key]) * 100, 100);
 }
 

@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router";
 import Home from "./routes/home";
+import AllPages from "./routes/all-pages";
 import { useDashboardConfig } from "./lib/useDashboardConfig";
 import { AppShell } from "./components/AppShell";
 
@@ -48,6 +49,7 @@ export default function App() {
     <AppShell config={configState.config}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/all-pages" element={<AllPages />} />
       </Routes>
     </AppShell>
   );
