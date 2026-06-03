@@ -61,7 +61,7 @@ export default function Home() {
 
   return (
     <main className="bg-surface-canvas">
-      <div className="mx-auto max-w-7xl p-6 md:p-8">
+      <div className="container">
         {/* Page headline */}
         <header className="mb-8">
           <h1 className="font-poppins font-bold text-[32px] text-primary leading-tight">
@@ -296,7 +296,13 @@ function getMetricStatus(key: MetricKey, value: number): PageStatus {
 }
 
 function getMetricBarWidth(key: MetricKey, value: number): number {
-  const maxVal: Record<MetricKey, number> = { lcp: 4000, cls: 0.25, tbt: 600, fcp: 3000, si: 7300 };
+  const maxVal: Record<MetricKey, number> = {
+    lcp: 4000,
+    cls: 0.25,
+    tbt: 600,
+    fcp: 3000,
+    si: 7300,
+  };
   return Math.min((value / maxVal[key]) * 100, 100);
 }
 

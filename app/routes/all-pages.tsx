@@ -56,14 +56,15 @@ export default function AllPages() {
 
   return (
     <main className="bg-surface-canvas">
-      <div className="mx-auto max-w-7xl p-6 md:p-8">
+      <div className="container">
         {/* Page headline */}
         <header className="mb-8">
           <h1 className="font-poppins font-bold text-[32px] text-primary leading-tight">
             All Pages
           </h1>
           <p className="font-open-sans text-[16px] text-on-surface-dark mt-2">
-            Audit results for {data.pages.length} configured pages ({selectedDevice})
+            Audit results for {data.pages.length} configured pages (
+            {selectedDevice})
           </p>
         </header>
 
@@ -73,7 +74,9 @@ export default function AllPages() {
             <EhiSelect
               label="Filter by Status"
               value={statusFilter}
-              onValueChange={(val) => setStatusFilter((val ?? "all") as PageStatus | "all")}
+              onValueChange={(val) =>
+                setStatusFilter((val ?? "all") as PageStatus | "all")
+              }
               items={[
                 { value: "all", label: "All Statuses" },
                 { value: "good", label: "Passing" },
@@ -301,14 +304,17 @@ function PageRow({
             score={
               result.status === "run-failed"
                 ? null
-                : result.scores.performance ?? null
+                : (result.scores.performance ?? null)
             }
           />
         </div>
 
         {/* Status badge */}
         <div className="flex-shrink-0">
-          <StatusBadge status={result.status} score={result.scores.performance} />
+          <StatusBadge
+            status={result.status}
+            score={result.scores.performance}
+          />
         </div>
 
         {/* Sparkline */}
@@ -431,7 +437,9 @@ function LcpSparkline({
     })
     .filter((p): p is { x: number; y: number } => p !== null);
 
-  const pathD = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
+  const pathD = points
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
+    .join(" ");
 
   return (
     <div className="h-12 flex items-center justify-center">
@@ -584,9 +592,9 @@ const STROKE_COLORS: Record<PageStatus, string> = {
 
 function ReportFrame({ src }: { src: string }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [frameStatus, setFrameStatus] = useState<"loading" | "ready" | "missing">(
-    "loading",
-  );
+  const [frameStatus, setFrameStatus] = useState<
+    "loading" | "ready" | "missing"
+  >("loading");
 
   function handleLoad() {
     try {

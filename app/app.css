@@ -87,6 +87,10 @@ body {
 }
 
 /* Utilities   */
+.container {
+  @apply mx-auto max-w-[1600px] p-6 md:p-8;
+}
+
 .label {
   @apply font-poppins font-bold text-[10px] text-on-surface tracking-wider uppercase;
 }

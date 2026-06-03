@@ -1,0 +1,633 @@
+{
+  "runId": "2026-06-03T19-24-55Z",
+  "generatedAt": "2026-06-03T19:33:52.592Z",
+  "fetchTime": "2026-06-03T19:29:24.019Z",
+  "statusCounts": {
+    "good": 0,
+    "needs-improvement": 0,
+    "failing": 0,
+    "run-failed": 20
+  },
+  "results": [
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "careers-benefits",
+      "label": "Careers — Benefits",
+      "url": "https://www.ehealthinsurance.com/about-ehealth/careers-benefit",
+      "group": "corporate",
+      "device": "desktop",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:29:24.019Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/careers-benefits.desktop.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/careers-benefits.desktop.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "careers-benefits",
+      "label": "Careers — Benefits",
+      "url": "https://www.ehealthinsurance.com/about-ehealth/careers-benefit",
+      "group": "corporate",
+      "device": "mobile",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:29:24.003Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/careers-benefits.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/careers-benefits.mobile.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "dependent-on-health-plan",
+      "label": "Can You Add a Dependent to Your Health Insurance Plan?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/can-added-dependent-health-insurance-plan",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:28:30.289Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/dependent-on-health-plan.desktop.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/dependent-on-health-plan.desktop.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "dependent-on-health-plan",
+      "label": "Can You Add a Dependent to Your Health Insurance Plan?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/can-added-dependent-health-insurance-plan",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:28:30.287Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/dependent-on-health-plan.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/dependent-on-health-plan.mobile.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "homepage",
+      "label": "Homepage",
+      "url": "https://www.ehealthinsurance.com/",
+      "group": "core",
+      "device": "desktop",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:25:49.926Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/homepage.desktop.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/homepage.desktop.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "homepage",
+      "label": "Homepage",
+      "url": "https://www.ehealthinsurance.com/",
+      "group": "core",
+      "device": "mobile",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:25:49.939Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/homepage.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/homepage.mobile.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "individual-insurance-cost",
+      "label": "How Much Does Individual Health Insurance Cost?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/how-much-does-individual-health-insurance-cost",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:27:36.437Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/individual-insurance-cost.desktop.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/individual-insurance-cost.desktop.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "individual-insurance-cost",
+      "label": "How Much Does Individual Health Insurance Cost?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/how-much-does-individual-health-insurance-cost",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:27:36.430Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/individual-insurance-cost.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/individual-insurance-cost.mobile.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "medicare-advantage-to-medigap",
+      "label": "Can I Switch from Medicare Advantage to Medigap?",
+      "url": "https://www.ehealthinsurance.com/medicare/enrollment/can-i-switch-from-medicare-advantage-to-medigap/",
+      "group": "medicare",
+      "device": "desktop",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:32:58.165Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/medicare-advantage-to-medigap.desktop.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/medicare-advantage-to-medigap.desktop.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "medicare-advantage-to-medigap",
+      "label": "Can I Switch from Medicare Advantage to Medigap?",
+      "url": "https://www.ehealthinsurance.com/medicare/enrollment/can-i-switch-from-medicare-advantage-to-medigap/",
+      "group": "medicare",
+      "device": "mobile",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:32:57.722Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/medicare-advantage-to-medigap.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/medicare-advantage-to-medigap.mobile.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "medicare-eligibility-retire-62",
+      "label": "Medicare Eligibility if You Retire at 62",
+      "url": "https://www.ehealthinsurance.com/medicare/eligibility/if-i-retire-at-age-62-will-i-be-eligible-for-medicare-at-that-time/",
+      "group": "medicare",
+      "device": "desktop",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:31:10.701Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/medicare-eligibility-retire-62.desktop.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/medicare-eligibility-retire-62.desktop.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "medicare-eligibility-retire-62",
+      "label": "Medicare Eligibility if You Retire at 62",
+      "url": "https://www.ehealthinsurance.com/medicare/eligibility/if-i-retire-at-age-62-will-i-be-eligible-for-medicare-at-that-time/",
+      "group": "medicare",
+      "device": "mobile",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:31:10.709Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/medicare-eligibility-retire-62.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/medicare-eligibility-retire-62.mobile.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "medicare-part-b-giveback",
+      "label": "Medicare Part B Give-Back (Social Security)",
+      "url": "https://www.ehealthinsurance.com/medicare/managing-medicare/medicare-part-b-giveback-social-security/",
+      "group": "medicare",
+      "device": "desktop",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:26:42.652Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/medicare-part-b-giveback.desktop.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/medicare-part-b-giveback.desktop.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "medicare-part-b-giveback",
+      "label": "Medicare Part B Give-Back (Social Security)",
+      "url": "https://www.ehealthinsurance.com/medicare/managing-medicare/medicare-part-b-giveback-social-security/",
+      "group": "medicare",
+      "device": "mobile",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:26:42.625Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/medicare-part-b-giveback.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/medicare-part-b-giveback.mobile.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "out-of-pocket-maximum",
+      "label": "How Does an Out-of-Pocket Maximum Work?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/pocket-maximum-work",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:32:04.510Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/out-of-pocket-maximum.desktop.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/out-of-pocket-maximum.desktop.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "out-of-pocket-maximum",
+      "label": "How Does an Out-of-Pocket Maximum Work?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/pocket-maximum-work",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:32:04.613Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/out-of-pocket-maximum.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/out-of-pocket-maximum.mobile.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "two-health-insurance-plans",
+      "label": "Can You Have Two Health Insurance Plans?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/can-you-have-two-health-insurance-plans",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:30:16.968Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/two-health-insurance-plans.desktop.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/two-health-insurance-plans.desktop.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "two-health-insurance-plans",
+      "label": "Can You Have Two Health Insurance Plans?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/can-you-have-two-health-insurance-plans",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:30:16.971Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/two-health-insurance-plans.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/two-health-insurance-plans.mobile.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "urgent-care-cost",
+      "label": "How Much Does an Urgent Care Visit Cost?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/how-much-does-an-urgent-care-visit-cost",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:33:52.592Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/urgent-care-cost.desktop.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/urgent-care-cost.desktop.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    },
+    {
+      "runId": "2026-06-03T19-24-55Z",
+      "pageId": "urgent-care-cost",
+      "label": "How Much Does an Urgent Care Visit Cost?",
+      "url": "https://www.ehealthinsurance.com/resources/individual-and-family/how-much-does-an-urgent-care-visit-cost",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "run-failed",
+      "fetchTime": "2026-06-03T19:33:51.495Z",
+      "reportJsonPath": "reports/runs/2026-06-03T19-24-55Z/urgent-care-cost.mobile.report.json",
+      "reportHtmlPath": "reports/runs/2026-06-03T19-24-55Z/urgent-care-cost.mobile.report.html",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": null,
+        "cls": null,
+        "tbt": null,
+        "fcp": null,
+        "si": null
+      },
+      "performanceScore": null,
+      "failure": {
+        "reason": "Unable to connect to Chrome",
+        "timedOut": false,
+        "attempts": 2
+      }
+    }
+  ]
+}
