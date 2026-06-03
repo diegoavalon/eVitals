@@ -10,6 +10,7 @@ import { EhiButton } from "~/components/ui/EhiButton";
 import { EhiDrawer } from "~/components/ui/EhiDrawer";
 import { EhiSelect } from "~/components/ui/EhiSelect";
 import { useDashboardFilters } from "~/lib/DashboardFiltersContext";
+import { withBasePath } from "~/lib/url";
 
 export default function AllPages() {
   const state = useDashboardData();
@@ -90,7 +91,7 @@ export default function AllPages() {
             data={data}
             selectedDevice={selectedDevice}
             statusFilter={statusFilter}
-            onViewReport={setReportPath}
+            onViewReport={(path) => setReportPath(withBasePath(path))}
           />
         </div>
       </div>

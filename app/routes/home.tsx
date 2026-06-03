@@ -9,6 +9,7 @@ import type {
 import { EhiButton } from "~/components/ui/EhiButton";
 import { EhiDrawer } from "~/components/ui/EhiDrawer";
 import { useDashboardFilters } from "~/lib/DashboardFiltersContext";
+import { withBasePath } from "~/lib/url";
 
 export default function Home() {
   const state = useDashboardData();
@@ -120,7 +121,7 @@ export default function Home() {
             data={data}
             selectedDevice={selectedDevice}
             selectedCategory={selectedCategory}
-            onViewReport={setReportPath}
+            onViewReport={(path) => setReportPath(withBasePath(path))}
           />
         </div>
 
@@ -131,7 +132,7 @@ export default function Home() {
             selectedDevice={selectedDevice}
             selectedCategory={selectedCategory}
             enabledCategories={data.enabledCategories}
-            onViewReport={setReportPath}
+            onViewReport={(path) => setReportPath(withBasePath(path))}
           />
         </div>
       </div>

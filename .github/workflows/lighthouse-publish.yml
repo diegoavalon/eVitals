@@ -71,6 +71,8 @@ jobs:
 
       - name: "[2/6] Build site"
         run: npm run build
+        env:
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
 
       # Stage 3: Verify Chrome/Chromium
       - name: "[3/6] Verify Chrome availability"
@@ -117,7 +119,9 @@ jobs:
       - name: "[5/6] Merge React app into deploy directory"
         run: |
           cp dist/index.html public/index.html
-          cp -r dist/assets public/assets
+          rm -rf public/assets
+          mkdir -p public/assets
+          cp -r dist/assets/. public/assets/
 
       # Stage 6: Publish to gh-pages
       - name: "[6/6] Setup Pages"

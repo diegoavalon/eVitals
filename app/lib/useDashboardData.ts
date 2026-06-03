@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import type { DashboardData, FetchState } from "./dashboard.types";
+import { withBasePath } from "./url";
 
 function dataUrl(): string {
-  // BASE_URL is set by Vite to the configured base path (e.g. "/eVitals/").
-  // In tests (Vitest), it defaults to "/".
-  return `${import.meta.env.BASE_URL}data/dashboardData.json`;
+  return withBasePath("data/dashboardData.json");
 }
 
 function isValidDashboardData(value: unknown): value is DashboardData {

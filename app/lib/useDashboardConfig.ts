@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { parseDashboardConfig } from "./config";
 import type { DashboardConfig, ConfigError } from "./config";
+import { withBasePath } from "./url";
 
 export type ConfigState =
   | { status: "loading" }
@@ -9,7 +10,7 @@ export type ConfigState =
   | { status: "ready"; config: DashboardConfig };
 
 function configUrl(): string {
-  return `${import.meta.env.BASE_URL}data/dashboard.config.json`;
+  return withBasePath("data/dashboard.config.json");
 }
 
 /**
