@@ -1,0 +1,139 @@
+name: Publish Lighthouse Dashboard
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "24"
+  PNPM_VERSION: "10"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Lighthouse Dashboard Pipeline
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # Stage 1: Setup
+      - name: "[1/6] Checkout main branch"
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: "[1/6] Restore gh-pages branch to public/"
+        run: |
+          set +e
+          git clone --branch gh-pages --single-branch --depth 1 \
+            https://github.com/${{ github.repository }}.git public/ 2>/dev/null
+          if [ $? -ne 0 ]; then
+            echo "ℹ️  gh-pages branch not found or empty; creating fresh public/ directory"
+            mkdir -p public
+          fi
+          set -e
+
+      # Stage 2: Gate (Install → Typecheck → Test → Build)
+      - name: "[2/6] Setup Node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: "[2/6] Setup pnpm"
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: "[2/6] Install dependencies"
+        run: pnpm install
+        env:
+          CI: true
+
+      - name: "[2/6] Typecheck"
+        run: npm run typecheck
+
+      - name: "[2/6] Run tests"
+        run: npm run test
+
+      - name: "[2/6] Build site"
+        run: npm run build
+
+      # Stage 3: Verify Chrome/Chromium
+      - name: "[3/6] Verify Chrome availability"
+        run: |
+          if ! which chromium-browser >/dev/null 2>&1 && \
+             ! which google-chrome >/dev/null 2>&1 && \
+             ! which chrome >/dev/null 2>&1; then
+            echo "❌ FATAL: Chrome/Chromium not found on ubuntu-latest"
+            echo "   Please verify: ubuntu-latest includes Chromium at /usr/bin/chromium-browser"
+            exit 1
+          fi
+          echo "✓ Chrome found at: $(which chromium-browser || which google-chrome || which chrome)"
+
+      # Stage 4: Execute Lighthouse Runner
+      - name: "[4/6] Run Lighthouse audits"
+        id: runner
+        run: |
+          set +e
+          node --loader tsx app/lighthouse.runner.ts
+          RUNNER_EXIT=$?
+          set -e
+          
+          if [ $RUNNER_EXIT -ne 0 ]; then
+            echo "⚠️  Runner exited with code $RUNNER_EXIT"
+            
+            # Check if any manifest was written (partial success allowed per Morpheus spec)
+            if [ -d "public/data/runs" ] && [ "$(find public/data/runs -name 'manifest.json' | wc -l)" -gt 0 ]; then
+              echo "✓ Partial run data found; continuing to generate & prune"
+              echo "exit_code=$RUNNER_EXIT" >> $GITHUB_OUTPUT
+            else
+              echo "❌ No manifest found; runner failed completely"
+              exit 1
+            fi
+          fi
+          echo "exit_code=$RUNNER_EXIT" >> $GITHUB_OUTPUT
+
+      # Stage 5: Generate & Prune
+      - name: "[5/6] Generate dashboard artifacts"
+        run: node --loader tsx app/lib/dashboard/generateDashboardArtifacts.cli.ts
+
+      - name: "[5/6] Prune old runs (retain 30)"
+        run: node --loader tsx app/lib/retention/prune.cli.ts --limit 30
+
+      # Stage 6: Publish to gh-pages
+      - name: "[6/6] Setup Pages"
+        uses: actions/configure-pages@v4
+
+      - name: "[6/6] Upload artifacts to Pages"
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: "[6/6] Deploy to GitHub Pages"
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      # Final status
+      - name: Workflow completed successfully
+        if: success()
+        run: |
+          echo "✅ Lighthouse dashboard published successfully"
+          echo "   See: ${{ steps.deployment.outputs.page_url }}"
+
+      - name: Workflow failed
+        if: failure()
+        run: |
+          echo "❌ Workflow failed at a stage above"
+          exit 1
