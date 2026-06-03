@@ -47,16 +47,16 @@ jobs:
           set -e
 
       # Stage 2: Gate (Install → Typecheck → Test → Build)
+      - name: "[2/6] Setup pnpm"
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - name: "[2/6] Setup Node"
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
-
-      - name: "[2/6] Setup pnpm"
-        uses: pnpm/action-setup@v3
-        with:
-          version: ${{ env.PNPM_VERSION }}
 
       - name: "[2/6] Install dependencies"
         run: pnpm install
