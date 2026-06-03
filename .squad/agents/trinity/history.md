@@ -72,3 +72,26 @@
 - **Type Fixes:** Added missing `fcp` and `si` properties to `getMetricBarWidth` maxVal Record to satisfy TypeScript.
 - Commit SHA: 5f8aa67; 357/360 tests passing (3 pre-existing home test failures unrelated to this issue).
 
+### GitHub Pages Deployment Diagnostics (2026-06-03)
+
+- **Issue:** Deployed page rendered with no Lighthouse metrics visible despite GitHub Action reporting successful deployment.
+- **Root Cause 1 — Manifest Schema Mismatch:** Fixture `public/data/runs/2026-06-02T14-00-00Z/manifest.json` had schema mismatch:
+  - Used `entries` array instead of expected `results` array
+  - Missing `statusCounts` and `fetchTime` top-level fields required by RunManifest type
+  - Dashboard generator code (line 74: `for (const entry of manifest.results)`) was iterating over undefined, so no reports were processed
+- **Root Cause 2 — Run ID Detection Logic Failure:** `generateDashboardArtifacts.cli.ts` (line 58) had logic bug:
+  - Code: `if (runId > latestRunId!)` where `latestRunId` initialized to null
+  - JavaScript comparison: `"2026-06-02T14-00-00Z" > null` evaluates to `false` (not true as expected)
+  - Result: `latestRunId` never set, dashboard generator skipped all report parsing
+  - **Impact:** Generated `dashboardData.json` had `runId: ""` (empty string), `latestRunResultCount: 0`, all pages marked `run-failed`
+- **Fixes Applied:**
+  1. Updated fixture manifest to use correct schema:
+     - Renamed `entries` → `results` with proper result entry structure
+     - Added `statusCounts: { good: 0, needs-improvement: 1, failing: 0, run-failed: 0 }`
+     - Added `fetchTime: "2026-06-02T16:19:41.855Z"`
+  2. Fixed run ID detection to handle null and custom date format:
+     - Changed: `if (latestRunId === null || runId > latestRunId)`
+     - Parse custom run ID format: `new Date(runId.replace(/-/g, ":"))` (convert `T14-00-00Z` → `T14:00:00Z`)
+- **Verification:** After fix, dashboard correctly generates with `runId: "2026-06-02T14-00-00Z"`, `latestRunResultCount: 1`, proper status counts.
+- **Test Impact:** All 419 tests pass; `npm run build` succeeds.
+
