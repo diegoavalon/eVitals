@@ -1,6 +1,7 @@
 // ── Types ──────────────────────────────────────────────────────────────────
 export type {
   MetricStatus,
+  LighthouseFailure,
   LighthouseMetrics,
   LighthouseMetricStatuses,
   LighthouseCategoryScores,
@@ -41,3 +42,18 @@ export {
 
 // ── Parsers ────────────────────────────────────────────────────────────────
 export { parseLighthouseReport } from "./parseReport";
+
+// ── Runner ─────────────────────────────────────────────────────────────────
+export {
+  createLighthouseTasks,
+  resolveLocalLighthouseCliPath,
+  runLighthouseAuditRun,
+} from "./runner";
+
+export type {
+  LighthouseCliExecutionResult,
+  LighthouseRunnerOptions,
+  LighthouseRunnerResult,
+  LighthouseTask,
+  LighthouseTaskResult,
+} from "./runner";
