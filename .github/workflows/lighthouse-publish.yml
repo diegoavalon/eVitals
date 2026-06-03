@@ -114,6 +114,11 @@ jobs:
       - name: "[5/6] Prune old runs (retain 30)"
         run: pnpm exec tsx app/lib/retention/prune.cli.ts --limit 30
 
+      - name: "[5/6] Merge React app into deploy directory"
+        run: |
+          cp dist/index.html public/index.html
+          cp -r dist/assets public/assets
+
       # Stage 6: Publish to gh-pages
       - name: "[6/6] Setup Pages"
         uses: actions/configure-pages@v5
