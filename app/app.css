@@ -94,3 +94,41 @@ body {
 .label {
   @apply font-poppins font-bold text-[10px] text-on-surface tracking-wider uppercase;
 }
+
+/* Hero Carousel Animation */
+@keyframes hero-card-enter-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes hero-card-enter-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.hero-card-animate-from-right {
+  animation: hero-card-enter-from-right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-card-animate-from-left {
+  animation: hero-card-enter-from-left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-card-animate-from-right,
+  .hero-card-animate-from-left {
+    animation: none;
+  }
+}

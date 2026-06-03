@@ -198,6 +198,9 @@ describe("Issue #7 — All Pages Table QA Coverage", () => {
       renderAllPages();
       expect(screen.getByText("Page 1")).toBeInTheDocument();
       expect(screen.getByText("https://example.com/1")).toBeInTheDocument();
+      expect(
+        screen.getByRole("link", { name: "https://example.com/1" }),
+      ).toBeInTheDocument();
     });
 
     it("renders score gauge with circles", () => {

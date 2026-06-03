@@ -24,13 +24,15 @@ pnpm install
 
 ## Development
 
-Start the dev server against whatever data is already in `public/`:
+Start the dev server:
 
 ```bash
 pnpm run dev
 ```
 
-The app will be available at `http://localhost:5173`. No Lighthouse run is needed — existing `public/data/dashboardData.json` is served as-is.
+The app will be available at `http://localhost:5173`.
+
+The dev server automatically proxies `/data/` and `/reports/` to the live GitHub Pages deployment, so the dashboard loads real production data with no Lighthouse run or Chrome required. This is useful for WSL environments or any machine without Chromium installed.
 
 ---
 

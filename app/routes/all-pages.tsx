@@ -293,9 +293,14 @@ function PageRow({
           <p className="font-poppins font-bold text-[14px] text-on-surface truncate">
             {page.label}
           </p>
-          <p className="font-open-sans text-[12px] text-neutral mt-1">
+          <a
+            href={page.url}
+            target="_blank"
+            rel="noreferrer"
+            className="font-open-sans text-[12px] text-neutral mt-1 hover:text-primary transition-colors break-all inline-block"
+          >
             {page.url}
-          </p>
+          </a>
         </div>
 
         {/* Score badge */}

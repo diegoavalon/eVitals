@@ -53,3 +53,88 @@ Follow-up coordination between Trinity and Switch to resolve remaining asset and
 - "GitHub Pages Assets Path Integrity" (Switch)
 
 **Impact:** Combined fixes ensure all URLs resolve correctly (Trinity) and assets deploy deterministically without nesting (Switch). All 419 tests passing. No further 404 errors for assets, data, or reports across all environments.
+
+## Learnings
+
+### Hero Carousel Animation Implementation (2026-06-03)
+
+**Pattern:** CSS-only entrance animation for hero carousel cards with accessibility support.
+
+**Implementation:**
+- Added `hero-card-animate` CSS class with keyframe animation in `app/app.css`
+- Animation: subtle fade-in + translateY + scale (0.35s cubic-bezier easing)
+- Added `@media (prefers-reduced-motion: reduce)` to disable animation for accessibility
+- Used React key-based remounting strategy: `animKey` state increments on carousel navigation to trigger animation replay
+- Applied `key={animKey}` to `AttentionCard` component to force remount on index change
+- Updated navigation handlers (prev/next/dot) to increment `animKey` alongside `currentIndex`
+
+**Key Files:**
+- `app/app.css`: CSS animation definition with reduced-motion support
+- `app/routes/home.tsx`: `AttentionCarousel` component with `animKey` state and key prop on `AttentionCard`
+
+**Behavior:**
+- Animation triggers when user clicks prev/next/dot navigation controls
+- No animation on initial load (only on subsequent navigation)
+- Card content remains stable (no data model or navigation behavior changes)
+- Dot indicators retain existing smooth transition (no changes needed)
+
+**Test Status:** 420/422 tests passing (2 pre-existing failures unrelated to animation work). Build clean.
+
+### Hero Carousel Direction-Aware Animation (2026-06-03)
+
+**Pattern:** CSS-first directional animations that match carousel navigation intent. Clicking Next animates the card from the right; clicking Previous animates from the left.
+
+**Implementation:**
+- Split single animation into two direction-specific keyframes in `app/app.css`:
+  - `hero-card-enter-from-right`: fade + translateX(16px) for next/right navigation
+  - `hero-card-enter-from-left`: fade + translateX(-16px) for prev/left navigation
+- Added `direction` state to `AttentionCarousel` component (type: `"left" | "right"`)
+- Updated navigation handlers:
+  - Prev button: sets `direction="left"`
+  - Next button: sets `direction="right"`
+  - Dot navigation: sets direction based on comparison (`i > safeIndex ? "right" : "left"`)
+- Passed `direction` prop to `AttentionCard` component
+- Applied conditional CSS class based on direction prop: `hero-card-animate-from-right` or `hero-card-animate-from-left`
+- Maintained `@media (prefers-reduced-motion: reduce)` for both animations
+
+**Key Files:**
+- `app/app.css`: Two directional keyframe animations with reduced-motion support
+- `app/routes/home.tsx`: `AttentionCarousel` adds direction state; `AttentionCard` receives direction prop and applies conditional CSS class
+
+**Behavior:**
+- Subtle horizontal slide matches user's navigation intent
+- No changes to carousel data flow, report drawer, or URL routing
+- Animation triggers on prev/next/dot clicks (not initial load)
+- Fully accessible: respects reduced-motion preference
+
+**Test Status:** 15/15 priority-and-interaction tests passing. 1 pre-existing failure in device-selector tests unrelated to animation work. TypeScript build clean.
+
+### Clickable Page URLs in Dashboard (2026-06-03)
+
+**Pattern:** Display page URLs as clickable external links in both card and table row layouts with proper accessibility and visual hierarchy.
+
+**Implementation:**
+- Added clickable URL links to `AttentionCard` component (hero carousel priority cards):
+  - Positioned between page label and group metadata
+  - Uses `text-primary` for brand color consistency
+  - Small text (11px) with hover underline
+  - Opens in new tab with `target="_blank"` and `rel="noopener noreferrer"` for security
+  - Stops propagation on click to prevent card interactions
+- Added clickable URL links to `RecentReportRow` component (table rows):
+  - Positioned between page label/device badge and group label
+  - Same styling approach for consistency
+  - Truncates long URLs with `truncate` class
+- Both implementations preserve existing row/card interactions (drawer opening, report viewing)
+- URLs are accessible with clear link semantics (`<a>` tags with proper ARIA)
+
+**Key Files:**
+- `app/routes/home.tsx`: Updated `AttentionCard` (lines 424-432) and `RecentReportRow` (lines 825-833) components
+
+**Behavior:**
+- Page URLs are now visible and clickable from both card (priority carousel) and table (recent reports) layouts
+- Clicking URL opens page in new tab without disrupting dashboard navigation
+- URL links maintain visual hierarchy (smaller/lighter than page labels)
+- Preserves all existing interactions (report drawer, device/category filters)
+
+**Test Status:** 72/73 tests passing. 1 pre-existing test failure unrelated to URL work (test expects "pages passing" text that doesn't exist in UI). TypeScript build clean.
+

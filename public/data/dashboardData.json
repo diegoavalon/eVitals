@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-03T21:22:41.210Z",
-  "runId": "2026-06-03T19-24-55Z",
+  "generatedAt": "2026-06-03T22:01:01.228Z",
+  "runId": "mock-2026-06-03T22-01-01Z",
   "enabledCategories": [
     "performance",
     "accessibility",
@@ -19,55 +19,55 @@
     "latestRunResultCount": 20,
     "statusCounts": {
       "good": 0,
-      "needs-improvement": 0,
-      "failing": 0,
-      "run-failed": 20
+      "needs-improvement": 18,
+      "failing": 2,
+      "run-failed": 0
     }
   },
   "aggregates": {
     "byCategory": {
       "performance": {
         "statusCounts": {
-          "good": 0,
-          "needs-improvement": 0,
-          "failing": 0,
-          "run-failed": 20
+          "good": 6,
+          "needs-improvement": 12,
+          "failing": 2,
+          "run-failed": 0
         },
-        "averageScore": null,
-        "successfulCount": 0,
+        "averageScore": 81.5,
+        "successfulCount": 20,
         "totalCount": 20
       },
       "accessibility": {
         "statusCounts": {
-          "good": 0,
-          "needs-improvement": 0,
-          "failing": 0,
-          "run-failed": 20
+          "good": 12,
+          "needs-improvement": 6,
+          "failing": 2,
+          "run-failed": 0
         },
-        "averageScore": null,
-        "successfulCount": 0,
+        "averageScore": 77.9,
+        "successfulCount": 20,
         "totalCount": 20
       },
       "best-practices": {
         "statusCounts": {
-          "good": 0,
-          "needs-improvement": 0,
-          "failing": 0,
-          "run-failed": 20
+          "good": 6,
+          "needs-improvement": 12,
+          "failing": 2,
+          "run-failed": 0
         },
-        "averageScore": null,
-        "successfulCount": 0,
+        "averageScore": 83.3,
+        "successfulCount": 20,
         "totalCount": 20
       },
       "seo": {
         "statusCounts": {
-          "good": 0,
-          "needs-improvement": 0,
-          "failing": 0,
-          "run-failed": 20
+          "good": 6,
+          "needs-improvement": 12,
+          "failing": 2,
+          "run-failed": 0
         },
-        "averageScore": null,
-        "successfulCount": 0,
+        "averageScore": 77.9,
+        "successfulCount": 20,
         "totalCount": 20
       }
     },
@@ -75,152 +75,35 @@
       "mobile": {
         "statusCounts": {
           "good": 0,
-          "needs-improvement": 0,
-          "failing": 0,
-          "run-failed": 10
+          "needs-improvement": 8,
+          "failing": 2,
+          "run-failed": 0
         },
-        "averageScore": null,
-        "successfulCount": 0,
+        "averageScore": 79.2,
+        "successfulCount": 10,
         "totalCount": 10
       },
       "desktop": {
         "statusCounts": {
           "good": 0,
-          "needs-improvement": 0,
+          "needs-improvement": 10,
           "failing": 0,
-          "run-failed": 10
+          "run-failed": 0
         },
-        "averageScore": null,
-        "successfulCount": 0,
+        "averageScore": 83.8,
+        "successfulCount": 10,
         "totalCount": 10
       }
     }
   },
   "priority": [
     {
-      "pageId": "homepage",
-      "label": "Homepage",
-      "group": "core",
-      "device": "mobile",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "homepage",
-      "label": "Homepage",
-      "group": "core",
-      "device": "desktop",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "medicare-part-b-giveback",
-      "label": "Medicare Part B Give-Back (Social Security)",
-      "group": "medicare",
-      "device": "mobile",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "medicare-part-b-giveback",
-      "label": "Medicare Part B Give-Back (Social Security)",
-      "group": "medicare",
-      "device": "desktop",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "individual-insurance-cost",
-      "label": "How Much Does Individual Health Insurance Cost?",
-      "group": "resources-ifp",
-      "device": "mobile",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "individual-insurance-cost",
-      "label": "How Much Does Individual Health Insurance Cost?",
-      "group": "resources-ifp",
-      "device": "desktop",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
       "pageId": "dependent-on-health-plan",
       "label": "Can You Add a Dependent to Your Health Insurance Plan?",
       "group": "resources-ifp",
       "device": "mobile",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "dependent-on-health-plan",
-      "label": "Can You Add a Dependent to Your Health Insurance Plan?",
-      "group": "resources-ifp",
-      "device": "desktop",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "careers-benefits",
-      "label": "Careers — Benefits",
-      "group": "corporate",
-      "device": "mobile",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "careers-benefits",
-      "label": "Careers — Benefits",
-      "group": "corporate",
-      "device": "desktop",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "two-health-insurance-plans",
-      "label": "Can You Have Two Health Insurance Plans?",
-      "group": "resources-ifp",
-      "device": "mobile",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "two-health-insurance-plans",
-      "label": "Can You Have Two Health Insurance Plans?",
-      "group": "resources-ifp",
-      "device": "desktop",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "medicare-eligibility-retire-62",
-      "label": "Medicare Eligibility if You Retire at 62",
-      "group": "medicare",
-      "device": "mobile",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
-    },
-    {
-      "pageId": "medicare-eligibility-retire-62",
-      "label": "Medicare Eligibility if You Retire at 62",
-      "group": "medicare",
-      "device": "desktop",
-      "status": "run-failed",
-      "score": null,
+      "status": "failing",
+      "score": 43,
       "failingMetricCount": 3
     },
     {
@@ -228,222 +111,332 @@
       "label": "How Does an Out-of-Pocket Maximum Work?",
       "group": "resources-ifp",
       "device": "mobile",
-      "status": "run-failed",
-      "score": null,
+      "status": "failing",
+      "score": 43,
       "failingMetricCount": 3
+    },
+    {
+      "pageId": "individual-insurance-cost",
+      "label": "How Much Does Individual Health Insurance Cost?",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "needs-improvement",
+      "score": 75,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "medicare-eligibility-retire-62",
+      "label": "Medicare Eligibility if You Retire at 62",
+      "group": "medicare",
+      "device": "desktop",
+      "status": "needs-improvement",
+      "score": 75,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "dependent-on-health-plan",
+      "label": "Can You Add a Dependent to Your Health Insurance Plan?",
+      "group": "resources-ifp",
+      "device": "desktop",
+      "status": "needs-improvement",
+      "score": 77,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "individual-insurance-cost",
+      "label": "How Much Does Individual Health Insurance Cost?",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "needs-improvement",
+      "score": 77,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "medicare-eligibility-retire-62",
+      "label": "Medicare Eligibility if You Retire at 62",
+      "group": "medicare",
+      "device": "mobile",
+      "status": "needs-improvement",
+      "score": 77,
+      "failingMetricCount": 0
     },
     {
       "pageId": "out-of-pocket-maximum",
       "label": "How Does an Out-of-Pocket Maximum Work?",
       "group": "resources-ifp",
       "device": "desktop",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
+      "status": "needs-improvement",
+      "score": 77,
+      "failingMetricCount": 0
     },
     {
-      "pageId": "medicare-advantage-to-medigap",
-      "label": "Can I Switch from Medicare Advantage to Medigap?",
-      "group": "medicare",
-      "device": "mobile",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
+      "pageId": "careers-benefits",
+      "label": "Careers — Benefits",
+      "group": "corporate",
+      "device": "desktop",
+      "status": "needs-improvement",
+      "score": 89,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "homepage",
+      "label": "Homepage",
+      "group": "core",
+      "device": "desktop",
+      "status": "needs-improvement",
+      "score": 89,
+      "failingMetricCount": 0
     },
     {
       "pageId": "medicare-advantage-to-medigap",
       "label": "Can I Switch from Medicare Advantage to Medigap?",
       "group": "medicare",
       "device": "desktop",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
+      "status": "needs-improvement",
+      "score": 89,
+      "failingMetricCount": 0
     },
     {
-      "pageId": "urgent-care-cost",
-      "label": "How Much Does an Urgent Care Visit Cost?",
+      "pageId": "medicare-part-b-giveback",
+      "label": "Medicare Part B Give-Back (Social Security)",
+      "group": "medicare",
+      "device": "desktop",
+      "status": "needs-improvement",
+      "score": 89,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "two-health-insurance-plans",
+      "label": "Can You Have Two Health Insurance Plans?",
       "group": "resources-ifp",
-      "device": "mobile",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
+      "device": "desktop",
+      "status": "needs-improvement",
+      "score": 89,
+      "failingMetricCount": 0
     },
     {
       "pageId": "urgent-care-cost",
       "label": "How Much Does an Urgent Care Visit Cost?",
       "group": "resources-ifp",
       "device": "desktop",
-      "status": "run-failed",
-      "score": null,
-      "failingMetricCount": 3
+      "status": "needs-improvement",
+      "score": 89,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "careers-benefits",
+      "label": "Careers — Benefits",
+      "group": "corporate",
+      "device": "mobile",
+      "status": "needs-improvement",
+      "score": 92,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "homepage",
+      "label": "Homepage",
+      "group": "core",
+      "device": "mobile",
+      "status": "needs-improvement",
+      "score": 92,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "medicare-advantage-to-medigap",
+      "label": "Can I Switch from Medicare Advantage to Medigap?",
+      "group": "medicare",
+      "device": "mobile",
+      "status": "needs-improvement",
+      "score": 92,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "medicare-part-b-giveback",
+      "label": "Medicare Part B Give-Back (Social Security)",
+      "group": "medicare",
+      "device": "mobile",
+      "status": "needs-improvement",
+      "score": 92,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "two-health-insurance-plans",
+      "label": "Can You Have Two Health Insurance Plans?",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "needs-improvement",
+      "score": 92,
+      "failingMetricCount": 0
+    },
+    {
+      "pageId": "urgent-care-cost",
+      "label": "How Much Does an Urgent Care Visit Cost?",
+      "group": "resources-ifp",
+      "device": "mobile",
+      "status": "needs-improvement",
+      "score": 92,
+      "failingMetricCount": 0
     }
   ],
   "recentRunHistoryByPage": {
     "homepage": [
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "desktop",
+        "status": "needs-improvement",
+        "lcp": 1205
       },
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
-      },
-      {
-        "runId": "2026-06-02T14-00-00Z",
-        "fetchTime": "2026-06-02T16:19:41.855Z",
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
         "device": "mobile",
-        "status": "failing",
-        "lcp": 2863.3828000000003
+        "status": "needs-improvement",
+        "lcp": 953
       }
     ],
     "medicare-part-b-giveback": [
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "desktop",
+        "status": "needs-improvement",
+        "lcp": 1205
       },
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "mobile",
+        "status": "needs-improvement",
+        "lcp": 953
       }
     ],
     "individual-insurance-cost": [
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "desktop",
+        "status": "needs-improvement",
+        "lcp": 3048
       },
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "mobile",
+        "status": "needs-improvement",
+        "lcp": 3594
       }
     ],
     "dependent-on-health-plan": [
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "desktop",
+        "status": "needs-improvement",
+        "lcp": 3594
       },
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "mobile",
+        "status": "failing",
+        "lcp": 4635
       }
     ],
     "careers-benefits": [
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "desktop",
+        "status": "needs-improvement",
+        "lcp": 1205
       },
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "mobile",
+        "status": "needs-improvement",
+        "lcp": 953
       }
     ],
     "two-health-insurance-plans": [
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "desktop",
+        "status": "needs-improvement",
+        "lcp": 1205
       },
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "mobile",
+        "status": "needs-improvement",
+        "lcp": 953
       }
     ],
     "medicare-eligibility-retire-62": [
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "desktop",
+        "status": "needs-improvement",
+        "lcp": 3048
       },
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "mobile",
+        "status": "needs-improvement",
+        "lcp": 3594
       }
     ],
     "out-of-pocket-maximum": [
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "desktop",
+        "status": "needs-improvement",
+        "lcp": 3594
       },
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "mobile",
+        "status": "failing",
+        "lcp": 4635
       }
     ],
     "medicare-advantage-to-medigap": [
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "desktop",
+        "status": "needs-improvement",
+        "lcp": 1205
       },
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "mobile",
+        "status": "needs-improvement",
+        "lcp": 953
       }
     ],
     "urgent-care-cost": [
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "desktop",
+        "status": "needs-improvement",
+        "lcp": 1205
       },
       {
-        "runId": "2026-06-03T19-24-55Z",
-        "fetchTime": "",
-        "device": "unknown",
-        "status": "run-failed",
-        "lcp": null
+        "runId": "mock-2026-06-03T22-01-01Z",
+        "fetchTime": "2026-06-03T22:01:01.228Z",
+        "device": "mobile",
+        "status": "needs-improvement",
+        "lcp": 953
       }
     ]
   },
@@ -455,40 +448,40 @@
       "group": "core",
       "results": {
         "mobile": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 92,
+            "accessibility": 98,
+            "best-practices": 89,
+            "seo": 92
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 953,
+            "cls": 3.19,
+            "tbt": 36,
+            "fcp": 694,
+            "si": 1236
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/homepage.mobile.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/homepage.mobile.report.json"
         },
         "desktop": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 89,
+            "accessibility": 95,
+            "best-practices": 98,
+            "seo": 89
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 1205,
+            "cls": 6.68,
+            "tbt": 37,
+            "fcp": 1255,
+            "si": 2158
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/homepage.desktop.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/homepage.desktop.report.json"
         }
       }
     },
@@ -499,40 +492,40 @@
       "group": "medicare",
       "results": {
         "mobile": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 92,
+            "accessibility": 98,
+            "best-practices": 89,
+            "seo": 92
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 953,
+            "cls": 3.19,
+            "tbt": 36,
+            "fcp": 694,
+            "si": 1236
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-part-b-giveback.mobile.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-part-b-giveback.mobile.report.json"
         },
         "desktop": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 89,
+            "accessibility": 95,
+            "best-practices": 98,
+            "seo": 89
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 1205,
+            "cls": 6.68,
+            "tbt": 37,
+            "fcp": 1255,
+            "si": 2158
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-part-b-giveback.desktop.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-part-b-giveback.desktop.report.json"
         }
       }
     },
@@ -543,40 +536,40 @@
       "group": "resources-ifp",
       "results": {
         "mobile": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 77,
+            "accessibility": 59,
+            "best-practices": 77,
+            "seo": 68
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 3594,
+            "cls": 16.26,
+            "tbt": 407,
+            "fcp": 2860,
+            "si": 6521
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/individual-insurance-cost.mobile.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/individual-insurance-cost.mobile.report.json"
         },
         "desktop": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 75,
+            "accessibility": 57,
+            "best-practices": 75,
+            "seo": 66
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 3048,
+            "cls": 23.81,
+            "tbt": 559,
+            "fcp": 1997,
+            "si": 5700
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/individual-insurance-cost.desktop.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/individual-insurance-cost.desktop.report.json"
         }
       }
     },
@@ -587,40 +580,40 @@
       "group": "resources-ifp",
       "results": {
         "mobile": {
-          "status": "run-failed",
+          "status": "failing",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 43,
+            "accessibility": 25,
+            "best-practices": 43,
+            "seo": 34
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 4635,
+            "cls": 27.37,
+            "tbt": 1297,
+            "fcp": 4014,
+            "si": 8143
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/dependent-on-health-plan.mobile.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/dependent-on-health-plan.mobile.report.json"
         },
         "desktop": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 77,
+            "accessibility": 59,
+            "best-practices": 77,
+            "seo": 68
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 3594,
+            "cls": 16.26,
+            "tbt": 407,
+            "fcp": 2860,
+            "si": 6521
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/dependent-on-health-plan.desktop.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/dependent-on-health-plan.desktop.report.json"
         }
       }
     },
@@ -631,40 +624,40 @@
       "group": "corporate",
       "results": {
         "mobile": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 92,
+            "accessibility": 98,
+            "best-practices": 89,
+            "seo": 92
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 953,
+            "cls": 3.19,
+            "tbt": 36,
+            "fcp": 694,
+            "si": 1236
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/careers-benefits.mobile.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/careers-benefits.mobile.report.json"
         },
         "desktop": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 89,
+            "accessibility": 95,
+            "best-practices": 98,
+            "seo": 89
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 1205,
+            "cls": 6.68,
+            "tbt": 37,
+            "fcp": 1255,
+            "si": 2158
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/careers-benefits.desktop.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/careers-benefits.desktop.report.json"
         }
       }
     },
@@ -675,40 +668,40 @@
       "group": "resources-ifp",
       "results": {
         "mobile": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 92,
+            "accessibility": 98,
+            "best-practices": 89,
+            "seo": 92
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 953,
+            "cls": 3.19,
+            "tbt": 36,
+            "fcp": 694,
+            "si": 1236
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/two-health-insurance-plans.mobile.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/two-health-insurance-plans.mobile.report.json"
         },
         "desktop": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 89,
+            "accessibility": 95,
+            "best-practices": 98,
+            "seo": 89
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 1205,
+            "cls": 6.68,
+            "tbt": 37,
+            "fcp": 1255,
+            "si": 2158
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/two-health-insurance-plans.desktop.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/two-health-insurance-plans.desktop.report.json"
         }
       }
     },
@@ -719,40 +712,40 @@
       "group": "medicare",
       "results": {
         "mobile": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 77,
+            "accessibility": 59,
+            "best-practices": 77,
+            "seo": 68
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 3594,
+            "cls": 16.26,
+            "tbt": 407,
+            "fcp": 2860,
+            "si": 6521
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-eligibility-retire-62.mobile.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-eligibility-retire-62.mobile.report.json"
         },
         "desktop": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 75,
+            "accessibility": 57,
+            "best-practices": 75,
+            "seo": 66
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 3048,
+            "cls": 23.81,
+            "tbt": 559,
+            "fcp": 1997,
+            "si": 5700
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-eligibility-retire-62.desktop.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-eligibility-retire-62.desktop.report.json"
         }
       }
     },
@@ -763,40 +756,40 @@
       "group": "resources-ifp",
       "results": {
         "mobile": {
-          "status": "run-failed",
+          "status": "failing",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 43,
+            "accessibility": 25,
+            "best-practices": 43,
+            "seo": 34
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 4635,
+            "cls": 27.37,
+            "tbt": 1297,
+            "fcp": 4014,
+            "si": 8143
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/out-of-pocket-maximum.mobile.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/out-of-pocket-maximum.mobile.report.json"
         },
         "desktop": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 77,
+            "accessibility": 59,
+            "best-practices": 77,
+            "seo": 68
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 3594,
+            "cls": 16.26,
+            "tbt": 407,
+            "fcp": 2860,
+            "si": 6521
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/out-of-pocket-maximum.desktop.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/out-of-pocket-maximum.desktop.report.json"
         }
       }
     },
@@ -807,40 +800,40 @@
       "group": "medicare",
       "results": {
         "mobile": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 92,
+            "accessibility": 98,
+            "best-practices": 89,
+            "seo": 92
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 953,
+            "cls": 3.19,
+            "tbt": 36,
+            "fcp": 694,
+            "si": 1236
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-advantage-to-medigap.mobile.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-advantage-to-medigap.mobile.report.json"
         },
         "desktop": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 89,
+            "accessibility": 95,
+            "best-practices": 98,
+            "seo": 89
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 1205,
+            "cls": 6.68,
+            "tbt": 37,
+            "fcp": 1255,
+            "si": 2158
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-advantage-to-medigap.desktop.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/medicare-advantage-to-medigap.desktop.report.json"
         }
       }
     },
@@ -851,40 +844,40 @@
       "group": "resources-ifp",
       "results": {
         "mobile": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 92,
+            "accessibility": 98,
+            "best-practices": 89,
+            "seo": 92
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 953,
+            "cls": 3.19,
+            "tbt": 36,
+            "fcp": 694,
+            "si": 1236
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/urgent-care-cost.mobile.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/urgent-care-cost.mobile.report.json"
         },
         "desktop": {
-          "status": "run-failed",
+          "status": "needs-improvement",
           "scores": {
-            "performance": 0,
-            "accessibility": 0,
-            "best-practices": 0,
-            "seo": 0
+            "performance": 89,
+            "accessibility": 95,
+            "best-practices": 98,
+            "seo": 89
           },
           "metrics": {
-            "lcp": null,
-            "cls": null,
-            "tbt": null,
-            "fcp": null,
-            "si": null
+            "lcp": 1205,
+            "cls": 6.68,
+            "tbt": 37,
+            "fcp": 1255,
+            "si": 2158
           },
-          "reportHtmlPath": "",
-          "reportJsonPath": ""
+          "reportHtmlPath": "reports/runs/mock-2026-06-03T22-01-01Z/urgent-care-cost.desktop.report.html",
+          "reportJsonPath": "reports/runs/mock-2026-06-03T22-01-01Z/urgent-care-cost.desktop.report.json"
         }
       }
     }

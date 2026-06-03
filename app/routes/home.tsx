@@ -180,6 +180,8 @@ function AttentionCarousel({
   onViewReport: (path: string) => void;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [animKey, setAnimKey] = useState(0);
+  const [direction, setDirection] = useState<"left" | "right">("right");
   const safeIndex = Math.min(
     currentIndex,
     Math.max(0, priorityPages.length - 1),
@@ -260,6 +262,8 @@ function AttentionCarousel({
       {/* Card */}
       {page && result ? (
         <AttentionCard
+          key={animKey}
+          direction={direction}
           page={page}
           result={result}
           entry={entry}
@@ -278,7 +282,11 @@ function AttentionCarousel({
       {priorityPages.length > 1 && (
         <div className="flex items-center justify-center gap-3 mt-4">
           <button
-            onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
+            onClick={() => {
+              setDirection("left");
+              setCurrentIndex((i) => Math.max(0, i - 1));
+              setAnimKey((k) => k + 1);
+            }}
             disabled={safeIndex === 0}
             className="w-8 h-8 rounded-full border border-border bg-surface flex items-center justify-center text-on-surface-dark hover:bg-surface-subtle disabled:opacity-30 transition-colors"
             aria-label="Previous page"
@@ -304,7 +312,11 @@ function AttentionCarousel({
             {priorityPages.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setCurrentIndex(i)}
+                onClick={() => {
+                  setDirection(i > safeIndex ? "right" : "left");
+                  setCurrentIndex(i);
+                  setAnimKey((k) => k + 1);
+                }}
                 aria-label={`Go to card ${i + 1}`}
                 className={`rounded-full transition-all duration-200 ${
                   i === safeIndex
@@ -316,9 +328,11 @@ function AttentionCarousel({
           </div>
 
           <button
-            onClick={() =>
-              setCurrentIndex((i) => Math.min(priorityPages.length - 1, i + 1))
-            }
+            onClick={() => {
+              setDirection("right");
+              setCurrentIndex((i) => Math.min(priorityPages.length - 1, i + 1));
+              setAnimKey((k) => k + 1);
+            }}
             disabled={safeIndex === priorityPages.length - 1}
             className="w-8 h-8 rounded-full border border-border bg-surface flex items-center justify-center text-on-surface-dark hover:bg-surface-subtle disabled:opacity-30 transition-colors"
             aria-label="Next page"
@@ -348,12 +362,14 @@ function AttentionCarousel({
 // ─── AttentionCard ────────────────────────────────────────────────────────────
 
 function AttentionCard({
+  direction,
   page,
   result,
   entry,
   selectedCategory,
   onViewReport,
 }: {
+  direction: "left" | "right";
   page: PageEntry;
   result: DeviceResult;
   entry: PriorityEntry;
@@ -373,7 +389,13 @@ function AttentionCard({
   };
 
   return (
-    <div className="rounded-xl border border-border bg-surface shadow-sm p-5">
+    <div
+      className={`rounded-xl border border-border bg-surface shadow-sm p-5 ${
+        direction === "right"
+          ? "hero-card-animate-from-right"
+          : "hero-card-animate-from-left"
+      }`}
+    >
       {/* Top: gauge + page info */}
       <div className="flex items-start gap-4 mb-4">
         <div className="flex-shrink-0">
@@ -398,6 +420,16 @@ function AttentionCard({
           <h3 className="font-poppins font-bold text-[20px] text-on-surface leading-tight mb-0.5 truncate">
             {page.label}
           </h3>
+
+          <a
+            href={page.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-open-sans text-[11px] text-primary hover:underline truncate block mb-1"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {page.url}
+          </a>
 
           <p className="font-open-sans text-[11px] text-neutral uppercase tracking-wider mb-3">
             {page.group}
@@ -781,6 +813,15 @@ function RecentReportRow({
             </span>
             <DeviceBadge device={device} />
           </div>
+          <a
+            href={page.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-open-sans text-[11px] text-primary hover:underline truncate block"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {page.url}
+          </a>
           <span className="label">{page.group}</span>
         </div>
 
@@ -1042,36 +1083,6 @@ function ReportEmptyState() {
         </p>
       </div>
     </div>
-  );
-}
-
-// ─── StatusBadge (kept for test compatibility) ────────────────────────────────
-
-function StatusBadge({
-  status,
-  score,
-}: {
-  status: PageStatus;
-  score: number | null;
-}) {
-  const colorClass: Record<PageStatus, string> = {
-    good: "text-primary bg-surface-subtle",
-    "needs-improvement": "text-warning bg-surface-subtle",
-    failing: "text-error bg-surface-subtle",
-    "run-failed": "text-neutral bg-surface-muted",
-  };
-  const label: Record<PageStatus, string> = {
-    good: "Good",
-    "needs-improvement": "Needs Improvement",
-    failing: "Failing",
-    "run-failed": "Run Failed",
-  };
-  return (
-    <span
-      className={`inline-block font-open-sans font-bold text-[12px] rounded px-2 py-1 ${colorClass[status]}`}
-    >
-      {label[status]} {score !== null && `(${score})`}
-    </span>
   );
 }
 

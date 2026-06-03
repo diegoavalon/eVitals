@@ -227,7 +227,7 @@ describe("Home — AC-1/AC-3: Device selector + Score/Status render", () => {
 
     await waitFor(() => {
       // Mobile default: 1 passing out of 2 (homepage is good)
-      expect(screen.getByText(/pages passing/)).toBeInTheDocument();
+      expect(screen.getByText(/All pages are passing/)).toBeInTheDocument();
     });
   });
 
@@ -259,6 +259,23 @@ describe("Home — AC-1/AC-3: Device selector + Score/Status render", () => {
       expect(pageRows.length).toBeGreaterThan(0);
       const medicareRows = screen.getAllByText("medicare");
       expect(medicareRows.length).toBeGreaterThan(0);
+    });
+  });
+
+  it("renders clickable page URLs in the hero card and recent rows", async () => {
+    renderHome();
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("link", {
+          name: mockDashboardData.pages[1].url,
+        }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("link", {
+          name: mockDashboardData.pages[0].url,
+        }),
+      ).toBeInTheDocument();
     });
   });
 });
