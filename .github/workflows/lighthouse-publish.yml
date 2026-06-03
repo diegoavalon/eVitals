@@ -28,10 +28,10 @@ jobs:
 
     steps:
       # Stage 1: Setup
-      - name: "[1/6] Checkout main branch"
+      - name: "[1/6] Checkout master branch"
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: master
           fetch-depth: 1
 
       - name: "[1/6] Restore gh-pages branch to public/"
@@ -50,9 +50,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
 
       - name: "[2/6] Setup pnpm"
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v3
         with:
           version: ${{ env.PNPM_VERSION }}
 
@@ -114,16 +115,16 @@ jobs:
 
       # Stage 6: Publish to gh-pages
       - name: "[6/6] Setup Pages"
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: "[6/6] Upload artifacts to Pages"
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: public
 
       - name: "[6/6] Deploy to GitHub Pages"
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       # Final status
       - name: Workflow completed successfully
