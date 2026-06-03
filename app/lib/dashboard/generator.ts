@@ -1,5 +1,10 @@
 import type { DashboardConfig, PageRegistry } from "~/lib/config";
-import type { LighthouseMetricStatuses, LighthouseRunResult, MetricStatus } from "~/lib/lighthouse";
+import type {
+  LighthouseFailure,
+  LighthouseMetricStatuses,
+  LighthouseRunResult,
+  MetricStatus,
+} from "~/lib/lighthouse";
 import { CLS_NI_THRESHOLD, LCP_NI_THRESHOLD, TBT_NI_THRESHOLD } from "~/lib/lighthouse";
 import type {
   AggregateBucket,
@@ -27,6 +32,7 @@ export interface RunManifestEntry {
   fetchTime: string;
   reportJsonPath: string;
   reportHtmlPath: string;
+  failure?: LighthouseFailure;
 }
 
 export interface RunManifest {
@@ -322,6 +328,7 @@ export function generateRunManifests(input: GeneratorInput): RunManifest[] {
           fetchTime: item.result.fetchTime,
           reportJsonPath: item.result.reportJsonPath,
           reportHtmlPath: item.result.reportHtmlPath,
+          failure: item.result.failure,
         };
       })
       .sort((a, b) => (a.pageId === b.pageId ? a.device.localeCompare(b.device) : a.pageId.localeCompare(b.pageId)));

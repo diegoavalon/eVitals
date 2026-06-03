@@ -74,6 +74,13 @@ export interface LighthouseRunResult {
   categoryStatuses: LighthouseCategoryStatuses;
   reportJsonPath: string;
   reportHtmlPath: string;
+  failure?: LighthouseFailure;
+}
+
+export interface LighthouseFailure {
+  reason: string;
+  timedOut: boolean;
+  attempts: number;
 }
 
 /** Options passed to parseLighthouseReport. */
