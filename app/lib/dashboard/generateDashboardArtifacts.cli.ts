@@ -73,7 +73,17 @@ async function main(cwd = process.cwd()): Promise<number> {
       for (const manifest of manifests) {
         for (const entry of manifest.results) {
           if (entry.status === "run-failed") {
-            // Skip failed runs; only process successful reports
+            // Include failed runs in parsedResults as null to show failures in dashboard
+            // This ensures failed audits are visible rather than hidden
+            parsedResults.push({
+              pageId: entry.pageId,
+              result: parseLighthouseReport(null, {
+                runId: manifest.runId,
+                enabledCategories: config.enabledCategories,
+                reportJsonPath: entry.reportJsonPath,
+                reportHtmlPath: entry.reportHtmlPath,
+              }),
+            });
             continue;
           }
 
