@@ -71,7 +71,7 @@ function normalizeConcurrency(value: number): number {
 }
 
 function normalizeAttempts(retryCount: number): number {
-  return Math.max(1, Math.floor(retryCount) + 1);
+  return Number.isFinite(retryCount) ? Math.max(1, Math.floor(retryCount) + 1) : 1;
 }
 
 function formatFailure(error: unknown, attempts: number, timedOut: boolean): LighthouseFailure {
@@ -142,16 +142,31 @@ export function resolveLocalLighthouseCliPath(cwd = process.cwd()): string {
 
   try {
     const packageJsonPath = require.resolve("lighthouse/package.json", { paths: [cwd] });
-    const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8")) as {
-      bin?: string | Record<string, string>;
-    };
+    let packageJson: { bin?: string | Record<string, string> };
+
+    try {
+      packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8")) as {
+        bin?: string | Record<string, string>;
+      };
+    } catch (error) {
+      throw new Error(
+        `Unable to parse Lighthouse package metadata at ${packageJsonPath}: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      );
+    }
+
     const binPath =
       typeof packageJson.bin === "string" ? packageJson.bin : packageJson.bin?.lighthouse;
 
     if (typeof binPath === "string" && binPath.length > 0) {
       return path.resolve(path.dirname(packageJsonPath), binPath);
     }
-  } catch {
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith("Unable to parse Lighthouse package metadata")) {
+      throw error;
+    }
+
     // Fall back to the standard local bin shim path when the package is absent
     // or package metadata cannot be resolved from the current working directory.
   }
@@ -198,14 +213,14 @@ async function executeLighthouseCli(input: {
     `lighthouse-${input.task.pageId}-${input.task.device}-${input.attempt}-${randomUUID()}`,
   );
 
-  const deviceArgs =
-    input.task.device === "desktop"
-      ? ["--preset=desktop"]
-      : input.task.device === "mobile"
-        ? ["--emulated-form-factor=mobile"]
-        : (() => {
-            throw new Error(`Unsupported Lighthouse device "${input.task.device}"`);
-          })();
+  let deviceArgs: string[];
+  if (input.task.device === "desktop") {
+    deviceArgs = ["--preset=desktop"];
+  } else if (input.task.device === "mobile") {
+    deviceArgs = ["--emulated-form-factor=mobile"];
+  } else {
+    throw new Error(`Unsupported Lighthouse device "${input.task.device}"`);
+  }
 
   const args = [
     input.task.url,
