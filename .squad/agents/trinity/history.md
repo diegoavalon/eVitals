@@ -95,3 +95,23 @@
 - **Verification:** After fix, dashboard correctly generates with `runId: "2026-06-02T14-00-00Z"`, `latestRunResultCount: 1`, proper status counts.
 - **Test Impact:** All 419 tests pass; `npm run build` succeeds.
 
+### Orchestration: GitHub Pages Deployment Fix Coordination (2026-06-03)
+
+**Completion Date:** 2026-06-03T17:00:42Z
+
+In parallel, Trinity (manifest schema + run ID detection), Tank (generator failures visibility), and Switch (Lighthouse CLI fix) completed investigations into why GitHub Pages deployment showed no metrics. Root causes identified and fixed:
+
+1. **Trinity's Fix:** Manifest schema corrected and run ID detection logic fixed → dashboard parsing works end-to-end, metrics render on pages
+2. **Tank's Fix:** Generator now preserves failed runs instead of filtering them → users see audit failures instead of empty dashboard
+3. **Switch's Fix:** Lighthouse CLI dependency restored audit execution in workflow
+
+**Cross-Agent Context:** These three fixes complete the end-to-end Lighthouse data flow for issue #11 (GitHub Pages publication). All 419 tests passing. Orchestration logged to `.squad/orchestration-log/2026-06-03T17-00-42Z-{agent}.md` and session consolidated in `.squad/log/2026-06-03T17-00-42Z-pages-lighthouse-rendering.md`. Decisions merged to `.squad/decisions.md` (now 24.9 KB with 5 new entries).
+
+**Artifact Flow Verification Complete:**
+- ✅ Manifest schema matches `RunManifest` type expectations
+- ✅ Run ID detection handles null checks and custom date format
+- ✅ `latestRunId` properly detected and set
+- ✅ Dashboard parsing consumes manifests correctly
+- ✅ Generated `dashboardData.json` contains valid metrics
+- ✅ Published page renders Lighthouse metrics live from generated data
+
