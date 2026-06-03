@@ -10,7 +10,12 @@ import { useDashboardFilters } from "~/lib/DashboardFiltersContext";
 function LogoIcon() {
   return (
     <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary">
-      <svg className="size-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <svg
+        className="size-5"
+        viewBox="0 0 20 20"
+        fill="none"
+        aria-hidden="true"
+      >
         <path
           d="M1 10h3.5l2-5.5 4 11 2-5.5H19"
           stroke="#ffffff"
@@ -25,16 +30,31 @@ function LogoIcon() {
 
 function SearchIcon() {
   return (
-    <svg className="size-4 shrink-0" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg
+      className="size-4 shrink-0"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
       <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M10.5 10.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M10.5 10.5L13 13"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 function RefreshIcon() {
   return (
-    <svg className="size-4 shrink-0" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg
+      className="size-4 shrink-0"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2v3.5H10"
         stroke="currentColor"
@@ -48,7 +68,12 @@ function RefreshIcon() {
 
 function MoonIcon() {
   return (
-    <svg className="size-4 shrink-0" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg
+      className="size-4 shrink-0"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M13.5 9.5A6 6 0 0 1 6.5 2.5a6 6 0 1 0 7 7z"
         stroke="currentColor"
@@ -100,8 +125,13 @@ function AppNavLink({
 /* ------------------------------------------------------------------ */
 
 export function AppHeader() {
-  const { selectedDevice, setSelectedDevice, selectedCategory, setSelectedCategory, config } =
-    useDashboardFilters();
+  const {
+    selectedDevice,
+    setSelectedDevice,
+    selectedCategory,
+    setSelectedCategory,
+    config,
+  } = useDashboardFilters();
 
   const deviceItems = config.devices.map((d) => ({
     value: d,
@@ -119,7 +149,6 @@ export function AppHeader() {
   return (
     <header className="sticky top-0 z-40 bg-surface border-b border-border shadow-sm">
       <div className="flex h-16 items-center gap-2 px-6">
-
         {/* ── Logo ── */}
         <div className="flex items-center gap-2.5 mr-4">
           <LogoIcon />
@@ -130,8 +159,12 @@ export function AppHeader() {
 
         {/* ── Nav ── */}
         <nav className="flex items-center gap-0.5" aria-label="Main navigation">
-          <AppNavLink to="/" end>Home</AppNavLink>
-          <AppNavLink to="/pages" icon={<SearchIcon />}>All Pages</AppNavLink>
+          <AppNavLink to="/" end>
+            Home
+          </AppNavLink>
+          <AppNavLink to="/all-pages" icon={<SearchIcon />}>
+            All Pages
+          </AppNavLink>
           <AppNavLink to="/trends">Trends</AppNavLink>
           <AppNavLink to="/settings">Settings</AppNavLink>
         </nav>
@@ -186,7 +219,6 @@ export function AppHeader() {
         >
           <MoonIcon />
         </button>
-
       </div>
     </header>
   );
