@@ -1,4 +1,4 @@
-import { unlinkSync, readdirSync, rmdirSync } from "fs";
+import { unlinkSync, readdirSync, rmdirSync, existsSync } from "fs";
 import { dirname, join } from "path";
 import type { DashboardData } from "~/lib/dashboard.types";
 
@@ -64,6 +64,32 @@ function collectArtifactsForRunId(data: DashboardData, runId: string): Set<strin
       }
     });
   });
+
+  return artifacts;
+}
+
+/**
+ * Discover artifact files on disk for a given runId by scanning the filesystem.
+ * This handles cases where artifact paths are not tracked in the dashboard data.
+ */
+function discoverArtifactsFromFilesystem(artifactsDir: string, runId: string): Set<string> {
+  const artifacts = new Set<string>();
+  const runArtifactDir = join(artifactsDir, "reports", "runs", runId);
+
+  if (!existsSync(runArtifactDir)) {
+    return artifacts;
+  }
+
+  try {
+    const files = readdirSync(runArtifactDir);
+    files.forEach((file) => {
+      // Store relative path from artifactsDir
+      const relativePath = `reports/runs/${runId}/${file}`;
+      artifacts.add(relativePath);
+    });
+  } catch {
+    // Directory doesn't exist or is not readable
+  }
 
   return artifacts;
 }
@@ -157,7 +183,12 @@ export function prune(data: DashboardData, artifactsDir: string, limit: number):
   // Collect all artifacts for runs being deleted
   const allDeletedArtifacts = new Set<string>();
   toRemove.forEach((runId) => {
+    // First, try to collect artifacts from tracked paths
     collectArtifactsForRunId(data, runId).forEach((artifact) => {
+      allDeletedArtifacts.add(artifact);
+    });
+    // Also discover artifacts from the filesystem (for untracked files)
+    discoverArtifactsFromFilesystem(artifactsDir, runId).forEach((artifact) => {
       allDeletedArtifacts.add(artifact);
     });
   });
