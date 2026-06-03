@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, type ReactNode } from "react";
+import { useState, useMemo, useRef, useEffect, type ReactNode } from "react";
 import { useDashboardData } from "~/lib/useDashboardData";
 import type {
   PageStatus,
@@ -13,8 +13,24 @@ import { useDashboardFilters } from "~/lib/DashboardFiltersContext";
 
 export default function Home() {
   const state = useDashboardData();
-  const [reportPath, setReportPath] = useState<string | null>(null);
+  const [activeReport, setActiveReport] = useState<{
+    path: string;
+    result: DeviceResult;
+  } | null>(null);
+  const [bannerVisible, setBannerVisible] = useState(false);
   const { selectedDevice, selectedCategory } = useDashboardFilters();
+
+  useEffect(() => {
+    if (activeReport !== null) {
+      const t = setTimeout(() => setBannerVisible(true), 350);
+      return () => clearTimeout(t);
+    }
+    setBannerVisible(false);
+  }, [activeReport]);
+
+  const openReport = (path: string, result: DeviceResult) =>
+    setActiveReport({ path, result });
+  const closeReport = () => setActiveReport(null);
 
   if (state.status === "loading") {
     return (
@@ -59,7 +75,7 @@ export default function Home() {
           data={data}
           selectedDevice={selectedDevice}
           selectedCategory={selectedCategory}
-          onViewReport={setReportPath}
+          onViewReport={openReport}
         />
 
         <RecentReportsSection
@@ -67,19 +83,23 @@ export default function Home() {
           selectedDevice={selectedDevice}
           selectedCategory={selectedCategory}
           enabledCategories={data.enabledCategories}
-          onViewReport={setReportPath}
+          onViewReport={openReport}
         />
       </div>
 
       <EhiDrawer
-        open={reportPath !== null}
+        open={activeReport !== null}
         onOpenChange={(isOpen) => {
-          if (!isOpen) setReportPath(null);
+          if (!isOpen) closeReport();
         }}
         title="Lighthouse Report"
       >
-        {reportPath && <ReportFrame src={reportPath} />}
+        {activeReport && <ReportFrame src={activeReport.path} />}
       </EhiDrawer>
+
+      {activeReport && (
+        <AuditBanner result={activeReport.result} visible={bannerVisible} />
+      )}
     </main>
   );
 }
@@ -95,7 +115,7 @@ function HeroSection({
   data: DashboardData;
   selectedDevice: string;
   selectedCategory: string;
-  onViewReport: (path: string) => void;
+  onViewReport: (path: string, result: DeviceResult) => void;
 }) {
   const filteredPriority = useMemo(
     () => data.priority.filter((e) => e.device === selectedDevice),
@@ -177,7 +197,7 @@ function AttentionCarousel({
   data: DashboardData;
   selectedDevice: string;
   selectedCategory: string;
-  onViewReport: (path: string) => void;
+  onViewReport: (path: string, result: DeviceResult) => void;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animKey, setAnimKey] = useState(0);
@@ -374,7 +394,7 @@ function AttentionCard({
   result: DeviceResult;
   entry: PriorityEntry;
   selectedCategory: string;
-  onViewReport: (path: string) => void;
+  onViewReport: (path: string, result: DeviceResult) => void;
 }) {
   const score =
     result.status === "run-failed"
@@ -437,7 +457,7 @@ function AttentionCard({
 
           {result.reportHtmlPath && (
             <button
-              onClick={() => onViewReport(result.reportHtmlPath)}
+              onClick={() => onViewReport(result.reportHtmlPath, result)}
               className="font-open-sans font-bold text-[13px] text-on-surface hover:text-primary transition-colors flex items-center gap-0.5"
             >
               Full report
@@ -699,7 +719,7 @@ function RecentReportsSection({
   selectedDevice: string;
   selectedCategory: string;
   enabledCategories: string[];
-  onViewReport: (path: string) => void;
+  onViewReport: (path: string, result: DeviceResult) => void;
 }) {
   const rows = useMemo(() => {
     return data.pages
@@ -778,7 +798,7 @@ function RecentReportRow({
   selectedCategory: string;
   enabledCategories: string[];
   isLast: boolean;
-  onViewReport: (path: string) => void;
+  onViewReport: (path: string, result: DeviceResult) => void;
 }) {
   return (
     <div className={isLast ? "" : "border-b border-border"}>
@@ -836,7 +856,7 @@ function RecentReportRow({
             variant="link"
             onClick={(e) => {
               e.stopPropagation();
-              onViewReport(result.reportHtmlPath);
+              onViewReport(result.reportHtmlPath, result);
             }}
           >
             Full Report
@@ -1081,6 +1101,87 @@ function ReportEmptyState() {
           This Lighthouse report hasn't been generated yet. Run a new scan to
           generate it.
         </p>
+      </div>
+    </div>
+  );
+}
+
+// ─── AuditBanner ─────────────────────────────────────────────────────────────
+
+function AuditBanner({
+  result,
+  visible,
+}: {
+  result: DeviceResult;
+  visible: boolean;
+}) {
+  const worstMetric = getWorstMetricKey(result.metrics);
+  const isActionable =
+    worstMetric !== null &&
+    result.metrics[worstMetric] !== null &&
+    getMetricStatus(worstMetric, result.metrics[worstMetric]!) !== "good";
+
+  return (
+    <div
+      className={`fixed bottom-6 left-6 z-60 w-72 transition-all duration-500 ease-out ${
+        visible
+          ? "translate-y-0 opacity-100"
+          : "translate-y-full opacity-0 pointer-events-none"
+      }`}
+    >
+      <div
+        className="rounded-2xl border border-border shadow-lg overflow-hidden"
+        style={{
+          background: "linear-gradient(160deg, #eef5eb 0%, #ffffff 60%)",
+        }}
+      >
+        <div className="p-4">
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-[#ddeedd] flex items-center justify-center shrink-0 text-primary font-bold text-body-sm">
+              ✦
+            </div>
+            <div>
+              <p className="font-poppins font-bold text-lg text-on-surface leading-tight">
+                AI performance audit
+              </p>
+              <p className="font-open-sans text-label-sm text-neutral">
+                Ranked fixes from this trace
+              </p>
+            </div>
+          </div>
+
+          {/* Body */}
+          <p className="font-open-sans text-[13px] text-on-surface-dark leading-relaxed mb-4">
+            {isActionable && worstMetric ? (
+              <>
+                This run fails{" "}
+                <strong
+                  className={
+                    STATUS_TEXT_CLASS[
+                      getMetricStatus(worstMetric, result.metrics[worstMetric]!)
+                    ]
+                  }
+                >
+                  {worstMetric.toUpperCase()}
+                </strong>
+                . Generate a prioritized, impact-ranked fix list with copyable
+                code — no page re-run needed.
+              </>
+            ) : (
+              <>
+                Generate a prioritized fix list with copyable code — no page
+                re-run needed.
+              </>
+            )}
+          </p>
+
+          {/* CTA */}
+          <EhiButton className="w-full" variant="primary" size="small">
+            <span className="">✦</span>
+            Request AI audit
+          </EhiButton>
+        </div>
       </div>
     </div>
   );

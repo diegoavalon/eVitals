@@ -1,6 +1,8 @@
 import { Button } from "@base-ui/react/button";
 import { cn } from "../../utils/cn";
 
+type EhiButtonSize = "small" | "medium" | "large";
+
 type EhiButtonVariant =
   | "primary"
   | "primary-alt"
@@ -11,10 +13,14 @@ type EhiButtonVariant =
   | "link"
   | "text-large";
 
-type EhiButtonProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, "className"> & {
+type EhiButtonProps = Omit<
+  React.ComponentPropsWithoutRef<typeof Button>,
+  "className"
+> & {
   /** Visual style variant of the button. */
   variant?: EhiButtonVariant;
   className?: string;
+  size?: EhiButtonSize;
 };
 
 const variantStyles: Record<EhiButtonVariant, string> = {
@@ -103,6 +109,19 @@ const variantStyles: Record<EhiButtonVariant, string> = {
   ].join(" "),
 };
 
+const sizeStyles: Record<EhiButtonSize, string> = {
+  small: [
+    // compact control size
+    "h-10! px-4! py-1.5!",
+    "text-[16px]! leading-[24px]!",
+  ].join(" "),
+  medium: "",
+  large: [
+    // larger touch target and spacing
+    "h-14! px-8! py-3!",
+  ].join(" "),
+};
+
 const baseStyles = [
   "inline-flex items-center justify-center",
   "h-12 px-6 py-2 gap-1.5",
@@ -131,13 +150,19 @@ const baseStyles = [
  */
 export function EhiButton({
   variant = "primary",
+  size = "medium",
   className,
   children,
   ...props
 }: EhiButtonProps) {
   return (
     <Button
-      className={cn(baseStyles, variantStyles[variant], className)}
+      className={cn(
+        baseStyles,
+        sizeStyles[size],
+        variantStyles[variant],
+        className,
+      )}
       {...props}
     >
       {children}

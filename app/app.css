@@ -82,6 +82,10 @@ body {
   }
 }
 
+button {
+  cursor: pointer;
+}
+
 .root {
   isolation: isolate;
 }
