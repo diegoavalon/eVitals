@@ -88,7 +88,7 @@ jobs:
         id: runner
         run: |
           set +e
-          node --loader tsx app/lighthouse.runner.ts
+          pnpm exec tsx app/lighthouse.runner.ts
           RUNNER_EXIT=$?
           set -e
           
@@ -108,10 +108,10 @@ jobs:
 
       # Stage 5: Generate & Prune
       - name: "[5/6] Generate dashboard artifacts"
-        run: node --loader tsx app/lib/dashboard/generateDashboardArtifacts.cli.ts
+        run: pnpm exec tsx app/lib/dashboard/generateDashboardArtifacts.cli.ts
 
       - name: "[5/6] Prune old runs (retain 30)"
-        run: node --loader tsx app/lib/retention/prune.cli.ts --limit 30
+        run: pnpm exec tsx app/lib/retention/prune.cli.ts --limit 30
 
       # Stage 6: Publish to gh-pages
       - name: "[6/6] Setup Pages"
