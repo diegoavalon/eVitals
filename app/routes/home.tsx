@@ -1,15 +1,15 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, type ReactNode } from "react";
 import { useDashboardData } from "~/lib/useDashboardData";
 import type {
   PageStatus,
   DashboardData,
   PageEntry,
   DeviceResult,
+  PriorityEntry,
 } from "~/lib/dashboard.types";
 import { EhiButton } from "~/components/ui/EhiButton";
 import { EhiDrawer } from "~/components/ui/EhiDrawer";
 import { useDashboardFilters } from "~/lib/DashboardFiltersContext";
-import { withBasePath } from "~/lib/url";
 
 export default function Home() {
   const state = useDashboardData();
@@ -52,89 +52,23 @@ export default function Home() {
 
   const { data } = state;
 
-  // Compute passing count for headline
-  const passingCount = data.pages
-    .flatMap((page) => Object.entries(page.results))
-    .filter(([device]) => device === selectedDevice)
-    .filter(([, result]) => result.status === "good").length;
-  const totalPages = data.pages.length;
-
   return (
     <main className="bg-surface-canvas">
       <div className="container">
-        {/* Page headline */}
-        <header className="mb-8">
-          <h1 className="font-poppins font-bold text-[32px] text-primary leading-tight">
-            Dashboard
-          </h1>
-          <p className="font-open-sans text-[16px] text-on-surface-dark mt-2">
-            {passingCount} / {totalPages} pages passing{" "}
-            {formatCategoryName(selectedCategory)} ({selectedDevice}, latest
-            run)
-          </p>
-        </header>
+        <HeroSection
+          data={data}
+          selectedDevice={selectedDevice}
+          selectedCategory={selectedCategory}
+          onViewReport={setReportPath}
+        />
 
-        {/* Summary Section */}
-        <div className="mb-8 grid gap-6 md:grid-cols-4">
-          <SummaryCard
-            data={data}
-            selectedDevice={selectedDevice}
-            selectedCategory={selectedCategory}
-          />
-        </div>
-
-        {/* Status Counts */}
-        <div className="mb-8 grid gap-4 md:grid-cols-4">
-          <StatusCountCard
-            data={data}
-            selectedDevice={selectedDevice}
-            selectedCategory={selectedCategory}
-            status="good"
-            label="Passing"
-          />
-          <StatusCountCard
-            data={data}
-            selectedDevice={selectedDevice}
-            selectedCategory={selectedCategory}
-            status="needs-improvement"
-            label="Needs Improvement"
-          />
-          <StatusCountCard
-            data={data}
-            selectedDevice={selectedDevice}
-            selectedCategory={selectedCategory}
-            status="failing"
-            label="Failing"
-          />
-          <StatusCountCard
-            data={data}
-            selectedDevice={selectedDevice}
-            selectedCategory={selectedCategory}
-            status="run-failed"
-            label="Run Failed"
-          />
-        </div>
-
-        {/* Priority Card */}
-        <div className="mb-8">
-          <PrioritySection
-            data={data}
-            selectedDevice={selectedDevice}
-            selectedCategory={selectedCategory}
-            onViewReport={(path) => setReportPath(withBasePath(path))}
-          />
-        </div>
-
-        {/* Most Recent Reports */}
-        <div>
-          <RecentReportsSection
-            data={data}
-            selectedDevice={selectedDevice}
-            selectedCategory={selectedCategory}
-            enabledCategories={data.enabledCategories}
-            onViewReport={(path) => setReportPath(withBasePath(path))}
-          />
-        </div>
+        <RecentReportsSection
+          data={data}
+          selectedDevice={selectedDevice}
+          selectedCategory={selectedCategory}
+          enabledCategories={data.enabledCategories}
+          onViewReport={setReportPath}
+        />
       </div>
 
       <EhiDrawer
@@ -150,69 +84,9 @@ export default function Home() {
   );
 }
 
-function SummaryCard({
-  data,
-  selectedDevice,
-  selectedCategory,
-}: {
-  data: DashboardData;
-  selectedDevice: string;
-  selectedCategory: string;
-}) {
-  const categoryAggregate = data.aggregates.byCategory[selectedCategory];
-  const scoreToDisplay = categoryAggregate?.averageScore ?? 0;
+// ─── HeroSection ─────────────────────────────────────────────────────────────
 
-  return (
-    <div className="md:col-span-4 rounded-lg border border-border bg-surface p-6 shadow-sm">
-      <h2 className="font-poppins font-bold text-[20px] text-on-surface mb-2">
-        Overall {formatCategoryName(selectedCategory)} Score
-      </h2>
-      <div className="flex items-end gap-2">
-        <span className="font-poppins font-bold text-[48px] text-primary">
-          {Math.round(scoreToDisplay)}
-        </span>
-        <span className="font-open-sans text-[14px] text-on-surface-dark mb-2">
-          median score
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function StatusCountCard({
-  data,
-  selectedDevice,
-  selectedCategory,
-  status,
-  label,
-}: {
-  data: DashboardData;
-  selectedDevice: string;
-  selectedCategory: string;
-  status: PageStatus;
-  label: string;
-}) {
-  const count = data.pages
-    .flatMap((page) => Object.entries(page.results))
-    .filter(([device]) => device === selectedDevice)
-    .filter(([, result]) => result.status === status).length;
-
-  const bgClass: Record<PageStatus, string> = {
-    good: "bg-primary text-white",
-    "needs-improvement": "bg-warning text-on-surface",
-    failing: "bg-error text-white",
-    "run-failed": "bg-neutral text-white",
-  };
-
-  return (
-    <div className={`rounded-lg p-6 text-center ${bgClass[status]}`}>
-      <div className="font-poppins font-bold text-[32px]">{count}</div>
-      <div className="font-open-sans text-[14px] mt-1">{label}</div>
-    </div>
-  );
-}
-
-function PrioritySection({
+function HeroSection({
   data,
   selectedDevice,
   selectedCategory,
@@ -223,60 +97,399 @@ function PrioritySection({
   selectedCategory: string;
   onViewReport: (path: string) => void;
 }) {
-  const filteredPriority = useMemo(() => {
-    return data.priority.filter((entry) => entry.device === selectedDevice);
-  }, [data.priority, selectedDevice]);
+  const filteredPriority = useMemo(
+    () => data.priority.filter((e) => e.device === selectedDevice),
+    [data.priority, selectedDevice],
+  );
 
-  if (filteredPriority.length === 0) {
-    return null;
-  }
+  const passingCount = useMemo(
+    () =>
+      data.pages
+        .flatMap((page) => Object.entries(page.results))
+        .filter(([device]) => device === selectedDevice)
+        .filter(([, result]) => result.status === "good").length,
+    [data.pages, selectedDevice],
+  );
 
-  const topPriority = filteredPriority[0];
-  const page = data.pages.find((p) => p.pageId === topPriority.pageId);
-  const deviceResult = page?.results[selectedDevice];
+  const totalPages = data.pages.length;
+
+  const worstEntry = filteredPriority[0] ?? null;
+  const worstPage = worstEntry
+    ? (data.pages.find((p) => p.pageId === worstEntry.pageId) ?? null)
+    : null;
+  const worstResult = worstPage?.results[selectedDevice] ?? null;
 
   return (
-    <div className="rounded-lg border-2 border-alert bg-surface p-6 shadow-sm">
-      <h3 className="font-poppins font-bold text-[18px] text-alert mb-4">
-        Needs Attention First
-      </h3>
-      {page && deviceResult && (
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="font-poppins font-bold text-[16px] text-on-surface">
-              {page.label}
-            </p>
-            <p className="font-open-sans text-[14px] text-on-surface-dark mt-1">
-              {page.group}
-            </p>
-            <div className="mt-3 flex items-center gap-4">
-              <StatusBadge
-                status={topPriority.status}
-                score={topPriority.score}
-              />
-              {selectedCategory === "performance" && (
-                <div className="font-open-sans text-[14px] text-on-surface-dark">
-                  {topPriority.failingMetricCount} metric
-                  {topPriority.failingMetricCount !== 1 ? "s" : ""} failing
-                </div>
-              )}
-            </div>
-          </div>
-          {deviceResult.reportHtmlPath && (
-            <EhiButton
-              variant="secondary"
-              onClick={() => onViewReport(deviceResult.reportHtmlPath)}
-            >
-              View Report
-            </EhiButton>
+    <section className="mb-10 grid md:grid-cols-[1fr_1fr] gap-10 items-center">
+      {/* Left: prose summary */}
+      <div>
+        <div className="inline-flex items-center gap-2 bg-surface border border-border rounded-full px-3 py-1 mb-6">
+          <span className="w-2 h-2 rounded-full bg-primary inline-block flex-shrink-0" />
+          <span className="font-open-sans text-[13px] text-on-surface-dark">
+            Daily digest · {capitalize(selectedDevice)} ·{" "}
+            {formatCategoryName(selectedCategory)}
+          </span>
+        </div>
+
+        <h1 className="font-poppins font-bold text-[52px] leading-[1.1] text-on-surface mb-5">
+          <span className="italic text-primary">
+            {passingCount} of {totalPages}
+          </span>{" "}
+          key pages
+          <br />
+          pass every core vital.
+        </h1>
+
+        <p className="font-open-sans text-lg text-on-surface-dark leading-relaxed">
+          {generateInsightText(
+            worstEntry,
+            worstPage,
+            worstResult,
+            selectedCategory,
+            passingCount,
+            totalPages,
           )}
+        </p>
+      </div>
+
+      {/* Right: attention carousel */}
+      <AttentionCarousel
+        priorityPages={filteredPriority}
+        data={data}
+        selectedDevice={selectedDevice}
+        selectedCategory={selectedCategory}
+        onViewReport={onViewReport}
+      />
+    </section>
+  );
+}
+
+// ─── AttentionCarousel ────────────────────────────────────────────────────────
+
+function AttentionCarousel({
+  priorityPages,
+  data,
+  selectedDevice,
+  selectedCategory,
+  onViewReport,
+}: {
+  priorityPages: PriorityEntry[];
+  data: DashboardData;
+  selectedDevice: string;
+  selectedCategory: string;
+  onViewReport: (path: string) => void;
+}) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const safeIndex = Math.min(
+    currentIndex,
+    Math.max(0, priorityPages.length - 1),
+  );
+
+  const deviceResults = useMemo(
+    () =>
+      data.pages
+        .flatMap((page) => Object.entries(page.results))
+        .filter(([device]) => device === selectedDevice)
+        .map(([, result]) => result),
+    [data.pages, selectedDevice],
+  );
+
+  const failingCount = deviceResults.filter(
+    (r) => r.status === "failing",
+  ).length;
+  const niCount = deviceResults.filter(
+    (r) => r.status === "needs-improvement",
+  ).length;
+  const runFailedCount = deviceResults.filter(
+    (r) => r.status === "run-failed",
+  ).length;
+
+  if (priorityPages.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-48 rounded-xl border border-border bg-surface">
+        <span className="font-poppins font-bold text-[32px] text-primary mb-1">
+          ✓
+        </span>
+        <p className="font-open-sans text-[15px] text-neutral">
+          All pages are passing
+        </p>
+      </div>
+    );
+  }
+
+  const entry = priorityPages[safeIndex];
+  const page = data.pages.find((p) => p.pageId === entry.pageId);
+  const result = page?.results[selectedDevice];
+
+  return (
+    <div>
+      {/* Section header */}
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-[15px]">⚡</span>
+          <span className="font-poppins font-bold text-[15px] text-on-surface">
+            Needs attention
+          </span>
+          <span className="font-poppins font-bold text-[13px] text-on-surface bg-surface border border-border rounded-full px-2 py-0.5">
+            {priorityPages.length}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          {failingCount > 0 && (
+            <span className="flex items-center gap-1 font-open-sans text-[13px] text-on-surface-dark">
+              <span className="w-2 h-2 rounded-full bg-error inline-block" />
+              {failingCount}
+            </span>
+          )}
+          {niCount > 0 && (
+            <span className="flex items-center gap-1 font-open-sans text-[13px] text-on-surface-dark">
+              <span className="w-2 h-2 rounded-full bg-action inline-block" />
+              {niCount}
+            </span>
+          )}
+          {runFailedCount > 0 && (
+            <span className="flex items-center gap-1 font-open-sans text-[13px] text-on-surface-dark">
+              <span className="w-2 h-2 rounded-full bg-neutral inline-block" />
+              {runFailedCount}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Card */}
+      {page && result ? (
+        <AttentionCard
+          page={page}
+          result={result}
+          entry={entry}
+          selectedCategory={selectedCategory}
+          onViewReport={onViewReport}
+        />
+      ) : (
+        <div className="rounded-xl border border-border bg-surface p-5 h-40 flex items-center justify-center">
+          <p className="font-open-sans text-[14px] text-neutral">
+            No data for this device
+          </p>
+        </div>
+      )}
+
+      {/* Carousel navigation */}
+      {priorityPages.length > 1 && (
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <button
+            onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
+            disabled={safeIndex === 0}
+            className="w-8 h-8 rounded-full border border-border bg-surface flex items-center justify-center text-on-surface-dark hover:bg-surface-subtle disabled:opacity-30 transition-colors"
+            aria-label="Previous page"
+          >
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M8 2L4 6l4 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+
+          <div className="flex items-center gap-1.5">
+            {priorityPages.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                aria-label={`Go to card ${i + 1}`}
+                className={`rounded-full transition-all duration-200 ${
+                  i === safeIndex
+                    ? "w-5 h-2.5 bg-primary"
+                    : "w-2 h-2 bg-border hover:bg-neutral"
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={() =>
+              setCurrentIndex((i) => Math.min(priorityPages.length - 1, i + 1))
+            }
+            disabled={safeIndex === priorityPages.length - 1}
+            className="w-8 h-8 rounded-full border border-border bg-surface flex items-center justify-center text-on-surface-dark hover:bg-surface-subtle disabled:opacity-30 transition-colors"
+            aria-label="Next page"
+          >
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 2l4 4-4 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
         </div>
       )}
     </div>
   );
 }
 
-// ─── Metric helpers ──────────────────────────────────────────────────────────
+// ─── AttentionCard ────────────────────────────────────────────────────────────
+
+function AttentionCard({
+  page,
+  result,
+  entry,
+  selectedCategory,
+  onViewReport,
+}: {
+  page: PageEntry;
+  result: DeviceResult;
+  entry: PriorityEntry;
+  selectedCategory: string;
+  onViewReport: (path: string) => void;
+}) {
+  const score =
+    result.status === "run-failed"
+      ? null
+      : (result.scores[selectedCategory] ?? null);
+
+  const statusLabel: Record<PageStatus, string> = {
+    good: "Good",
+    "needs-improvement": "Needs Improvement",
+    failing: "Failing",
+    "run-failed": "Run Failed",
+  };
+
+  return (
+    <div className="rounded-xl border border-border bg-surface shadow-sm p-5">
+      {/* Top: gauge + page info */}
+      <div className="flex items-start gap-4 mb-4">
+        <div className="flex-shrink-0">
+          <ScoreGauge
+            score={score}
+            label={formatCategoryName(selectedCategory)}
+          />
+        </div>
+
+        <div className="flex-1 min-w-0 pt-1">
+          <div className="flex items-center gap-1.5 mb-1">
+            <span
+              className={`w-2 h-2 rounded-full flex-shrink-0 ${STATUS_DOT_CLASS[entry.status]}`}
+            />
+            <span
+              className={`font-open-sans font-bold text-[11px] uppercase tracking-wider ${STATUS_TEXT_CLASS[entry.status]}`}
+            >
+              {statusLabel[entry.status]}
+            </span>
+          </div>
+
+          <h3 className="font-poppins font-bold text-[20px] text-on-surface leading-tight mb-0.5 truncate">
+            {page.label}
+          </h3>
+
+          <p className="font-open-sans text-[11px] text-neutral uppercase tracking-wider mb-3">
+            {page.group}
+          </p>
+
+          {result.reportHtmlPath && (
+            <button
+              onClick={() => onViewReport(result.reportHtmlPath)}
+              className="font-open-sans font-bold text-[13px] text-on-surface hover:text-primary transition-colors flex items-center gap-0.5"
+            >
+              Full report
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2.5 6h7M6.5 3l3 3-3 3"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Bottom: metrics row */}
+      <div className="grid grid-cols-5 gap-2 border-t border-border pt-3">
+        {(["lcp", "cls", "tbt", "fcp", "si"] as MetricKey[]).map((key) => (
+          <CardMetricColumn
+            key={key}
+            metricKey={key}
+            value={result.metrics[key]}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── CardMetricColumn ─────────────────────────────────────────────────────────
+
+function CardMetricColumn({
+  metricKey,
+  value,
+}: {
+  metricKey: MetricKey;
+  value: number | null;
+}) {
+  const label = metricKey.toUpperCase();
+
+  if (value === null) {
+    return (
+      <div className="flex flex-col gap-1">
+        <span className="font-open-sans text-[10px] text-neutral tracking-wider">
+          {label}
+        </span>
+        <span className="font-open-sans text-[13px] text-neutral">—</span>
+        <div className="h-1 bg-surface-muted rounded-full" />
+      </div>
+    );
+  }
+
+  const mStatus = getMetricStatus(metricKey, value);
+  const barWidth = getMetricBarWidth(metricKey, value);
+
+  return (
+    <div className="flex flex-col gap-1">
+      <span className="font-open-sans text-[10px] text-neutral tracking-wider">
+        {label}
+      </span>
+      <span
+        className={`font-poppins font-bold text-[13px] ${STATUS_TEXT_CLASS[mStatus]}`}
+      >
+        {formatMetricValue(metricKey, value)}
+      </span>
+      <div className="h-1 bg-surface-muted rounded-full overflow-hidden">
+        <div
+          className={`h-full rounded-full ${STATUS_BAR_CLASS[mStatus]}`}
+          style={{ width: `${barWidth}%`, minWidth: "3px" }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// ─── Metric helpers ───────────────────────────────────────────────────────────
 
 type MetricKey = "lcp" | "cls" | "tbt" | "fcp" | "si";
 
@@ -317,6 +530,71 @@ function formatMetricValue(key: MetricKey, value: number): string {
     : `${Math.round(value)} ms`;
 }
 
+function getWorstMetricKey(metrics: DeviceResult["metrics"]): MetricKey | null {
+  const keys: MetricKey[] = ["lcp", "cls", "tbt", "fcp", "si"];
+  let worstKey: MetricKey | null = null;
+  let worstRatio = 0;
+
+  for (const key of keys) {
+    const value = metrics[key];
+    if (value === null) continue;
+    const t = METRIC_THRESHOLDS[key];
+    if (value > t.good) {
+      const ratio = (value - t.good) / t.good;
+      if (ratio > worstRatio) {
+        worstRatio = ratio;
+        worstKey = key;
+      }
+    }
+  }
+  return worstKey;
+}
+
+function generateInsightText(
+  worstEntry: PriorityEntry | null,
+  worstPage: PageEntry | null,
+  worstResult: DeviceResult | null,
+  _category: string,
+  passingCount: number,
+  totalPages: number,
+): ReactNode {
+  if (!worstEntry || !worstPage) {
+    if (passingCount === totalPages) {
+      return "All pages are passing every core vital. Great work!";
+    }
+    return "Some pages need attention on this device.";
+  }
+
+  if (worstEntry.status === "run-failed") {
+    return (
+      <>
+        The audit for <strong>{worstPage.label}</strong> failed to run. Check
+        the runner first.
+      </>
+    );
+  }
+
+  const worstMetric = worstResult
+    ? getWorstMetricKey(worstResult.metrics)
+    : null;
+
+  if (worstMetric) {
+    return (
+      <>
+        The set is held back by <strong>{worstPage.label}</strong>, whose{" "}
+        <strong>{worstMetric.toUpperCase()}</strong> is deep in the red. Fix it
+        first.
+      </>
+    );
+  }
+
+  return (
+    <>
+      <strong>{worstPage.label}</strong> needs the most attention. Fix it first.
+    </>
+  );
+}
+
 function scoreToStatus(score: number | null): PageStatus {
   if (score === null) return "run-failed";
   if (score >= 90) return "good";
@@ -342,7 +620,11 @@ function formatClock(fetchTime: string): string {
   });
 }
 
-// ─── Status color maps ───────────────────────────────────────────────────────
+function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// ─── Status color maps ────────────────────────────────────────────────────────
 
 const STATUS_TEXT_CLASS: Record<PageStatus, string> = {
   good: "text-primary",
@@ -372,7 +654,8 @@ const STROKE_COLORS: Record<PageStatus, string> = {
   "run-failed": "#666666",
 };
 
-// ─── RecentReportsSection ────────────────────────────────────────────────────
+// ─── RecentReportsSection ─────────────────────────────────────────────────────
+
 function RecentReportsSection({
   data,
   selectedDevice,
@@ -465,18 +748,9 @@ function RecentReportRow({
   isLast: boolean;
   onViewReport: (path: string) => void;
 }) {
-  const score =
-    result.status === "run-failed"
-      ? null
-      : (result.scores[selectedCategory] ?? null);
-  const scoreStatus =
-    result.status === "run-failed" ? "run-failed" : scoreToStatus(score);
-
   return (
     <div className={isLast ? "" : "border-b border-border"}>
-      {/* Summary row */}
       <div className="flex items-center gap-4 px-5 py-4 hover:bg-surface-subtle transition-colors cursor-pointer">
-        {/* Time column */}
         <ScoreGauge
           score={
             result.status === "run-failed"
@@ -486,23 +760,20 @@ function RecentReportRow({
           label={formatCategoryName(selectedCategory)}
         />
         <div className="w-[88px] flex-shrink-0 flex flex-col gap-0.5">
-          <div className="flex items-center gap-1.5">
-            {fetchTime ? (
+          {fetchTime ? (
+            <>
               <span className="font-open-sans text-[11px] text-on-surface-dark leading-tight">
                 {formatTimeAgo(fetchTime)}
               </span>
-            ) : (
-              <span className="font-open-sans text-[11px] text-neutral">—</span>
-            )}
-          </div>
-          {fetchTime && (
-            <span className="font-open-sans text-[11px] text-neutral pl-[14px]">
-              {formatClock(fetchTime)}
-            </span>
+              <span className="font-open-sans text-[11px] text-neutral pl-[14px]">
+                {formatClock(fetchTime)}
+              </span>
+            </>
+          ) : (
+            <span className="font-open-sans text-[11px] text-neutral">—</span>
           )}
         </div>
 
-        {/* Page info column */}
         <div className="flex-1 min-w-0 flex flex-col gap-0.5">
           <div className="flex gap-2 min-w-0">
             <span className="font-poppins font-bold text-[14px] text-on-surface truncate">
@@ -513,14 +784,12 @@ function RecentReportRow({
           <span className="label">{page.group}</span>
         </div>
 
-        {/* Metric columns */}
         <MetricColumn metricKey="lcp" value={result.metrics.lcp} />
         <MetricColumn metricKey="cls" value={result.metrics.cls} />
         <MetricColumn metricKey="tbt" value={result.metrics.tbt} />
         <MetricColumn metricKey="fcp" value={result.metrics.fcp} />
         <MetricColumn metricKey="si" value={result.metrics.si} />
 
-        {/* View Report */}
         {result.reportHtmlPath ? (
           <EhiButton
             variant="link"
@@ -539,7 +808,7 @@ function RecentReportRow({
   );
 }
 
-// ─── ScoreGauge ──────────────────────────────────────────────────────────────
+// ─── ScoreGauge ───────────────────────────────────────────────────────────────
 
 function ScoreGauge({ score, label }: { score: number | null; label: string }) {
   const radius = 26;
@@ -551,7 +820,6 @@ function ScoreGauge({ score, label }: { score: number | null; label: string }) {
   return (
     <div className="flex flex-col items-center">
       <span className="leading-0 label text-center mb-1">{label}</span>
-
       <div className="relative" style={{ width: 68, height: 68 }}>
         <svg width="68" height="68" viewBox="0 0 68 68">
           <circle
@@ -578,7 +846,7 @@ function ScoreGauge({ score, label }: { score: number | null; label: string }) {
         </svg>
         <div className="absolute flex flex-col items-center gap-1 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <span
-            className="font-poppins font-bold text-[17px] leading-none"
+            className="font-poppins font-bold text-lg leading-none"
             style={{ color }}
           >
             {score !== null ? score : "—"}
@@ -589,7 +857,8 @@ function ScoreGauge({ score, label }: { score: number | null; label: string }) {
   );
 }
 
-// ─── DeviceBadge ─────────────────────────────────────────────────────────────
+// ─── DeviceBadge ──────────────────────────────────────────────────────────────
+
 function DeviceBadge({ device }: { device: string }) {
   const isMobile = device === "mobile";
   return (
@@ -631,6 +900,8 @@ function DeviceBadge({ device }: { device: string }) {
     </span>
   );
 }
+
+// ─── MetricColumn (table row variant) ────────────────────────────────────────
 
 function MetricColumn({
   metricKey,
@@ -676,6 +947,8 @@ function MetricColumn({
   );
 }
 
+// ─── ReportFrame ──────────────────────────────────────────────────────────────
+
 function ReportFrame({ src }: { src: string }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "missing">(
@@ -687,7 +960,6 @@ function ReportFrame({ src }: { src: string }) {
       const title = iframeRef.current?.contentDocument?.title ?? "";
       setStatus(title === "Lighthouse Report" ? "ready" : "missing");
     } catch {
-      // Cross-origin access denied — assume report loaded fine
       setStatus("ready");
     }
   }
@@ -772,6 +1044,8 @@ function ReportEmptyState() {
     </div>
   );
 }
+
+// ─── StatusBadge (kept for test compatibility) ────────────────────────────────
 
 function StatusBadge({
   status,

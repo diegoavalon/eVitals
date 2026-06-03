@@ -4,7 +4,7 @@ import { defineConfig } from "vitest/config";
 import path from "path";
 
 function resolveBasePath(): string {
-  const configured = process.env.VITE_BASE_PATH || "/eVitals/";
+  const configured = process.env.VITE_BASE_PATH || "/";
   if (configured === "./" || configured === ".") return "./";
   const withLeadingSlash = configured.startsWith("/") ? configured : `/${configured}`;
   return withLeadingSlash.endsWith("/") ? withLeadingSlash : `${withLeadingSlash}/`;

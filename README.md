@@ -95,11 +95,13 @@ Copy the built app into `public/` and preview the full static site:
 
 ```bash
 cp dist/index.html public/index.html
-cp -r dist/assets public/assets
+rm -rf public/assets
+mkdir -p public/assets
+cp -r dist/assets/. public/assets/
 npx serve public
 ```
 
-Or simply run the dev server (step above) after generating dashboard data — the dev server reads `public/data/dashboardData.json` directly.
+For GitHub Pages, the workflow builds with `VITE_BASE_PATH=/${github.event.repository.name}/`. For local preview, keep the default base (`/`) so `pnpm dev` and `npx serve public` resolve assets and data from the root.
 
 ---
 
