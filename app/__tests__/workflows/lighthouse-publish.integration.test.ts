@@ -44,6 +44,7 @@ interface WorkflowJob {
     with?: Record<string, string | boolean>;
   }>;
   "continue-on-error"?: boolean;
+  env?: Record<string, string>;
 }
 
 interface WorkflowYAML {
@@ -594,7 +595,7 @@ describe("GitHub Actions Workflow Integration (Issue #11)", () => {
         Object.values(p.results)
       );
       const hasSuccess = allResults.some(
-        (r) => r.status === "pass" || r.status !== "run-failed"
+        (r) => r.status === "good" || r.status !== "run-failed"
       );
       const hasFail = allResults.some((r) => r.status === "run-failed");
 
