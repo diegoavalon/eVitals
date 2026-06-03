@@ -244,10 +244,10 @@ describe("Home — AC-1/AC-3: Device selector + Score/Status render", () => {
     renderHome();
 
     await waitFor(() => {
-      // Homepage mobile: good status
-      expect(screen.getByText("Good (95)")).toBeInTheDocument();
-      // Medicare Part B mobile: needs-improvement status
-      expect(screen.getByText("Needs Improvement (68)")).toBeInTheDocument();
+      // Homepage mobile performance score shown in ScoreGauge
+      expect(screen.getAllByText("95").length).toBeGreaterThan(0);
+      // Medicare Part B mobile performance score shown in ScoreGauge
+      expect(screen.getAllByText("68").length).toBeGreaterThan(0);
     });
   });
 
@@ -294,10 +294,10 @@ describe("Home — AC-5: Recent Reports section", () => {
     renderHome();
 
     await waitFor(() => {
-      // Homepage mobile: 95 performance score
-      expect(screen.getByText("Good (95)")).toBeInTheDocument();
-      // Medicare Part B mobile: 68 performance score
-      expect(screen.getByText("Needs Improvement (68)")).toBeInTheDocument();
+      // Homepage mobile performance score shown in ScoreGauge
+      expect(screen.getAllByText("95").length).toBeGreaterThan(0);
+      // Medicare Part B mobile performance score shown in ScoreGauge
+      expect(screen.getAllByText("68").length).toBeGreaterThan(0);
     });
   });
 

@@ -113,7 +113,7 @@ describe("Home compatibility with generated dashboard output", () => {
       expect(screen.getByRole("heading", { name: "Dashboard" })).toBeInTheDocument();
     });
 
-    expect(screen.getByText("Most Recent Run")).toBeInTheDocument();
+    expect(screen.getByText("Most Recent")).toBeInTheDocument();
     expect(screen.getByText("Homepage")).toBeInTheDocument();
     expect(screen.getAllByText("Medicare Part B Give-Back (Social Security)").length).toBeGreaterThan(0);
     expect(screen.getAllByRole("button", { name: "View Report" }).length).toBeGreaterThan(0);
