@@ -476,6 +476,80 @@ GitHub Action successfully deployed dashboard to GitHub Pages, but page rendered
 3. Add manifest schema validation tests to CI pipeline
 4. Consider TypeScript strict mode to catch null comparison bugs at compile time
 
+### GitHub Pages Assets Path Integrity (Switch)
+
+**Issue:** https://github.com/diegoavalon/eVitals/issues/11  
+**Status:** Implemented  
+**Owner:** Switch  
+**Date:** 2026-06-03
+
+**Decision:** For Pages publication, always replace `public/assets` atomically from `dist/assets` (`rm -rf` + copy contents) instead of copying the directory itself into an existing destination.
+
+#### Problem
+
+The deploy workflow restores `gh-pages` into `public/` before merging a fresh Vite build. Using `cp -r dist/assets public/assets` when `public/assets` already exists creates `public/assets/assets/*`, while `index.html` references `/eVitals/assets/*`, producing runtime 404s with a green workflow.
+
+#### Solution
+
+**Build-time fix:** Set `VITE_BASE_PATH` environment variable from repository name
+```yaml
+VITE_BASE_PATH=/${{ github.event.repository.name }}/
+```
+
+**Deploy-time fix:** Atomic replacement
+```bash
+rm -rf public/assets
+mkdir -p public/assets
+cp -r dist/assets/. public/assets/
+```
+
+#### Consequences
+
+- Deterministic asset layout for every publish
+- No stale nested directories on repeated runs
+- Project-site URL references resolve correctly
+- All 419 tests passing
+
+### Normalize Frontend Base-Path URL Resolution (Trinity)
+
+**Issue:** https://github.com/diegoavalon/eVitals/issues/11  
+**Status:** Implemented  
+**Owner:** Trinity  
+**Date:** 2026-06-03
+
+**Decision:** Adopt a shared frontend URL helper (`withBasePath`) and use it for:
+
+1. Static JSON fetches (`data/dashboardData.json`, `data/dashboard.config.json`)
+2. Report iframe links (`reports/runs/...`)
+
+Also normalize Vite `base` from `VITE_BASE_PATH` before build to guarantee leading/trailing slashes (or `./`) in CI and local runs.
+
+#### Rationale
+
+Hardcoded or partially-normalized path composition is fragile across:
+
+- Local dev (`/`)
+- GitHub Pages project deployments (`/eVitals/`)
+- Environment-driven base overrides
+
+Centralized resolution keeps CSS/JS/data/report URLs consistent and testable.
+
+#### Implementation
+
+- Created `withBasePath` utility that normalizes `VITE_BASE_PATH` environment variable
+- Updated all URL references in React components and data loaders
+- Ensures consistent composition across environments
+
+#### Cross-Agent Note (Switch)
+
+If GitHub Pages still serves broken bundles after this frontend hardening, verify deployment source/settings and uploaded artifact contents at publish time (assets directory presence must match `index.html` hashed references).
+
+#### Consequences
+
+- All URLs resolve correctly on local dev, GitHub Pages project deployments, and custom base configs
+- All 419 tests passing
+- Dashboard renders correctly with all assets, data, and reports loading from correct paths
+
 ## Governance
 
 - All meaningful changes require team consensus

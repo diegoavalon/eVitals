@@ -11,6 +11,8 @@
 
 - Initial UI guidance comes from `app/docs/00_Initial.md`: follow root `DESIGN.md`, use branded `/ui` components before direct `@base/ui`, and match `index-mockup.jpg` only where it does not conflict with `DESIGN.md`.
 - Trinity is assigned to issues: #2 (walking skeleton), #3 (config), #6 (Home), #7 (All Pages), #8 (report drawer)
+- GitHub Pages path hardening: centralize URL building with a `withBasePath()` helper and route all static fetch/report links through it (`data/*.json`, `reports/runs/*`) to keep local dev (`/`) and project pages (`/eVitals/`) aligned.
+- Vite `base` should be normalized from env (empty/relative/without slashes) before build to avoid brittle asset URL generation across CI and local runs.
 
 ### Issue #3 — Config Validation Contracts (2026-06-02)
 
@@ -115,3 +117,20 @@ In parallel, Trinity (manifest schema + run ID detection), Tank (generator failu
 - ✅ Generated `dashboardData.json` contains valid metrics
 - ✅ Published page renders Lighthouse metrics live from generated data
 
+### Orchestration: Static Assets 404 Fix (2026-06-03)
+
+**Completion Date:** 2026-06-03T17:42:23Z
+
+Follow-up coordination between Trinity and Switch to resolve remaining asset and URL issues on GitHub Pages deployment:
+
+1. **Trinity's Base-Path Resolution Fix:** Created centralized `withBasePath` utility for frontend URL composition across environments (local dev `/`, GitHub Pages `/eVitals/`, custom bases). Updated all static JSON fetches (`data/dashboardData.json`, `data/dashboard.config.json`) and report iframe links (`reports/runs/*`) to use normalized base paths. Orchestration logged to `.squad/orchestration-log/2026-06-03T17-42-23Z-trinity-pages-assets-fix.md`.
+
+2. **Switch's Asset Path Fix:** Diagnosed and fixed asset nesting during workflow merge. Solution: atomic `public/assets` replacement (`rm -rf` + copy with trailing dot) + `VITE_BASE_PATH` environment setup from repository name. Orchestration logged to `.squad/orchestration-log/2026-06-03T17-42-23Z-switch-pages-assets-audit.md`.
+
+**Session Consolidated:** `.squad/log/2026-06-03T17-42-23Z-pages-static-assets-not-found.md`
+
+**Decisions Recorded:**
+- "Normalize Frontend Base-Path URL Resolution" (Trinity)
+- "GitHub Pages Assets Path Integrity" (Switch)
+
+**Impact:** Combined fixes ensure all URLs resolve correctly (Trinity) and assets deploy deterministically without nesting (Switch). All 419 tests passing. No further 404 errors for assets, data, or reports across all environments.
