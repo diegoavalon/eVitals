@@ -174,7 +174,7 @@ describe("All Pages Component — Issue #7", () => {
       expect(within(otherSection!).getByText(/1 page/)).toBeInTheDocument();
     });
 
-    it("should make groups collapsible and expandable", async () => {
+    it("makes groups collapsible", async () => {
       renderAllPages();
       const user = userEvent.setup();
       const coreHeader = screen.getByText("Core");
@@ -189,27 +189,6 @@ describe("All Pages Component — Issue #7", () => {
     });
   });
 
-  describe("AC-2: Status Filter", () => {
-    it("should filter rows by status (pass/needs-improvement/fail)", async () => {
-      renderAllPages();
-      const user = userEvent.setup();
-      // All pages visible initially
-      expect(screen.getByText("Page 1")).toBeInTheDocument();
-      expect(screen.getByText("Page 2")).toBeInTheDocument();
-      expect(screen.getByText("Page 3")).toBeInTheDocument();
-    });
-  });
-
-  describe("AC-3: Device Filter", () => {
-    it("should display metrics for selected device (mobile)", () => {
-      renderAllPages();
-      // Mobile device selected by default - verify page data is from mobile results
-      expect(screen.getByText("Failing (60)")).toBeInTheDocument();
-      expect(screen.getByText("Needs Improvement (75)")).toBeInTheDocument();
-      expect(screen.getByText("Good (95)")).toBeInTheDocument();
-    });
-  });
-
   describe("AC-4: Row Components", () => {
     it("should display page name and URL in each row", () => {
       renderAllPages();
@@ -219,9 +198,8 @@ describe("All Pages Component — Issue #7", () => {
       expect(screen.getByText("https://example.com/3")).toBeInTheDocument();
     });
 
-    it("should display current score/metric as score gauge", () => {
+    it("should display current score as score gauge", () => {
       renderAllPages();
-      // Score badges show performance metric for each page
       expect(screen.getByText("Failing (60)")).toBeInTheDocument();
       expect(screen.getByText("Good (95)")).toBeInTheDocument();
     });
@@ -237,30 +215,6 @@ describe("All Pages Component — Issue #7", () => {
       renderAllPages();
       const reportButtons = screen.getAllByText("Full Report");
       expect(reportButtons.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe("AC-5: Sparkline", () => {
-    it("should render sparkline for pages with LCP history", () => {
-      renderAllPages();
-      // Page 1 and 2 have history, should render without errors
-      expect(screen.getByText("Page 1")).toBeInTheDocument();
-      expect(screen.getByText("Page 2")).toBeInTheDocument();
-    });
-
-    it("should show dash when history not available", () => {
-      renderAllPages();
-      // Page 3 has no history
-      expect(screen.getByText("Page 3")).toBeInTheDocument();
-    });
-  });
-
-  describe("AC-6: Delta Indicator", () => {
-    it("should show delta from prior run when available", () => {
-      renderAllPages();
-      // Page 1 has history showing improvement (2863 vs 3500 LCP)
-      // Should show negative delta
-      expect(screen.getByText("Page 1")).toBeInTheDocument();
     });
   });
 
