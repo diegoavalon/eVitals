@@ -85,3 +85,8 @@ body {
 .root {
   isolation: isolate;
 }
+
+/* Utilities   */
+.label {
+  @apply font-poppins font-bold text-[10px] text-on-surface tracking-wider uppercase;
+}

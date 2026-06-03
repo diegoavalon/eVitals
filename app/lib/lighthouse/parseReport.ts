@@ -62,8 +62,10 @@ export function parseLighthouseReport(
   const lcp = safeNumericValue(audits["largest-contentful-paint"]);
   const cls = safeNumericValue(audits["cumulative-layout-shift"]);
   const tbt = safeNumericValue(audits["total-blocking-time"]);
+  const fcp = safeNumericValue(audits["first-contentful-paint"]);
+  const si = safeNumericValue(audits["speed-index"]);
 
-  const metrics: LighthouseMetrics = { lcp, cls, tbt };
+  const metrics: LighthouseMetrics = { lcp, cls, tbt, fcp, si };
 
   // ── Per-metric Statuses ────────────────────────────────────────────────────
   const metricStatuses: LighthouseMetricStatuses = {

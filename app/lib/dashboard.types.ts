@@ -73,6 +73,8 @@ export interface DeviceResult {
     lcp: number | null;
     cls: number | null;
     tbt: number | null;
+    fcp: number | null;
+    si: number | null;
   };
   reportHtmlPath: string;
   reportJsonPath: string;

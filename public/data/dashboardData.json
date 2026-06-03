@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-03T14:01:00.000Z",
-  "runId": "2026-06-03T14-00-00Z",
+  "generatedAt": "2026-06-02T16:20:00.000Z",
+  "runId": "2026-06-02T14-00-00Z",
   "enabledCategories": ["performance", "accessibility", "best-practices", "seo"],
   "enabledDevices": ["mobile", "desktop"],
   "defaultCategory": "performance",
@@ -8,87 +8,96 @@
   "summary": {
     "totalConfiguredPages": 2,
     "totalConfiguredPageDevicePairs": 4,
-    "latestRunResultCount": 4,
+    "latestRunResultCount": 1,
     "statusCounts": {
-      "good": 1,
-      "needs-improvement": 1,
+      "good": 0,
+      "needs-improvement": 0,
       "failing": 1,
-      "run-failed": 1
+      "run-failed": 3
     }
   },
   "aggregates": {
     "byCategory": {
       "performance": {
         "statusCounts": {
-          "good": 1,
-          "needs-improvement": 1,
+          "good": 0,
+          "needs-improvement": 0,
           "failing": 1,
-          "run-failed": 1
+          "run-failed": 3
         },
-        "averageScore": 68.33,
-        "successfulCount": 3,
+        "averageScore": 60,
+        "successfulCount": 1,
         "totalCount": 4
       },
       "accessibility": {
         "statusCounts": {
-          "good": 1,
-          "needs-improvement": 2,
+          "good": 0,
+          "needs-improvement": 1,
           "failing": 0,
-          "run-failed": 1
+          "run-failed": 3
         },
-        "averageScore": 89.33,
-        "successfulCount": 3,
+        "averageScore": 88,
+        "successfulCount": 1,
         "totalCount": 4
       },
       "best-practices": {
         "statusCounts": {
-          "good": 3,
+          "good": 1,
           "needs-improvement": 0,
           "failing": 0,
-          "run-failed": 1
+          "run-failed": 3
         },
-        "averageScore": 92,
-        "successfulCount": 3,
+        "averageScore": 100,
+        "successfulCount": 1,
         "totalCount": 4
       },
       "seo": {
         "statusCounts": {
-          "good": 3,
+          "good": 1,
           "needs-improvement": 0,
           "failing": 0,
-          "run-failed": 1
+          "run-failed": 3
         },
-        "averageScore": 96,
-        "successfulCount": 3,
+        "averageScore": 100,
+        "successfulCount": 1,
         "totalCount": 4
       }
     },
     "byDevice": {
       "mobile": {
         "statusCounts": {
-          "good": 1,
-          "needs-improvement": 1,
-          "failing": 0,
-          "run-failed": 0
+          "good": 0,
+          "needs-improvement": 0,
+          "failing": 1,
+          "run-failed": 1
         },
-        "averageScore": 82,
-        "successfulCount": 2,
+        "averageScore": 60,
+        "successfulCount": 1,
         "totalCount": 2
       },
       "desktop": {
         "statusCounts": {
           "good": 0,
           "needs-improvement": 0,
-          "failing": 1,
-          "run-failed": 1
+          "failing": 0,
+          "run-failed": 2
         },
-        "averageScore": 42,
-        "successfulCount": 1,
+        "averageScore": null,
+        "successfulCount": 0,
         "totalCount": 2
       }
     }
   },
   "priority": [
+    {
+      "pageId": "homepage",
+      "label": "Homepage",
+      "group": "core",
+      "device": "desktop",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
     {
       "pageId": "medicare-part-b-giveback",
       "label": "Medicare Part B Give-Back (Social Security)",
@@ -99,48 +108,35 @@
       "failingMetricCount": 3
     },
     {
+      "pageId": "medicare-part-b-giveback",
+      "label": "Medicare Part B Give-Back (Social Security)",
+      "group": "medicare",
+      "device": "mobile",
+      "status": "run-failed",
+      "score": null,
+      "failingMetricCount": 3
+    },
+    {
       "pageId": "homepage",
       "label": "Homepage",
       "group": "core",
-      "device": "desktop",
+      "device": "mobile",
       "status": "failing",
-      "score": 42,
+      "score": 60,
       "failingMetricCount": 2
     }
   ],
   "recentRunHistoryByPage": {
     "homepage": [
       {
-        "runId": "2026-06-03T14-00-00Z",
-        "fetchTime": "2026-06-03T14:00:02.000Z",
-        "device": "desktop",
-        "status": "failing",
-        "lcp": 4300
-      },
-      {
-        "runId": "2026-06-03T14-00-00Z",
-        "fetchTime": "2026-06-03T14:00:01.000Z",
+        "runId": "2026-06-02T14-00-00Z",
+        "fetchTime": "2026-06-02T16:19:41.855Z",
         "device": "mobile",
-        "status": "good",
-        "lcp": 1800
+        "status": "failing",
+        "lcp": 2863.3828000000003
       }
     ],
-    "medicare-part-b-giveback": [
-      {
-        "runId": "2026-06-03T14-00-00Z",
-        "fetchTime": "2026-06-03T14:00:04.000Z",
-        "device": "desktop",
-        "status": "run-failed",
-        "lcp": null
-      },
-      {
-        "runId": "2026-06-03T14-00-00Z",
-        "fetchTime": "2026-06-03T14:00:03.000Z",
-        "device": "mobile",
-        "status": "needs-improvement",
-        "lcp": 3200
-      }
-    ]
+    "medicare-part-b-giveback": []
   },
   "pages": [
     {
@@ -150,60 +146,22 @@
       "group": "core",
       "results": {
         "mobile": {
-          "status": "good",
+          "status": "failing",
           "scores": {
-            "performance": 95,
-            "accessibility": 98,
-            "best-practices": 96,
-            "seo": 99
+            "performance": 60,
+            "accessibility": 88,
+            "best-practices": 100,
+            "seo": 100
           },
           "metrics": {
-            "lcp": 1800,
-            "cls": 0.08,
-            "tbt": 120
+            "lcp": 2863.3828000000003,
+            "cls": 0.020275,
+            "tbt": 2040.500000000001,
+            "fcp": 2852.8828000000003,
+            "si": 4414.041971910985
           },
           "reportHtmlPath": "reports/runs/2026-06-02T14-00-00Z/homepage.mobile.report.html",
           "reportJsonPath": "reports/runs/2026-06-02T14-00-00Z/homepage.mobile.report.json"
-        },
-        "desktop": {
-          "status": "failing",
-          "scores": {
-            "performance": 42,
-            "accessibility": 84,
-            "best-practices": 89,
-            "seo": 95
-          },
-          "metrics": {
-            "lcp": 4300,
-            "cls": 0.11,
-            "tbt": 1100
-          },
-          "reportHtmlPath": "reports/runs/2026-06-02T14-00-00Z/homepage.desktop.report.html",
-          "reportJsonPath": "reports/runs/2026-06-02T14-00-00Z/homepage.desktop.report.json"
-        }
-      }
-    },
-    {
-      "pageId": "medicare-part-b-giveback",
-      "label": "Medicare Part B Give-Back (Social Security)",
-      "url": "https://www.ehealthinsurance.com/medicare/managing-medicare/medicare-part-b-giveback-social-security/",
-      "group": "medicare",
-      "results": {
-        "mobile": {
-          "status": "needs-improvement",
-          "scores": {
-            "performance": 68,
-            "accessibility": 86,
-            "best-practices": 90,
-            "seo": 94
-          },
-          "metrics": {
-            "lcp": 3200,
-            "cls": 0.08,
-            "tbt": 450
-          },
-          "reportHtmlPath": "reports/runs/2026-06-02T14-00-00Z/medicare-part-b-giveback.mobile.report.html",
-          "reportJsonPath": "reports/runs/2026-06-02T14-00-00Z/medicare-part-b-giveback.mobile.report.json"
         },
         "desktop": {
           "status": "run-failed",
@@ -216,10 +174,56 @@
           "metrics": {
             "lcp": null,
             "cls": null,
-            "tbt": null
+            "tbt": null,
+            "fcp": null,
+            "si": null
           },
-          "reportHtmlPath": "reports/runs/2026-06-02T14-00-00Z/medicare-part-b-giveback.desktop.report.html",
-          "reportJsonPath": "reports/runs/2026-06-02T14-00-00Z/medicare-part-b-giveback.desktop.report.json"
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        }
+      }
+    },
+    {
+      "pageId": "medicare-part-b-giveback",
+      "label": "Medicare Part B Give-Back (Social Security)",
+      "url": "https://www.ehealthinsurance.com/medicare/managing-medicare/medicare-part-b-giveback-social-security/",
+      "group": "medicare",
+      "results": {
+        "mobile": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
+        },
+        "desktop": {
+          "status": "run-failed",
+          "scores": {
+            "performance": 0,
+            "accessibility": 0,
+            "best-practices": 0,
+            "seo": 0
+          },
+          "metrics": {
+            "lcp": null,
+            "cls": null,
+            "tbt": null,
+            "fcp": null,
+            "si": null
+          },
+          "reportHtmlPath": "",
+          "reportJsonPath": ""
         }
       }
     }

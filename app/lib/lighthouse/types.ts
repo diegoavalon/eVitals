@@ -25,6 +25,10 @@ export interface LighthouseMetrics {
   cls: number | null;
   /** Total Blocking Time in ms */
   tbt: number | null;
+  /** First Contentful Paint in ms */
+  fcp: number | null;
+  /** Speed Index in ms */
+  si: number | null;
 }
 
 // ─── Per-metric Status ───────────────────────────────────────────────────────

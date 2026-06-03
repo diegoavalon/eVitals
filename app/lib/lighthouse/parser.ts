@@ -90,12 +90,12 @@ export function parseLighthouseReport(
 
   // --- Core Web Vitals -------------------------------------------------
   const lcp = toFiniteNumber(audits["largest-contentful-paint"]?.numericValue);
-  const cls = toFiniteNumber(
-    audits["cumulative-layout-shift"]?.numericValue
-  );
+  const cls = toFiniteNumber(audits["cumulative-layout-shift"]?.numericValue);
   const tbt = toFiniteNumber(audits["total-blocking-time"]?.numericValue);
+  const fcp = toFiniteNumber(audits["first-contentful-paint"]?.numericValue);
+  const si = toFiniteNumber(audits["speed-index"]?.numericValue);
 
-  const metrics: LighthouseMetrics = { lcp, cls, tbt };
+  const metrics: LighthouseMetrics = { lcp, cls, tbt, fcp, si };
 
   const metricStatuses = {
     lcp: lcpStatus(lcp),

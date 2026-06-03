@@ -97,7 +97,7 @@ const VALID_DASHBOARD: DashboardData = {
         mobile: {
           status: "needs-improvement",
           scores: { performance: 62, accessibility: 91 },
-          metrics: { lcp: 3200, cls: 0.08, tbt: 350 },
+          metrics: { lcp: 3200, cls: 0.08, tbt: 350, fcp: null, si: null },
           reportHtmlPath:
             "reports/runs/2026-06-02T14-00-00Z/homepage.mobile.report.html",
           reportJsonPath:

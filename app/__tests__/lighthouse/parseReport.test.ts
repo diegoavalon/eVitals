@@ -267,7 +267,7 @@ describe("parseLighthouseReport — malformed/missing fields", () => {
       device: "unknown",
       reportJsonPath: OPTS.reportJsonPath,
       reportHtmlPath: OPTS.reportHtmlPath,
-      metrics: { lcp: null, cls: null, tbt: null },
+      metrics: { lcp: null, cls: null, tbt: null, fcp: null, si: null },
       metricStatuses: { lcp: "run-failed", cls: "run-failed", tbt: "run-failed" },
     });
   });

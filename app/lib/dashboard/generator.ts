@@ -107,7 +107,7 @@ function asDeviceResult(config: DashboardConfig, item: GeneratorInputResult | un
     return {
       status: "run-failed",
       scores: Object.fromEntries(config.enabledCategories.map((category) => [category, 0])),
-      metrics: { lcp: null, cls: null, tbt: null },
+      metrics: { lcp: null, cls: null, tbt: null, fcp: null, si: null },
       reportHtmlPath: "",
       reportJsonPath: "",
     };
@@ -124,6 +124,8 @@ function asDeviceResult(config: DashboardConfig, item: GeneratorInputResult | un
       lcp: item.result.metrics.lcp,
       cls: item.result.metrics.cls,
       tbt: item.result.metrics.tbt,
+      fcp: item.result.metrics.fcp,
+      si: item.result.metrics.si,
     },
     reportHtmlPath: item.result.reportHtmlPath,
     reportJsonPath: item.result.reportJsonPath,

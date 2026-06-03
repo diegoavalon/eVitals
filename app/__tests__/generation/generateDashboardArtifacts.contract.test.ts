@@ -46,7 +46,7 @@ function profilePatch(profile: Profile): {
   categoryStatuses: Record<string, MetricStatus>;
   categoryScores: Record<string, number | null>;
   performanceScore: number | null;
-  metrics: { lcp: number | null; cls: number | null; tbt: number | null };
+  metrics: { lcp: number | null; cls: number | null; tbt: number | null; fcp: number | null; si: number | null };
 } {
   if (profile === "good") {
     return {
@@ -65,7 +65,7 @@ function profilePatch(profile: Profile): {
         seo: 0.99,
       },
       performanceScore: 0.95,
-      metrics: { lcp: 1_800, cls: 0.08, tbt: 120 },
+      metrics: { lcp: 1_800, cls: 0.08, tbt: 120, fcp: null, si: null },
     };
   }
 
@@ -90,7 +90,7 @@ function profilePatch(profile: Profile): {
         seo: 0.94,
       },
       performanceScore: 0.68,
-      metrics: { lcp: 3_200, cls: 0.08, tbt: 450 },
+      metrics: { lcp: 3_200, cls: 0.08, tbt: 450, fcp: null, si: null },
     };
   }
 
@@ -111,7 +111,7 @@ function profilePatch(profile: Profile): {
         seo: 0.95,
       },
       performanceScore: 0.42,
-      metrics: { lcp: 4_300, cls: 0.11, tbt: 1_100 },
+      metrics: { lcp: 4_300, cls: 0.11, tbt: 1_100, fcp: null, si: null },
     };
   }
 
@@ -131,7 +131,7 @@ function profilePatch(profile: Profile): {
       seo: null,
     },
     performanceScore: null,
-    metrics: { lcp: null, cls: null, tbt: null },
+    metrics: { lcp: null, cls: null, tbt: null, fcp: null, si: null },
   };
 }
 

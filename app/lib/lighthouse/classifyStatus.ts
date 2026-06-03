@@ -18,6 +18,14 @@ export const CLS_NI_THRESHOLD = 0.25;
 export const TBT_GOOD_THRESHOLD = 200;
 export const TBT_NI_THRESHOLD = 600;
 
+// FCP (ms)
+export const FCP_GOOD_THRESHOLD = 1800;
+export const FCP_NI_THRESHOLD = 3000;
+
+// Speed Index (ms)
+export const SI_GOOD_THRESHOLD = 3400;
+export const SI_NI_THRESHOLD = 5800;
+
 // Category score (0–1)
 export const CATEGORY_GOOD_THRESHOLD = 0.9;
 export const CATEGORY_NI_THRESHOLD = 0.5;
@@ -45,6 +53,22 @@ export function classifyTbt(valueMs: number | null): MetricStatus {
   if (valueMs === null) return "run-failed";
   if (valueMs <= TBT_GOOD_THRESHOLD) return "pass";
   if (valueMs <= TBT_NI_THRESHOLD) return "needs-improvement";
+  return "fail";
+}
+
+/** Classify FCP status from millisecond value. Returns "run-failed" for null. */
+export function classifyFcp(valueMs: number | null): MetricStatus {
+  if (valueMs === null) return "run-failed";
+  if (valueMs <= FCP_GOOD_THRESHOLD) return "pass";
+  if (valueMs <= FCP_NI_THRESHOLD) return "needs-improvement";
+  return "fail";
+}
+
+/** Classify Speed Index status from millisecond value. Returns "run-failed" for null. */
+export function classifySi(valueMs: number | null): MetricStatus {
+  if (valueMs === null) return "run-failed";
+  if (valueMs <= SI_GOOD_THRESHOLD) return "pass";
+  if (valueMs <= SI_NI_THRESHOLD) return "needs-improvement";
   return "fail";
 }
 
