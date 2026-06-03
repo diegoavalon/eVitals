@@ -1,6 +1,8 @@
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { generateRunManifests } from "../dashboard";
@@ -136,6 +138,24 @@ async function ensureParentDirectory(filePath: string) {
 }
 
 export function resolveLocalLighthouseCliPath(cwd = process.cwd()): string {
+  const require = createRequire(import.meta.url);
+
+  try {
+    const packageJsonPath = require.resolve("lighthouse/package.json", { paths: [cwd] });
+    const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8")) as {
+      bin?: string | Record<string, string>;
+    };
+    const binPath =
+      typeof packageJson.bin === "string" ? packageJson.bin : packageJson.bin?.lighthouse;
+
+    if (typeof binPath === "string" && binPath.length > 0) {
+      return path.resolve(path.dirname(packageJsonPath), binPath);
+    }
+  } catch {
+    // Fall back to the standard local bin shim path when the package is absent
+    // or package metadata cannot be resolved from the current working directory.
+  }
+
   return path.join(cwd, "node_modules", ".bin", process.platform === "win32" ? "lighthouse.cmd" : "lighthouse");
 }
 
@@ -178,6 +198,15 @@ async function executeLighthouseCli(input: {
     `lighthouse-${input.task.pageId}-${input.task.device}-${input.attempt}-${randomUUID()}`,
   );
 
+  const deviceArgs =
+    input.task.device === "desktop"
+      ? ["--preset=desktop"]
+      : input.task.device === "mobile"
+        ? ["--emulated-form-factor=mobile"]
+        : (() => {
+            throw new Error(`Unsupported Lighthouse device "${input.task.device}"`);
+          })();
+
   const args = [
     input.task.url,
     "--quiet",
@@ -186,7 +215,7 @@ async function executeLighthouseCli(input: {
     "--output=json",
     "--output=html",
     `--output-path=${tempBasePath}`,
-    input.task.device === "desktop" ? "--preset=desktop" : "--emulated-form-factor=mobile",
+    ...deviceArgs,
   ];
 
   let stderr = "";
@@ -321,6 +350,7 @@ export async function runLighthouseAuditRun(input: {
     outputRoot: input.options.outputRoot,
     runId: input.options.runId,
   });
+  const taskLookup = new Map(tasks.map((task) => [`${task.pageId}::${task.device}`, task]));
 
   const results = await runWithConcurrency(tasks, input.options.concurrency, (task) =>
     runSingleTask({
@@ -349,6 +379,7 @@ export async function runLighthouseAuditRun(input: {
     ...manifest,
     results: results
       .map((item) => {
+        const task = taskLookup.get(`${item.pageId}::${item.result.device}`);
         const scoreEntries = Object.fromEntries(
           input.config.enabledCategories.map((category) => [category, toScore100(item.result.categoryScores[category])]),
         );
@@ -356,10 +387,9 @@ export async function runLighthouseAuditRun(input: {
         return {
           runId: item.result.runId,
           pageId: item.pageId,
-          label: tasks.find((task) => task.pageId === item.pageId && task.device === item.result.device)?.label ?? item.pageId,
-          url: tasks.find((task) => task.pageId === item.pageId && task.device === item.result.device)?.url ?? item.result.requestedUrl,
-          group:
-            tasks.find((task) => task.pageId === item.pageId && task.device === item.result.device)?.group ?? "unknown",
+          label: task?.label ?? item.pageId,
+          url: task?.url ?? item.result.requestedUrl,
+          group: task?.group ?? "unknown",
           device: item.result.device,
           status: mapMetricStatusToPageStatus(item.result.status),
           fetchTime: item.result.fetchTime,
