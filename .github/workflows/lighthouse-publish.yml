@@ -56,7 +56,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: "[2/6] Install dependencies"
         run: pnpm install
@@ -77,27 +77,29 @@ jobs:
       # Stage 3: Verify Chrome/Chromium
       - name: "[3/6] Verify Chrome availability"
         run: |
-          if ! which chromium-browser >/dev/null 2>&1 && \
-             ! which google-chrome >/dev/null 2>&1 && \
-             ! which chrome >/dev/null 2>&1; then
+          CHROME_BIN=$(which chromium-browser 2>/dev/null || which google-chrome 2>/dev/null || which chrome 2>/dev/null || "")
+          if [ -z "$CHROME_BIN" ]; then
             echo "❌ FATAL: Chrome/Chromium not found on ubuntu-latest"
             echo "   Please verify: ubuntu-latest includes Chromium at /usr/bin/chromium-browser"
             exit 1
           fi
-          echo "✓ Chrome found at: $(which chromium-browser || which google-chrome || which chrome)"
+          echo "✓ Chrome found at: $CHROME_BIN"
+          echo "CHROME_PATH=$CHROME_BIN" >> $GITHUB_ENV
 
       # Stage 4: Execute Lighthouse Runner
-      - name: "[4/6] Run Lighthouse audits"
+      - name: "[4/6] Run Lighthouse runner"
         id: runner
+        env:
+          CHROME_PATH: ${{ env.CHROME_PATH }}
         run: |
           set +e
           pnpm exec tsx app/lighthouse.runner.ts
           RUNNER_EXIT=$?
           set -e
-          
+
           if [ $RUNNER_EXIT -ne 0 ]; then
             echo "⚠️  Runner exited with code $RUNNER_EXIT"
-            
+
             # Check if any manifest was written (partial success allowed per Morpheus spec)
             if [ -d "public/data/runs" ] && [ "$(find public/data/runs -name 'manifest.json' | wc -l)" -gt 0 ]; then
               echo "✓ Partial run data found; continuing to generate & prune"
