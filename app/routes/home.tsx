@@ -9,6 +9,7 @@ import type {
 } from "~/lib/dashboard.types";
 import { EhiButton } from "~/components/ui/EhiButton";
 import { EhiDrawer } from "~/components/ui/EhiDrawer";
+import { AuditDrawer } from "~/components/AuditDrawer";
 import { useDashboardFilters } from "~/lib/DashboardFiltersContext";
 
 export default function Home() {
@@ -16,8 +17,11 @@ export default function Home() {
   const [activeReport, setActiveReport] = useState<{
     path: string;
     result: DeviceResult;
+    page: PageEntry;
+    device: string;
   } | null>(null);
   const [bannerVisible, setBannerVisible] = useState(false);
+  const [auditOpen, setAuditOpen] = useState(false);
   const { selectedDevice, selectedCategory } = useDashboardFilters();
 
   useEffect(() => {
@@ -26,10 +30,15 @@ export default function Home() {
       return () => clearTimeout(t);
     }
     setBannerVisible(false);
+    setAuditOpen(false);
   }, [activeReport]);
 
-  const openReport = (path: string, result: DeviceResult) =>
-    setActiveReport({ path, result });
+  const openReport = (
+    path: string,
+    result: DeviceResult,
+    page: PageEntry,
+    device: string,
+  ) => setActiveReport({ path, result, page, device });
   const closeReport = () => setActiveReport(null);
 
   if (state.status === "loading") {
@@ -98,8 +107,20 @@ export default function Home() {
       </EhiDrawer>
 
       {activeReport && (
-        <AuditBanner result={activeReport.result} visible={bannerVisible} />
+        <AuditBanner
+          result={activeReport.result}
+          visible={bannerVisible}
+          onRequestAudit={() => setAuditOpen(true)}
+        />
       )}
+
+      <AuditDrawer
+        open={auditOpen}
+        onClose={() => setAuditOpen(false)}
+        page={activeReport?.page ?? null}
+        device={activeReport?.device ?? selectedDevice}
+        result={activeReport?.result ?? null}
+      />
     </main>
   );
 }
@@ -115,7 +136,7 @@ function HeroSection({
   data: DashboardData;
   selectedDevice: string;
   selectedCategory: string;
-  onViewReport: (path: string, result: DeviceResult) => void;
+  onViewReport: (path: string, result: DeviceResult, page: PageEntry, device: string) => void;
 }) {
   const filteredPriority = useMemo(
     () => data.priority.filter((e) => e.device === selectedDevice),
@@ -197,7 +218,7 @@ function AttentionCarousel({
   data: DashboardData;
   selectedDevice: string;
   selectedCategory: string;
-  onViewReport: (path: string, result: DeviceResult) => void;
+  onViewReport: (path: string, result: DeviceResult, page: PageEntry, device: string) => void;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animKey, setAnimKey] = useState(0);
@@ -288,6 +309,7 @@ function AttentionCarousel({
           result={result}
           entry={entry}
           selectedCategory={selectedCategory}
+          device={selectedDevice}
           onViewReport={onViewReport}
         />
       ) : (
@@ -387,6 +409,7 @@ function AttentionCard({
   result,
   entry,
   selectedCategory,
+  device,
   onViewReport,
 }: {
   direction: "left" | "right";
@@ -394,7 +417,8 @@ function AttentionCard({
   result: DeviceResult;
   entry: PriorityEntry;
   selectedCategory: string;
-  onViewReport: (path: string, result: DeviceResult) => void;
+  device: string;
+  onViewReport: (path: string, result: DeviceResult, page: PageEntry, device: string) => void;
 }) {
   const score =
     result.status === "run-failed"
@@ -457,7 +481,7 @@ function AttentionCard({
 
           {result.reportHtmlPath && (
             <button
-              onClick={() => onViewReport(result.reportHtmlPath, result)}
+              onClick={() => onViewReport(result.reportHtmlPath, result, page, device)}
               className="font-open-sans font-bold text-[13px] text-on-surface hover:text-primary transition-colors flex items-center gap-0.5"
             >
               Full report
@@ -719,7 +743,7 @@ function RecentReportsSection({
   selectedDevice: string;
   selectedCategory: string;
   enabledCategories: string[];
-  onViewReport: (path: string, result: DeviceResult) => void;
+  onViewReport: (path: string, result: DeviceResult, page: PageEntry, device: string) => void;
 }) {
   const rows = useMemo(() => {
     return data.pages
@@ -798,7 +822,7 @@ function RecentReportRow({
   selectedCategory: string;
   enabledCategories: string[];
   isLast: boolean;
-  onViewReport: (path: string, result: DeviceResult) => void;
+  onViewReport: (path: string, result: DeviceResult, page: PageEntry, device: string) => void;
 }) {
   return (
     <div className={isLast ? "" : "border-b border-border"}>
@@ -856,7 +880,7 @@ function RecentReportRow({
             variant="link"
             onClick={(e) => {
               e.stopPropagation();
-              onViewReport(result.reportHtmlPath, result);
+              onViewReport(result.reportHtmlPath, result, page, device);
             }}
           >
             Full Report
@@ -1111,9 +1135,11 @@ function ReportEmptyState() {
 function AuditBanner({
   result,
   visible,
+  onRequestAudit,
 }: {
   result: DeviceResult;
   visible: boolean;
+  onRequestAudit: () => void;
 }) {
   const worstMetric = getWorstMetricKey(result.metrics);
   const isActionable =
@@ -1177,7 +1203,12 @@ function AuditBanner({
           </p>
 
           {/* CTA */}
-          <EhiButton className="w-full" variant="primary" size="small">
+          <EhiButton
+            className="w-full"
+            variant="primary"
+            size="small"
+            onClick={onRequestAudit}
+          >
             <span className="">✦</span>
             Request AI audit
           </EhiButton>
