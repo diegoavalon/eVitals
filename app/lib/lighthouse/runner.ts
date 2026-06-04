@@ -226,10 +226,12 @@ async function executeLighthouseCli(input: {
     throw new Error(`Unsupported Lighthouse device "${input.task.device}"`);
   }
 
+  const chromeFlags = process.env.LIGHTHOUSE_CHROME_FLAGS ?? "--headless=new";
+
   const args = [
     input.task.url,
     "--quiet",
-    "--chrome-flags=--headless=new",
+    `--chrome-flags=${chromeFlags}`,
     `--only-categories=${input.enabledCategories.join(",")}`,
     "--output=json",
     "--output=html",
