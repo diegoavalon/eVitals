@@ -50,9 +50,9 @@ export function EhiDrawer({
             className,
           )}
         >
-          <header className="flex shrink-0 items-center gap-4 border-b border-border p-4">
+          <header className="bg-primary text-surface flex shrink-0 items-center gap-4 border-b border-border p-4">
             {title && (
-              <Drawer.Title className="min-w-0 flex-1 truncate font-poppins font-bold text-[18px] text-on-surface">
+              <Drawer.Title className="min-w-0 flex-1 truncate font-poppins font-bold text-xl">
                 {title}
               </Drawer.Title>
             )}
